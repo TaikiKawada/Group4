@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context displayName="TodoApp" path="/sample" docBase="sample"
+         reloadable="true" crossContext="true">
+    <Resource name="jdbc/todoDB"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="root"
+              password="root"
+              driverClassName="org.mariadb.jdbc.Driver"
+              url="jdbc:mariadb://localhost:3306/todo?useUnicode=true&amp;characterEncoding=UTF-8"
+              maxTotal="10"
+              maxIdle="5"
+              maxWaitMillis="10000"
+              validationQuery="SELECT 1"
+              testOnBorrow="true"/>
+</Context>
