@@ -2,12 +2,18 @@ package Controller;
 
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import beans.Accounts;
+import services.AccountService;
+import utils.Db;
 
 /**
  * Servlet implementation class AccountEntryServlet
@@ -35,8 +41,23 @@ public class AccountEntryServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		try(Connection con = Db.getConnection();){
+			
+			String name = request.getParameter("name");
+			String mail = request.getParameter("mail");
+			String password = request.getParameter("password");
+			
+			AccountService as = new AccountService();
+			Accounts account = new Accounts(name, mail, password);
+			as.signup(account);
+			
+			response.sendRedirect(request.getContextPath() + "/AccountEntryConfirmServlet");
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
 	}
 
 }

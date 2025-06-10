@@ -4,28 +4,28 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import javax.naming.NamingException;
-
+import beans.Accounts;
 import utils.Db;
 
 public class AccountService {
-	public void signup(User obj) {
-		String sql = "insert into user (name, mail, pass) values (?, ?, ?)";
+	public void signup(Accounts obj) {
+		String sql = "insert into accounts (name, mail, password, authority) values (?, ?, ?, ?)";
 		
 		try(
-			Connection con = Db.open();
+			Connection con = Db.getConnection();
 			PreparedStatement ps = con.prepareStatement(sql);
 			){
 			
 			ps.setString(1, obj.getName());
 			ps.setString(2, obj.getMail());
-			ps.setString(3, obj.getPass());
+			ps.setString(3, obj.getPassword());
+			
 			
 			ps.executeUpdate();
 			
 		}catch(SQLException e){
 			e.printStackTrace();
-		}catch(NamingException e){
+		}catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}
 	}
