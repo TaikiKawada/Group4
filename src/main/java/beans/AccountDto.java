@@ -1,19 +1,19 @@
 package beans;
 
-public class Accounts {
+public class AccountDto {
 	int account_id;
 	String name;
 	String mail;
 	String password;
 	
-	public Accounts(int account_id, String name, String mail, String password) {
+	public AccountDto(int account_id, String name, String mail, String password) {
 		this.account_id = account_id;
 		this.name = name;
 		this.mail = mail;
 		this.password = password;
 	}
 	
-	public Accounts(String name, String mail, String password) {
+	public AccountDto(String name, String mail, String password) {
 		this.name = name;
 		this.mail = mail;
 		this.password = password;

@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import beans.Accounts;
+import beans.AccountDto;
 import utils.Db;
 
 public class AccountService {
-	public void signup(Accounts obj) {
+	public void signup(AccountDto obj) {
 		String sql = "insert into accounts (name, mail, password, authority) values (?, ?, ?, ?)";
 		
 		try(

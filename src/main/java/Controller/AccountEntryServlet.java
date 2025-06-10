@@ -10,9 +10,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
-import beans.Accounts;
-import services.AccountService;
+import beans.AccountDto;
 import utils.Db;
 
 /**
@@ -47,10 +47,10 @@ public class AccountEntryServlet extends HttpServlet {
 			String mail = request.getParameter("mail");
 			String password = request.getParameter("password");
 			
-			AccountService as = new AccountService();
-			Accounts account = new Accounts(name, mail, password);
-			as.signup(account);
+			AccountDto account = new AccountDto(name, mail, password);
 			
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", account);
 			response.sendRedirect(request.getContextPath() + "/AccountEntryConfirmServlet");
 			
 		}catch(SQLException e){
