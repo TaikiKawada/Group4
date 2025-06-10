@@ -1,49 +1,55 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>売上検索条件入力</title>
+	<meta charset="UTF-8">
+	<title>売上検索</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <h2>売上検索</h2>
+	<div class="container mt-5 d-flex justify-content-center">
+		<div class="w-50" style="max-width: 600px;">
+			<h2 class="mb-4 text-center">売上検索</h2>
 
-    <form action="SalesSearchServlet" method="get">
-        <table>
-            <tr>
-                <th>販売日（開始）</th>
-                <td><input type="date" name="fromDate"></td>
-            </tr>
-            <tr>
-                <th>販売日（終了）</th>
-                <td><input type="date" name="toDate"></td>
-            </tr>
-            <tr>
-                <th>担当</th>
-                <td>
-                    <select name="staff">
-                        <option value="">指定なし</option>
-                        <!-- 担当一覧を後で動的に出力 -->
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>商品カテゴリー</th>
-                <td>
-                    <select name="category">
-                        <option value="">指定なし</option>
-                        <!-- カテゴリー一覧を後で動的に出力 -->
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>商品名</th>
-                <td><input type="text" name="productName"></td>
-            </tr>
-        </table>
+			<form method="get" action="SalesSearchServlet">
+				<div class="mb-3">
+					<label class="form-label">販売日（開始）</label>
+					<input type="date" name="fromDate" class="form-control" />
+				</div>
 
-        <div style="margin-top: 20px;">
-            <input type="submit" value="検索">
-        </div>
-    </form>
+				<div class="mb-3">
+					<label class="form-label">販売日（終了）</label>
+					<input type="date" name="toDate" class="form-control" />
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">担当</label>
+					<select name="staff" class="form-select">
+						<option value="">指定なし</option>
+						<!-- 担当者一覧をここに動的に出力（今は未設定） -->
+					</select>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">商品カテゴリー</label>
+					<select name="category" class="form-select">
+						<option value="">指定なし</option>
+						<!-- カテゴリー一覧をここに動的に出力（今は未設定） -->
+					</select>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">商品名</label>
+					<input type="text" name="productName" class="form-control" placeholder="部分一致で検索可" />
+				</div>
+
+				<div class="text-end mt-4">
+					<button class="btn btn-primary" type="submit">検索</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

@@ -1,58 +1,71 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>売上登録</title>
+	<meta charset="UTF-8">
+	<title>売上登録</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <h2>売上登録</h2>
+	<div class="container mt-5 d-flex justify-content-center">
+		<div class="w-50" style="max-width: 600px;">
+			<h2 class="mb-4 text-center">売上登録</h2>
 
-    <form action="SalesEntryServlet" method="post">
-        <table>
-            <tr>
-                <th>販売日<span style="color:red;">※</span></th>
-                <td><input type="date" name="salesDate" required></td>
-            </tr>
-            <tr>
-                <th>担当<span style="color:red;">※</span></th>
-                <td>
-                    <select name="staff" required>
-                        <option value="">選択してください</option>
-                        <!-- 担当一覧は後で動的に出力 -->
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>商品カテゴリー<span style="color:red;">※</span></th>
-                <td>
-                    <select name="category" required>
-                        <option value="">選択してください</option>
-                        <!-- カテゴリー一覧は後で動的に出力 -->
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>商品名<span style="color:red;">※</span></th>
-                <td><input type="text" name="productName" required></td>
-            </tr>
-            <tr>
-                <th>単価<span style="color:red;">※</span></th>
-                <td><input type="number" name="unitPrice" required></td>
-            </tr>
-            <tr>
-                <th>個数<span style="color:red;">※</span></th>
-                <td><input type="number" name="quantity" required></td>
-            </tr>
-            <tr>
-                <th>備考</th>
-                <td><textarea name="remarks" rows="3" cols="40"></textarea></td>
-            </tr>
-        </table>
+			<form action="SalesEntryServlet" method="post">
+				<div class="mb-3">
+					<label class="form-label">販売日</label>
+					<span class="badge text-bg-secondary">必須</span>
+					<input type="date" name="salesDate" class="form-control" required>
+				</div>
 
-        <div style="text-align:center; margin-top:20px;">
-            <input type="submit" value="登録">
-        </div>
-    </form>
+				<div class="mb-3">
+					<label class="form-label">担当</label>
+					<span class="badge text-bg-secondary">必須</span>
+					<select name="staff" class="form-select" required>
+						<option value="">選択してください</option>
+						<!-- 担当者一覧をここに動的に出力 -->
+					</select>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">商品カテゴリー</label>
+					<span class="badge text-bg-secondary">必須</span>
+					<select name="category" class="form-select" required>
+						<option value="">選択してください</option>
+						<!-- カテゴリー一覧をここに動的に出力 -->
+					</select>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">商品名</label>
+					<span class="badge text-bg-secondary">必須</span>
+					<input type="text" name="productName" class="form-control" required>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">単価</label>
+					<span class="badge text-bg-secondary">必須</span>
+					<input type="number" name="unitPrice" class="form-control" required>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">個数</label>
+					<span class="badge text-bg-secondary">必須</span>
+					<input type="number" name="quantity" class="form-control" required>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">備考</label>
+					<textarea name="remarks" class="form-control" rows="3"></textarea>
+				</div>
+
+				<div class="text-end mt-4">
+					<button class="btn btn-primary" type="submit">登録</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
