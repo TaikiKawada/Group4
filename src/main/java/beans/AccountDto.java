@@ -5,18 +5,21 @@ public class AccountDto {
 	String name;
 	String mail;
 	String password;
+	int auth;
 	
-	public AccountDto(int account_id, String name, String mail, String password) {
+	public AccountDto(int account_id, String name, String mail, String password, int auth) {
 		this.account_id = account_id;
 		this.name = name;
 		this.mail = mail;
 		this.password = password;
+		this.auth = auth;
 	}
 	
-	public AccountDto(String name, String mail, String password) {
+	public AccountDto(String name, String mail, String password, int auth) {
 		this.name = name;
 		this.mail = mail;
 		this.password = password;
+		this.auth = auth;
 	}
 
 	public int getAccount_id() {
@@ -50,6 +53,16 @@ public class AccountDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public int getAuth() {
+		return auth;
+	}
+
+	public void setAuth(int auth) {
+		this.auth = auth;
+	}
+	
+	
 	
 	
 }

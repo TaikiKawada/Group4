@@ -44,17 +44,22 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try (Connection con = Db.getConnection();) {
+			//すでにあるセッションを取得
 			HttpSession session = request.getSession(false);
 			
+			//セッションがなければ登録画面に
 			if(session == null) {
 				response.sendRedirect(request.getContextPath() + "/AccountEntryConfirmServlet");
 				return;
 			}
 			
+			//アカウント情報をデータベースに登録
 			AccountDto accountDto = (AccountDto) session.getAttribute("accountData");
 			AccountService as = new AccountService();
 			as.signup(accountDto);
-			response.sendRedirect(request.getContextPath() + "/AccountEntryConfirmServlet");
+			
+			//登録画面へ遷移
+			response.sendRedirect(request.getContextPath() + "/AccountEntryServlet");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

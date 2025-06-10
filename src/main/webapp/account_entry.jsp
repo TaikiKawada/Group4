@@ -52,11 +52,11 @@
 					</label>
 					<div class="d-flex gap-3 flex-wrap">
 						<label class="d-flex align-items-center gap-1"> <input
-							type="checkbox" name="auth" value="noAuth" /> 権限なし
+							type="checkbox" name="auth" value="0" /> 権限なし
 						</label> <label class="d-flex align-items-center gap-1"> <input
-							type="checkbox" name="auth" value="reference" /> 参照
+							type="checkbox" name="auth" value="1" /> 売上登録
 						</label> <label class="d-flex align-items-center gap-1"> <input
-							type="checkbox" name="auth" value="update" /> 更新
+							type="checkbox" name="auth" value="2" /> アカウント登録
 						</label>
 					</div>
 				</div>

@@ -19,6 +19,7 @@ public class AccountService {
 			ps.setString(1, obj.getName());
 			ps.setString(2, obj.getMail());
 			ps.setString(3, obj.getPassword());
+			ps.setInt(4, obj.getAuth());
 			
 			
 			ps.executeUpdate();
