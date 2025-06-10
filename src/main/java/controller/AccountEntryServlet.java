@@ -77,7 +77,9 @@ public class AccountEntryServlet extends HttpServlet {
 			session.setAttribute("accountData", account);
 			response.sendRedirect(request.getContextPath() + "/AccountEntryConfirmServlet");
 
+
 		} catch (SQLException e) {
+
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
