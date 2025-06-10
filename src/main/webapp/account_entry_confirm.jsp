@@ -37,7 +37,7 @@
 				<div class="mb-3">
 					<label class="form-label">パスワード</label> <span
 						class="badge text-bg-secondary">必須</span> <input type="password"
-						name="pass" class="form-control" placeholder="パスワード" />
+						name="password" class="form-control" placeholder="パスワード" />
 				</div>
 
 				<div class="mb-3">

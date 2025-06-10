@@ -50,7 +50,7 @@ public class AccountEntryServlet extends HttpServlet {
 			AccountDto account = new AccountDto(name, mail, password);
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", account);
+			session.setAttribute("accountData", account);
 			response.sendRedirect(request.getContextPath() + "/AccountEntryConfirmServlet");
 			
 		}catch(SQLException e){

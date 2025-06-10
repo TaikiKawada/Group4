@@ -19,13 +19,13 @@ import utils.Db;
  * Servlet implementation class AccountEntryConfirmServlet
  */
 @WebServlet("/AccountEntryConfirmServlet")
-public class AccountEntryConfirmServle extends HttpServlet {
+public class AccountEntryConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AccountEntryConfirmServle() {
+	public AccountEntryConfirmServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
