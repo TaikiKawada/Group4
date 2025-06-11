@@ -1,4 +1,4 @@
-package src.main.java.controller;
+package controller;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,12 +12,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import beans.AccountDto;
-import utils.Db;
+import src.main.java.utils.Db;
 
 /**
  * Servlet implementation class AccountEntryServlet
  */
-@WebServlet("/account/entry")
+@WebServlet("/account/entry.html")
 public class AccountEntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -76,7 +76,7 @@ public class AccountEntryServlet extends HttpServlet {
 			session.setAttribute("accountData", account);
 			
 			//確認画面へリダイレクト
-			response.sendRedirect(request.getContextPath() + "/account/entry/confirm");
+			response.sendRedirect(request.getContextPath() + "/account/entry/confirm.html");
 
 
 

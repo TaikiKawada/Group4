@@ -13,12 +13,12 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.AccountDto;
 import services.AccountService;
-import utils.Db;
+import src.main.java.utils.Db;
 
 /**
  * Servlet implementation class AccountEntryConfirmServlet
  */
-@WebServlet("/account/entry/confirm")
+@WebServlet("/account/entry/confirm.html")
 public class AccountEntryConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -67,7 +67,7 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 			
 			//セッションがなければ登録画面に
 			if(session == null) {
-				response.sendRedirect(request.getContextPath() + "account/entry");
+				response.sendRedirect(request.getContextPath() + "account/entry.html");
 				return;
 			}
 			
@@ -95,7 +95,7 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 		session.removeAttribute("accountData");
 		
 		//登録画面へ遷移
-		response.sendRedirect(request.getContextPath() + "/account/entry");
+		response.sendRedirect(request.getContextPath() + "/account/entry.html");
 		
 	}
 

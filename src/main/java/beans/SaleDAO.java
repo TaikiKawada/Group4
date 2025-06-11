@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.Db;
+import src.main.java.utils.Db;
 
 public class SaleDAO {//データベースから全レコードを取得してSaleオブジェクトのリストとして返すクラス
 	public static List<Sale>getAllSales(){//sales テーブルの全レコードを List<Sale> で返すメソッド

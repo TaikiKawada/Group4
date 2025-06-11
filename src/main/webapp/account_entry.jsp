@@ -24,7 +24,7 @@
 			<h2 class="mb-4">アカウント登録</h2>
 
 			<!--登録フォーム-->
-			<form method="post" action="${pageContext.request.contextPath}/account/entry/confirm"
+			<form method="post" action="${pageContext.request.contextPath}/account/entry.html"
 				onsubmit="return validateForm()">
 
 				<!--氏名-->
@@ -178,7 +178,7 @@
 						const hasUpper = /[A-Z]/.test(password.value);
 						const hasLower = /[a-z]/.test(password.value);
 						const hasNumber = /[0-9]/.test(password.value);
-						const hasSymbol = /[A-Za-z0-9]/.test(password.value);
+						const hasSymbol = /[^A-Za-z0-9]/.test(password.value);
 
 						if (!(hasUpper && hasLower && hasNumber && hasSymbol)) {
 							errorPassword.textContent = "パスワードは英大文字・小文字・数字・記号をすべて含めてください";
