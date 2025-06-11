@@ -18,7 +18,7 @@ import utils.Db;
 /**
  * Servlet implementation class AccountEntryConfirmServlet
  */
-@WebServlet("/AccountEntryConfirmServlet")
+@WebServlet("/account/entry/confirm")
 public class AccountEntryConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -67,12 +67,19 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 			
 			//セッションがなければ登録画面に
 			if(session == null) {
-				response.sendRedirect(request.getContextPath() + "/AccountEntryConfirmServlet");
+				response.sendRedirect(request.getContextPath() + "account/entry");
 				return;
 			}
 			
 			//アカウント情報をデータベースに登録
 			AccountDto accountDto = (AccountDto) session.getAttribute("accountData");
+			
+			if(accountDto == null) {
+				request.setAttribute("error", "セッションが切れました。もう一度入力してください");
+				request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
+				return;
+			}
+			
 			AccountService as = new AccountService();
 			as.signup(accountDto);
 			
@@ -88,7 +95,7 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 		session.removeAttribute("accountData");
 		
 		//登録画面へ遷移
-		response.sendRedirect(request.getContextPath() + "/AccountEntryServlet");
+		response.sendRedirect(request.getContextPath() + "/account/entry");
 		
 	}
 

@@ -17,7 +17,7 @@ import utils.Db;
 /**
  * Servlet implementation class AccountEntryServlet
  */
-@WebServlet("/AccountEntryServlet")
+@WebServlet("/account/entry")
 public class AccountEntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -76,7 +76,7 @@ public class AccountEntryServlet extends HttpServlet {
 			session.setAttribute("accountData", account);
 			
 			//確認画面へリダイレクト
-			response.sendRedirect(request.getContextPath() + "/AccountEntryConfirmServlet");
+			response.sendRedirect(request.getContextPath() + "/account/entry/confirm");
 
 
 

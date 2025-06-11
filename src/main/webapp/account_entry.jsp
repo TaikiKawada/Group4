@@ -18,43 +18,16 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div class="container py-4">
-		<h2 class="text-center mb-4">ダッシュボード</h2>
-
-		<!-- 上部ボタンバー -->
-		<div class="header-buttons">
-			<!-- 左側ボタン -->
-			<div class="left-buttons">
-				<form action="SalesEntryServlet" method="get">
-					<button class="btn custom-btn" type="submit">売上登録</button>
-				</form>
-				<form action="SalesSearchFormServlet" method="get">
-					<button class="btn custom-btn" type="submit">売上検索</button>
-				</form>
-				<form action="AccountEntryServlet" method="get">
-					<button class="btn custom-btn" type="submit">アカウント登録</button>
-				</form>
-				<form action="AccountSearchFormServlet" method="get">
-					<button class="btn custom-btn" type="submit">アカウント検索</button>
-				</form>
-			</div>
-			<!-- 右側（ログアウト） -->
-			<div class="right-button">
-				<form action="LoginServlet" method="get">
-					<button class="btn custom-btn" type="submit">ログアウト</button>
-				</form>
-			</div>
-		</div>
-	</div>
 	<div class="container mt-5 d-flex justify-content-center">
 
 		<div class="w-50" style="max-width: 600px;">
 			<h2 class="mb-4">アカウント登録</h2>
 
 			<!--登録フォーム-->
-			<form method="post" action="AccountEntryServlet"
+			<form method="post" action="${pageContext.request.contextPath}/account/entry/confirm"
 				onsubmit="return validateForm()">
 
+				<!--氏名-->
 				<div class="mb-3">
 					<label class="form-label">氏名</label> <span
 						class="badge text-bg-secondary">必須</span> <input type="text"
@@ -63,6 +36,7 @@
 					<div id="error-name" class="text-danger"></div>
 				</div>
 
+				<!--メールアドレス-->
 				<div class="mb-3">
 					<label class="form-label">メールアドレス</label> <span
 						class="badge text-bg-secondary">必須</span> <input type="email"
@@ -71,6 +45,7 @@
 					<div id="error-mail" class="text-danger"></div>
 				</div>
 
+				<!--パスワード-->
 				<div class="mb-3">
 					<label class="form-label">パスワード</label> <span
 						class="badge text-bg-secondary">必須</span> <input type="password"
@@ -78,6 +53,7 @@
 					<div id="error-password" class="text-danger"></div>
 				</div>
 
+				<!--パスワード確認-->
 				<div class="mb-3">
 					<label class="form-label">パスワード確認</label> <span
 						class="badge text-bg-secondary">必須</span> <input type="password"
@@ -85,6 +61,7 @@
 					<div id="error-confirm" class="text-danger"></div>
 				</div>
 
+				<!--権限-->
 				<div class="mb-3 d-flex align-items-center flex-wrap gap-3">
 					<label class="form-label mb-0 me-2 d-flex align-items-center">
 						権限 <span class="badge text-bg-secondary ms-2">必須</span>
@@ -107,7 +84,7 @@
 
 				<!--入力項目のチェック-->
 				<script>
-					//氏名:空チェック、長さチェック
+					// 氏名:空チェック、長さチェック
 					function validateName() {
 						const name = document
 								.querySelector('input[name="name"]');
@@ -127,27 +104,36 @@
 						return true;
 					}
 
-					//メールアドレス:空チェック、長さチェック
+					// メールアドレス:空チェック、長さチェック、形式チェック
 					function validateMail() {
 						const mail = document
 								.querySelector('input[name="mail"]');
 						const errorMail = document.getElementById("error-mail");
 						errorMail.textContent = "";
+						const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+						// 空チェック
 						if (mail.value.trim() === "") {
 							errorMail.textContent = "メールアドレスを入力してください";
 							return false;
 						}
 
+						// 長さチェック
 						if (getByteLength(mail.value) > 100) {
 							errorMail.textContent = "メールアドレスが長すぎます";
+							return false;
+						}
+
+						// 形式チェック
+						if (!emailRegex.test(mail.value.trim())) {
+							errorMail.textContent = "メールアドレスを正しく入力して下さい";
 							return false;
 						}
 
 						return true;
 					}
 
-					//パスワード&確認:空チェック、長さチェック、一致チェック
+					// パスワード&確認:空チェック、長さチェック、一致チェック、形式チェック
 					function validatePasswords() {
 						const password = document
 								.querySelector('input[name="password"]');
@@ -161,26 +147,42 @@
 						errorPassword.textContent = "";
 						errorConfirm.textContent = "";
 
+
 						let valid = true;
 
+						// 入力チェック
 						if (password.value.trim() === "") {
 							errorPassword.textContent = "パスワードを入力してください";
 							valid = false;
 						}
 
+						// 入力チェック（確認）
 						if (confirm.value.trim() === "") {
 							errorConfirm.textContent = "パスワード（確認）を入力してください";
 							valid = false;
 						}
 
+						// 長さチェック
 						if (getByteLength(password.value) > 30) {
 							errorPassword.textContent = "パスワードが長すぎます";
 							return false;
 						}
 
+						// 一致チェック
 						if (password.value !== confirm.value) {
 							errorConfirm.textContent = "パスワードとパスワード（確認）の入力内容が異なっています";
 							valid = false;
+						}
+
+						// 形式チェック
+						const hasUpper = /[A-Z]/.test(password.value);
+						const hasLower = /[a-z]/.test(password.value);
+						const hasNumber = /[0-9]/.test(password.value);
+						const hasSymbol = /[A-Za-z0-9]/.test(password.value);
+
+						if (!(hasUpper && hasLower && hasNumber && hasSymbol)) {
+							errorPassword.textContent = "パスワードは英大文字・小文字・数字・記号をすべて含めてください";
+							return false;
 						}
 
 						return valid;

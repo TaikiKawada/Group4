@@ -24,7 +24,7 @@
 			<h2 class="mb-4">この内容で登録しますか？</h2>
 
 			<!--登録内容確認フォーム-->
-			<form method="post" action="AccountEntryConfirmServlet">
+			<form method="post" action="account/entry/confirm">
 
 				<!--氏名-->
 				<div class="mb-3">
