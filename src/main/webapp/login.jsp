@@ -55,7 +55,7 @@
         // メールアドレスの未入力チェック
         if (!email) {
             errorMessage += "メールアドレスは必須です。\n";
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
+        } else if (!/\S+@\S+\.\S+/.test(email)) { //aa@a.testの形式
             errorMessage += "有効なメールアドレスを入力してください。\n";
         }
 
