@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import utils.Db;
+import src.main.java.utils.Db;
 
 public class LoginService {
     public boolean authenticate(HttpServletRequest request) {

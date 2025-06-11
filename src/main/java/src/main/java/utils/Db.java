@@ -1,4 +1,4 @@
-package utils;
+package src.main.java.utils;
  
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,4 +23,5 @@ public class Db {
         }
     }
 }
+ 
  

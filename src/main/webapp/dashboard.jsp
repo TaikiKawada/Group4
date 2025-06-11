@@ -20,13 +20,19 @@
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav me-auto">
 					<li class="nav-item"><a class="nav-link"
-						href="SalesEntryServlet">売上登録</a></li>
+						href="sales_entry.jsp">売上登録</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="SalesSerchFormServlet">売上検索</a></li>
+						href="sales_search_form.jsp">売上検索</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="AccountEntryServlet">アカウント登録</a></li>
+						href="account_entry.jsp">アカウント登録</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="AccountSerchFormServlet">アカウント検索</a></li>
+				</ul>
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a class="nav-link btn btn-outline-light px-3 py-1" href=ログイン画面>ログアウト</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</nav>
