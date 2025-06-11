@@ -38,7 +38,6 @@ public class LoginService {
             request.setAttribute("emailError", "有効なメールアドレスを入力してください。");
             isValid = false;
         }
-
         // パスワードの未入力チェック
         if (password == null || password.isEmpty()) {
             request.setAttribute("passwordError", "パスワードは必須です。");

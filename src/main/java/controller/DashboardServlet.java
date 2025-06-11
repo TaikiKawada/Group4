@@ -52,7 +52,7 @@ public class DashboardServlet extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "売上データの取得中にエラーが発生しました。");
-			request.getRequestDispatcher("/Dashboard.jsp").forward(request, response);
+			request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
 		}
 	}
 	

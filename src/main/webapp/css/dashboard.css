@@ -1,0 +1,23 @@
+/* カスタムボタンスタイル */
+       .custom-btn {
+           background-color: #f0f0f0;
+           color: #555;
+           border: 1px solid #ccc;
+       }
+
+       .custom-btn:hover {
+           background-color: #dcdcdc;
+           color: #333;
+       }
+
+       .header-buttons {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           margin-bottom: 20px;
+       }
+
+       .left-buttons, .right-button {
+           display: flex;
+           gap: 10px;
+       }
