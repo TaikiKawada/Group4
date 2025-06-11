@@ -42,16 +42,16 @@
     <div class="header-buttons">
         <!-- 左側ボタン -->
         <div class="left-buttons">
-            <form action="SalesEntry" method="get">
+            <form action="SalesEntryServlet" method="get">
                 <button class="btn custom-btn" type="submit">売上登録</button>
             </form>
-            <form action="SalesSearchForm" method="get">
+            <form action="SalesSearchFormServlet" method="get">
                 <button class="btn custom-btn" type="submit">売上検索</button>
             </form>
-            <form action="AccountEntry" method="get">
+            <form action="AccountEntryServlet" method="get">
                 <button class="btn custom-btn" type="submit">アカウント登録</button>
             </form>
-            <form action="AccountSearchForm" method="get">
+            <form action="AccountSearchFormServlet" method="get">
                 <button class="btn custom-btn" type="submit">アカウント検索</button>
             </form>
         </div>

@@ -8,9 +8,9 @@ public class Db {
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
         Class.forName("org.mariadb.jdbc.Driver");
-        String url = "jdbc:mariadb://<192.168.5.168>:3306/Group4";
+        String url = "jdbc:mariadb://localhost:3306/group4";
         String user = "root";
-        String password = "1111";
+        String password = "root";
 
         return DriverManager.getConnection(url, user, password);
     }
