@@ -47,34 +47,35 @@ public class AccountEntryServlet extends HttpServlet {
 			String name = request.getParameter("name");
 			String mail = request.getParameter("mail");
 			String password = request.getParameter("password");
+			String passConfirm = request.getParameter("passConfirm");
 			
-			
-			// authTotal:
-			// 0 = なし
-			// 1 = 売上登録権限のみ
-			// 2 = アカウント登録権限のみ
-			// 3 = 両方
-			int authTotal = 0;
+			//チェックボックスの値取得
 			String[] authValues = request.getParameterValues("auth");
+			
+			//権限のビット値を計算
+			int authTotal = 0;
 			if(authValues != null) {
 				for(String val : authValues) {
 					authTotal |= Integer.parseInt(val);
 				}
 			}
 			
-			int dbAuthValue = switch(authTotal) {
-			case 1 -> 1;
-			case 2 -> 10;
-			case 3 -> 11;
-			default -> 0;
-			};
+			//パスワードの一致確認
+			if(!password.equals(passConfirm)) {
+				request.setAttribute("error","パスワードが一致しません");
+				request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
+				return;
+				
+			}
 			
 			//AccountDtoに入力値を格納
-			AccountDto account = new AccountDto(name, mail, password, dbAuthValue);
+			AccountDto account = new AccountDto(name, mail, password, authTotal);
 			
-			//セッションの取得、確認画面へ遷移
+			//セッションに保存
 			HttpSession session = request.getSession();
 			session.setAttribute("accountData", account);
+			
+			//確認画面へリダイレクト
 			response.sendRedirect(request.getContextPath() + "/AccountEntryConfirmServlet");
 
 
