@@ -46,6 +46,34 @@
 				<div class="alert alert-danger mt-3">${error}</div>
 			</c:if>
 			
+			<script>
+    document.getElementById("login-form").onsubmit = function() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var errorMessage = "";
+
+        // メールアドレスの未入力チェック
+        if (!email) {
+            errorMessage += "メールアドレスは必須です。\n";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            errorMessage += "有効なメールアドレスを入力してください。\n";
+        }
+
+        // パスワードの未入力チェック
+        if (!password) {
+            errorMessage += "パスワードは必須です。\n";
+        }
+
+        // エラーメッセージがある場合は表示し、送信を中止
+        if (errorMessage) {
+            alert(errorMessage);
+            return false;
+        }
+
+        return true;
+    };
+</script>
+			
 		</div>
 	</div>
 </body>

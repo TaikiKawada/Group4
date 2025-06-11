@@ -29,6 +29,7 @@ public class LoginServlet extends HttpServlet {
         //アカウント情報が一致したらdashboard.jspへ遷移
         if (loginService.authenticate(request)) {
             response.sendRedirect("dashboard.jsp");
+            return;//処理終了
             
         //アカウント情報が一致しなかったらエラーメッセージを出す
         } else {
