@@ -13,11 +13,41 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
+<link rel="stylesheet" href="css/dashboard.css" type="text/css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+	<div class="container py-4">
+		<h2 class="text-center mb-4">ダッシュボード</h2>
+
+		<!-- 上部ボタンバー -->
+		<div class="header-buttons">
+			<!-- 左側ボタン -->
+			<div class="left-buttons">
+				<form action="SalesEntryServlet" method="get">
+					<button class="btn custom-btn" type="submit">売上登録</button>
+				</form>
+				<form action="SalesSearchFormServlet" method="get">
+					<button class="btn custom-btn" type="submit">売上検索</button>
+				</form>
+				<form action="AccountEntryServlet" method="get">
+					<button class="btn custom-btn" type="submit">アカウント登録</button>
+				</form>
+				<form action="AccountSearchFormServlet" method="get">
+					<button class="btn custom-btn" type="submit">アカウント検索</button>
+				</form>
+			</div>
+			<!-- 右側（ログアウト） -->
+			<div class="right-button">
+				<form action="LoginServlet" method="get">
+					<button class="btn custom-btn" type="submit">ログアウト</button>
+				</form>
+			</div>
+		</div>
+	</div>
 	<div class="container mt-5 d-flex justify-content-center">
+
 		<div class="w-50" style="max-width: 600px;">
 			<h2 class="mb-4">アカウント登録</h2>
 
@@ -77,7 +107,7 @@
 
 				<!--入力項目のチェック-->
 				<script>
-					//氏名:空、バイト数チェック
+					//氏名:空チェック、長さチェック
 					function validateName() {
 						const name = document
 								.querySelector('input[name="name"]');
@@ -97,7 +127,7 @@
 						return true;
 					}
 
-					//メールアドレス:空チェック
+					//メールアドレス:空チェック、長さチェック
 					function validateMail() {
 						const mail = document
 								.querySelector('input[name="mail"]');
@@ -109,10 +139,15 @@
 							return false;
 						}
 
+						if (getByteLength(mail.value) > 100) {
+							errorMail.textContent = "メールアドレスが長すぎます";
+							return false;
+						}
+
 						return true;
 					}
 
-					//パスワード&確認:空、一致チェック
+					//パスワード&確認:空チェック、長さチェック、一致チェック
 					function validatePasswords() {
 						const password = document
 								.querySelector('input[name="password"]');
@@ -134,12 +169,17 @@
 						}
 
 						if (confirm.value.trim() === "") {
-							errorConfirm.textContent = "パスワード確認を入力してください";
+							errorConfirm.textContent = "パスワード（確認）を入力してください";
 							valid = false;
 						}
 
+						if (getByteLength(password.value) > 30) {
+							errorPassword.textContent = "パスワードが長すぎます";
+							return false;
+						}
+
 						if (password.value !== confirm.value) {
-							errorConfirm.textContent = "パスワードが一致しません";
+							errorConfirm.textContent = "パスワードとパスワード（確認）の入力内容が異なっています";
 							valid = false;
 						}
 
@@ -164,7 +204,6 @@
 						}
 						return byteLength;
 					}
-
 
 					// チェックボックスの処理
 					const authNone = document.getElementById("authNone");

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import utils.Db;
+import src.main.java.utils.Db;
 
 public class LoginService {
     public boolean authenticate(HttpServletRequest request) {
@@ -38,7 +38,6 @@ public class LoginService {
             request.setAttribute("emailError", "有効なメールアドレスを入力してください。");
             isValid = false;
         }
-
         // パスワードの未入力チェック
         if (password == null || password.isEmpty()) {
             request.setAttribute("passwordError", "パスワードは必須です。");
