@@ -23,7 +23,7 @@
 
 			<!--登録フォーム-->
 			<form method="post" action="AccountEntryServlet"
-				onsubmit="return validatePasswords()">
+				onsubmit="return validateForm()">
 
 				<div class="mb-3">
 					<label class="form-label">氏名</label> <span
@@ -75,63 +75,98 @@
 				</div>
 
 
-				<script>
 				<!--入力項目のチェック-->
-					function validatePasswords() {
-						// 入力要素取得
+				<script>
+					//氏名:空、バイト数チェック
+					function validateName() {
 						const name = document
 								.querySelector('input[name="name"]');
+						const errorName = document.getElementById("error-name");
+						errorName.textContent = "";
+
+						if (name.value.trim() === "") {
+							errorName.textContent = "氏名を入力してください";
+							return false;
+						}
+
+						if (getByteLength(name.value) > 20) {
+							errorName.textContent = "氏名は20バイト以内で入力してください";
+							return false;
+						}
+
+						return true;
+					}
+
+					//メールアドレス:空チェック
+					function validateMail() {
 						const mail = document
 								.querySelector('input[name="mail"]');
+						const errorMail = document.getElementById("error-mail");
+						errorMail.textContent = "";
+
+						if (mail.value.trim() === "") {
+							errorMail.textContent = "メールアドレスを入力してください";
+							return false;
+						}
+
+						return true;
+					}
+
+					//パスワード&確認:空、一致チェック
+					function validatePasswords() {
 						const password = document
 								.querySelector('input[name="password"]');
 						const confirm = document
 								.querySelector('input[name="passConfirm"]');
-
-						// エラー表示領域取得
-						const errorName = document.getElementById("error-name");
-						const errorMail = document.getElementById("error-mail");
 						const errorPassword = document
 								.getElementById("error-password");
 						const errorConfirm = document
 								.getElementById("error-confirm");
 
-						// エラーメッセージクリア
-						errorName.textContent = "";
-						errorMail.textContent = "";
 						errorPassword.textContent = "";
 						errorConfirm.textContent = "";
 
-						let isValid = true;
+						let valid = true;
 
-						// 必須チェック
-						if (name.value.trim() === "") {
-							errorName.textContent = "氏名を入力してください";
-							isValid = false;
-						}
-						if (mail.value.trim() === "") {
-							errorMail.textContent = "メールアドレスを入力してください";
-							isValid = false;
-						}
 						if (password.value.trim() === "") {
 							errorPassword.textContent = "パスワードを入力してください";
-							isValid = false;
+							valid = false;
 						}
+
 						if (confirm.value.trim() === "") {
 							errorConfirm.textContent = "パスワード確認を入力してください";
-							isValid = false;
+							valid = false;
 						}
 
-						// パスワード一致チェック
 						if (password.value !== confirm.value) {
 							errorConfirm.textContent = "パスワードが一致しません";
-							isValid = false;
+							valid = false;
 						}
 
-						return isValid;
+						return valid;
 					}
 
-					<!--チェックボックスの処理-->
+					// 全体バリデーション
+					function validateForm() {
+						const isNameValid = validateName();
+						const isMailValid = validateMail();
+						const isPasswordValid = validatePasswords();
+
+						return isNameValid && isMailValid && isPasswordValid;
+					}
+
+					// バイト数取得関数（全角2バイト、半角1バイト）
+					function getByteLength(str) {
+						let byteLength = 0;
+						for (let i = 0; i < str.length; i++) {
+							const charCode = str.charCodeAt(i);
+							byteLength += (charCode > 0x7f) ? 2 : 1;
+						}
+						return byteLength;
+					}
+
+
+					// チェックボックスの処理
 					const authNone = document.getElementById("authNone");
 					const authSales = document.getElementById("authSales");
 					const authAccount = document.getElementById("authAccount");
