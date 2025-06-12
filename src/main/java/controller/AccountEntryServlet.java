@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.AccountDto;
-import src.main.java.utils.Db;
+import DTO.AccountDto;
+import utils.Db;
 
 /**
  * Servlet implementation class AccountEntryServlet

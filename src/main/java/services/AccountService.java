@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import beans.AccountDto;
-import src.main.java.utils.Db;
+import DTO.AccountDto;
+import utils.Db;
 
 public class AccountService {
 	public void signup(AccountDto obj) {

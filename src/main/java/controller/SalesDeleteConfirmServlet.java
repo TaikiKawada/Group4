@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import src.main.java.utils.Db;
+import utils.Db;
 
 @WebServlet("/SalesDeleteConfirmServlet")
 public class SalesDeleteConfirmServlet extends HttpServlet {

@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import DAO.SaleDAO;
 import beans.Sale;
-import beans.SaleDAO;
 
 /**
  * Servlet implementation class DashboardServlet

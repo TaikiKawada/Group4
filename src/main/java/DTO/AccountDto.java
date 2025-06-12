@@ -1,4 +1,4 @@
-package beans;
+package DTO;
 
 public class AccountDto {
 	int account_id;

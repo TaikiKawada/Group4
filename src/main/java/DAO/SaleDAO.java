@@ -1,4 +1,4 @@
-package beans;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.java.utils.Db;
+import beans.Sale;
+import utils.Db;
 
 public class SaleDAO {//データベースから全レコードを取得してSaleオブジェクトのリストとして返すクラス
 	public static List<Sale>getAllSales(){//sales テーブルの全レコードを List<Sale> で返すメソッド

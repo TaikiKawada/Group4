@@ -11,9 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.AccountDto;
+import DTO.AccountDto;
 import services.AccountService;
-import src.main.java.utils.Db;
+import utils.Db;
 
 /**
  * Servlet implementation class AccountEntryConfirmServlet
@@ -65,7 +65,7 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 			//すでにあるセッションを取得
 			HttpSession session = request.getSession(false);
 			
-			//セッションがなければ登録画面に
+			//セOッションがなければ登録画面に
 			if(session == null) {
 				response.sendRedirect(request.getContextPath() + "account/entry.html");
 				return;
