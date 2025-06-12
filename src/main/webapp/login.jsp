@@ -19,7 +19,7 @@
 
 			<h2 class="mb-4 text-center">物品売上管理システム</h2>
 
-			<form id="login-form" action="ログイン画面" method="post">
+			<form id="login-form" action="login" method="post">
 
 				<!--メールアドレスを入力-->
 				<div class="mb-3">

@@ -10,15 +10,19 @@ import java.util.regex.Pattern;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import beans.AccountDto;
 import utils.Db;
 
 public class LoginService {
     public boolean authenticate(HttpServletRequest request) {
         String email = request.getParameter("mail");
         String password = request.getParameter("password");
-        
-     // 入力検証
+
+        System.out.println("認証開始: 入力メール=" + email + ", パスワード=" + (password != null ? "あり" : "なし"));
+
+        // 入力検証
         if (!validateInputs(request, email, password)) {
+            System.out.println("入力検証失敗");
             return false;
         }
 
@@ -29,18 +33,19 @@ public class LoginService {
     private boolean validateInputs(HttpServletRequest request, String email, String password) {
         boolean isValid = true;
 
-        // メールアドレスの未入力チェック
         if (email == null || email.isEmpty()) {
             request.setAttribute("emailError", "メールアドレスは必須です。");
+            System.out.println("入力エラー: メールアドレス未入力");
             isValid = false;
         } else if (!isValidEmail(email)) {
-            // メールアドレスの形式チェック
             request.setAttribute("emailError", "有効なメールアドレスを入力してください。");
+            System.out.println("入力エラー: メールアドレス形式不正");
             isValid = false;
         }
-        // パスワードの未入力チェック
+
         if (password == null || password.isEmpty()) {
             request.setAttribute("passwordError", "パスワードは必須です。");
+            System.out.println("入力エラー: パスワード未入力");
             isValid = false;
         }
 
@@ -55,24 +60,34 @@ public class LoginService {
     }
 
     private boolean authenticateUser(HttpServletRequest request, String email, String password) {
-
-//        データベースと接続して、accounts表からemail(mail)とpasswordを取得
         try (Connection conn = Db.getConnection()) {
+            System.out.println("DB接続成功");
+
             String sql = "SELECT * FROM accounts WHERE mail = ? AND password = ?";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, email);
                 ps.setString(2, password);
+                System.out.println("SQL準備完了: " + ps.toString());
 
-//                認証に成功した場合にセッションにユーザー名を保存してログイン処理を行う 
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
+                    	AccountDto loginUser = new AccountDto(0, sql, sql, sql, 0);
+                        loginUser.setName(rs.getString("name"));
+                        loginUser.setMail(rs.getString("mail"));
+                        loginUser.setAuth(rs.getInt("authority"));  // authorityをintでセット
+                        // 他に必要なカラムもセットしてください
+
                         HttpSession session = request.getSession();
-                        session.setAttribute("user", rs.getString("name"));
+                        session.setAttribute("user", loginUser);  // ここでAccountDtoオブジェクトをセット
+                        System.out.println("認証成功: ユーザー名=" + loginUser.getName());
                         return true;
+                    } else {
+                        System.out.println("認証失敗: 該当ユーザーなし");
                     }
                 }
             }
         } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("データベース接続エラー:");
             e.printStackTrace();
         }
         return false;

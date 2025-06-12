@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import services.LoginService;
 
-@WebServlet("/ログイン画面")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private LoginService loginService = new LoginService();
@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
     	
         //アカウント情報が一致したらdashboard.jspへ遷移
         if (loginService.authenticate(request)) {
-            response.sendRedirect("dashboard.jsp");
+            response.sendRedirect("Dashboard");
             return;//処理終了
             
         //アカウント情報が一致しなかったらエラーメッセージを出す
