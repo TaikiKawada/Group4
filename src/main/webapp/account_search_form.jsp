@@ -13,7 +13,9 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/formLabel.css" type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/formLabel.css"
+	type="text/css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -37,7 +39,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="text" name="name" class="form-control"
-							placeholder="氏名" value="${sessionScope.accountData.name }" />
+							placeholder="氏名" />
 						<div id="error-name" class="text-danger"></div>
 					</div>
 				</div>
@@ -51,7 +53,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="email" name="mail" class="form-control"
-							placeholder="メールアドレス" value="${sessionScope.accountData.mail }" />
+							placeholder="メールアドレス" />
 						<div id="error-mail" class="text-danger"></div>
 					</div>
 				</div>
@@ -67,14 +69,11 @@
 					<div class="form-input-col">
 						<div class="checkbox-group">
 							<label class="form-check-label"> <input type="checkbox"
-								id="authNone" name="auth" value="0"
-								<c:if test="${ hasNoneAuth }">checked</c:if> /> 権限なし
+								id="authNone" name="auth" value="0" /> 権限なし
 							</label> <label class="form-check-label"> <input type="checkbox"
-								id="authSales" name="auth" value="1"
-								<c:if test="${ hasSalesAuth }">checked</c:if> /> 売上登録
+								id="authSales" name="auth" value="1" /> 売上登録
 							</label> <label class="form-check-label"> <input type="checkbox"
-								id="authAccount" name="auth" value="2"
-								<c:if test="${ hasAccountAuth }">checked</c:if> /> アカウント登録
+								id="authAccount" name="auth" value="2" /> アカウント登録
 							</label>
 						</div>
 					</div>
@@ -83,17 +82,12 @@
 
 				<!--入力項目のチェック-->
 				<script>
-					// 氏名:空チェック、長さチェック
+					// 氏名:長さチェック
 					function validateName() {
 						const name = document
 								.querySelector('input[name="name"]');
 						const errorName = document.getElementById("error-name");
 						errorName.textContent = "";
-
-						if (name.value.trim() === "") {
-							errorName.textContent = "氏名を入力してください";
-							return false;
-						}
 
 						if (getByteLength(name.value) > 20) {
 							errorName.textContent = "氏名は20バイト以内で入力してください";
@@ -103,29 +97,16 @@
 						return true;
 					}
 
-					// メールアドレス:空チェック、長さチェック、形式チェック
+					// メールアドレス:長さチェック
 					function validateMail() {
 						const mail = document
 								.querySelector('input[name="mail"]');
 						const errorMail = document.getElementById("error-mail");
 						errorMail.textContent = "";
-						const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-						// 空チェック
-						if (mail.value.trim() === "") {
-							errorMail.textContent = "メールアドレスを入力してください";
-							return false;
-						}
 
 						// 長さチェック
 						if (getByteLength(mail.value) > 100) {
 							errorMail.textContent = "メールアドレスが長すぎます";
-							return false;
-						}
-
-						// 形式チェック
-						if (!emailRegex.test(mail.value.trim())) {
-							errorMail.textContent = "メールアドレスを正しく入力して下さい";
 							return false;
 						}
 

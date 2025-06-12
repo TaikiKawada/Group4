@@ -8,18 +8,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>アカウント検索結果</title>
 </head>
 <body>
-	<form method="post" action="${ pageContext.request.contextPath}/account/search.html">
-		氏名：<input type="text" name="name"> メール：<input type="text"
-			name="mail"> 権限：<input type="text" name="auth"> <input
-			type="submit" value="検索">
-	</form>
+	<div class="container mt-5"></div>
+	<c:if test="${empty accountList}">
+		<p>該当するアカウントが見つかりませんでした。</p>
+	</c:if>
 
 	<c:forEach var="a" items="${accountList}">
-		<p>${a.name}（${a.mail}）権限: ${a.authority}</p>
+		<p>${a.name}（${a.mail}）権限:${a.auth}</p>
 	</c:forEach>
+
 
 </body>
 </html>

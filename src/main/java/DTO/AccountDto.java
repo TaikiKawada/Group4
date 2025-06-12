@@ -19,7 +19,8 @@ public class AccountDto {
 		this.auth = auth;
 	}
 	
-	public AccountDto(String name, String mail, int auth) {
+	public AccountDto(int account_id, String name, String mail, int auth) {
+		this.account_id = account_id;
 		this.name = name;
 		this.mail = mail;
 		this.auth = auth;

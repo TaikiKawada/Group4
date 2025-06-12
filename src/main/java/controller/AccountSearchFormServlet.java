@@ -42,10 +42,12 @@ public class AccountSearchFormServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
+		// 入力値の取得
 		String name = request.getParameter("name");
 		String mail = request.getParameter("mail");
 		String[] authValues = request.getParameterValues("auth");
 
+		// 権限をリストに
 		ArrayList<Integer> authList = new ArrayList<>();
 		if(authValues != null) {
 			for(String val : authValues) {
@@ -53,6 +55,7 @@ public class AccountSearchFormServlet extends HttpServlet {
 			}
 		}
 
+		
 		AccountDao dao = new AccountDao();
 		ArrayList<AccountDto> accounts = dao.searchAccounts(name, mail, authList);
 		
