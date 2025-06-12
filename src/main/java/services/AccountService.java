@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import beans.AccountDto;
-import utils.Db;
+import src.main.java.utils.Db;
 
 public class AccountService {
 	public void signup(AccountDto obj) {

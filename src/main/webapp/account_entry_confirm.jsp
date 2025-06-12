@@ -24,7 +24,7 @@
 			<h2 class="mb-4">この内容で登録しますか？</h2>
 
 			<!--登録内容確認フォーム-->
-			<form method="post" action="AccountEntryConfirmServlet">
+			<form method="post" action="${pageContext.request.contextPath}/account/entry/confirm.html">
 
 				<!--氏名-->
 				<div class="mb-3">
@@ -92,7 +92,7 @@
 
 				<div class="text-end mt-4">
 					<button type="submit" class="btn btn-primary">登録</button>
-					<a href="AccountEntryServlet" class="btn btn-secondary">キャンセル</a>
+					<a href="${pageContext.request.contextPath}/account/entry.html" class="btn btn-secondary">キャンセル</a>
 				</div>
 			</form>
 		</div>
