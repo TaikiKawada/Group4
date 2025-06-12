@@ -9,7 +9,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import utils.SalesUtils;
+import DAO.SaleDAO;
+import DTO.SalesDto;
 
 @WebServlet("/SalesRegisterServlet")
 public class SalesRegisterServlet extends HttpServlet {
@@ -25,27 +26,30 @@ public class SalesRegisterServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        // フォームデータの取得
+        // フォームのパラメータ取得
         String salesDate = request.getParameter("salesDate");
-        String staff = request.getParameter("staff");
-        String category = request.getParameter("category");
+        int accountId = Integer.parseInt(request.getParameter("staff"));
+        int categoryId = Integer.parseInt(request.getParameter("category"));
         String productName = request.getParameter("productName");
-        String unitPrice = request.getParameter("unitPrice");
-        String quantity = request.getParameter("quantity");
+        int unitPrice = Integer.parseInt(request.getParameter("unitPrice"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
         String remarks = request.getParameter("remarks");
 
-        // DB登録
-        boolean success = SalesUtils.insertSale(
+        // DTOにまとめる
+        SalesDto dto = new SalesDto(
             salesDate,
-            staff,
-            category,
+            accountId,
+            categoryId,
             productName,
-            Integer.parseInt(unitPrice),
-            Integer.parseInt(quantity),
+            unitPrice,
+            quantity,
             remarks
         );
 
-        // 遷移処理
+        // DAOを呼び出してDBに登録
+        boolean success = SaleDAO.insert(dto);
+
+        // 登録成功・失敗で画面遷移を分ける
         if (success) {
             request.setAttribute("message", "売上情報を登録しました。");
             RequestDispatcher dispatcher = request.getRequestDispatcher("sales_register_complete.jsp");

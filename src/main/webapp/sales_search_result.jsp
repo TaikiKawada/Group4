@@ -17,7 +17,7 @@
 		</c:if>
 
 		<c:choose>
-			<c:when test="${empty results}">
+			<c:when test="${empty resultList}">
 				<p class="text-center">該当する売上データはありませんでした。</p>
 			</c:when>
 			<c:otherwise>
@@ -27,8 +27,8 @@
 							<tr>
 								<th>売上ID</th>
 								<th>販売日</th>
-								<th>担当</th>
-								<th>商品カテゴリ</th>
+								<th>担当ID</th>
+								<th>カテゴリID</th>
 								<th>商品名</th>
 								<th>単価</th>
 								<th>個数</th>
@@ -37,23 +37,23 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="row" items="${results}">
+							<c:forEach var="row" items="${resultList}">
 								<tr>
-									<td>${row[0]}</td>
-									<td>${row[1]}</td>
-									<td>${row[2]}</td>
-									<td>${row[3]}</td>
-									<td>${row[4]}</td>
-									<td>${row[5]}</td>
-									<td>${row[6]}</td>
-									<td>${row[7]}</td>
+									<td>${row.saleId}</td>
+									<td>${row.saleDate}</td>
+									<td>${row.accountId}</td>
+									<td>${row.categoryId}</td>
+									<td>${row.tradeName}</td>
+									<td>${row.unitPrice}</td>
+									<td>${row.saleNumber}</td>
+									<td>${row.note}</td>
 									<td class="d-flex gap-1">
 										<form action="SalesDetailServlet" method="get">
-											<input type="hidden" name="saleId" value="${row[0]}" />
+											<input type="hidden" name="saleId" value="${row.saleId}" />
 											<button class="btn btn-sm btn-outline-primary">編集</button>
 										</form>
 										<form action="SalesDeleteConfirmServlet" method="get">
-											<input type="hidden" name="saleId" value="${row[0]}" />
+											<input type="hidden" name="saleId" value="${row.saleId}" />
 											<button class="btn btn-sm btn-outline-danger">削除</button>
 										</form>
 									</td>
