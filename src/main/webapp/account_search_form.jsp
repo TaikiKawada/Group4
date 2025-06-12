@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>アカウント登録</title>
+<title>アカウント検索</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
@@ -20,11 +20,11 @@
 <body>
 	<div class="container mt-5">
 		<div class="mx-auto w-100" style="max-width: 800px;">
-			<h2 class="mb-4">アカウント登録</h2>
+			<h2 class="mb-4">アカウント検索条件入力</h2>
 
 			<!--登録フォーム-->
 			<form method="post"
-				action="${pageContext.request.contextPath}/account/entry.html"
+				action="${pageContext.request.contextPath}/account/search.html"
 				onsubmit="return validateForm()">
 
 				<!--氏名-->
@@ -32,7 +32,7 @@
 					<div class="form-label-col">
 						<div class="label-box">
 							<label class="form-label mb-0 me-1">氏名</label> <span
-								class="badge text-bg-secondary">必須</span> </span>
+								class="badge text-bg-secondary">部分一致</span> </span>
 						</div>
 					</div>
 					<div class="form-input-col">
@@ -46,44 +46,13 @@
 				<div class="form-row">
 					<div class="form-label-col">
 						<div class="label-box">
-							<label class="form-label mb-0 me-1">メールアドレス</label><span
-								class="badge text-bg-secondary">必須</span> </span>
+							<label class="form-label mb-0 me-1">メールアドレス</label>
 						</div>
 					</div>
 					<div class="form-input-col">
 						<input type="email" name="mail" class="form-control"
 							placeholder="メールアドレス" value="${sessionScope.accountData.mail }" />
 						<div id="error-mail" class="text-danger"></div>
-					</div>
-				</div>
-
-				<!--パスワード-->
-				<div class="form-row">
-					<div class="form-label-col">
-						<div class="label-box">
-							<label class="form-label mb-0 me-1">パスワード</label> <span
-								class="badge text-bg-secondary">必須</span> </span>
-						</div>
-					</div>
-					<div class="form-input-col">
-						<input type="password" name="password" class="form-control"
-							placeholder="パスワード" />
-						<div id="error-password" class="text-danger"></div>
-					</div>
-				</div>
-
-				<!--パスワード確認-->
-				<div class="form-row">
-					<div class="form-label-col">
-						<div class="label-box">
-							<label class="form-label mb-0 me-1">パスワード確認</label> <span
-								class="badge text-bg-secondary">必須</span> </span>
-						</div>
-					</div>
-					<div class="form-input-col">
-						<input type="password" name="passConfirm" class="form-control"
-							placeholder="パスワード（確認）" />
-						<div id="error-confirm" class="text-danger"></div>
 					</div>
 				</div>
 
@@ -163,67 +132,12 @@
 						return true;
 					}
 
-					// パスワード&確認:空チェック、長さチェック、一致チェック、形式チェック
-					function validatePasswords() {
-						const password = document
-								.querySelector('input[name="password"]');
-						const confirm = document
-								.querySelector('input[name="passConfirm"]');
-						const errorPassword = document
-								.getElementById("error-password");
-						const errorConfirm = document
-								.getElementById("error-confirm");
-
-						errorPassword.textContent = "";
-						errorConfirm.textContent = "";
-
-						let valid = true;
-
-						// 入力チェック
-						if (password.value.trim() === "") {
-							errorPassword.textContent = "パスワードを入力してください";
-							valid = false;
-						}
-
-						// 入力チェック（確認）
-						if (confirm.value.trim() === "") {
-							errorConfirm.textContent = "パスワード（確認）を入力してください";
-							valid = false;
-						}
-
-						// 長さチェック
-						if (getByteLength(password.value) > 30) {
-							errorPassword.textContent = "パスワードが長すぎます";
-							return false;
-						}
-
-						// 一致チェック
-						if (password.value !== confirm.value) {
-							errorConfirm.textContent = "パスワードとパスワード（確認）の入力内容が異なっています";
-							valid = false;
-						}
-
-						// 形式チェック
-						const hasUpper = /[A-Z]/.test(password.value);
-						const hasLower = /[a-z]/.test(password.value);
-						const hasNumber = /[0-9]/.test(password.value);
-						const hasSymbol = /[^A-Za-z0-9]/.test(password.value);
-
-						if (!(hasUpper && hasLower && hasNumber && hasSymbol)) {
-							errorPassword.textContent = "パスワードは英大文字・小文字・数字・記号をすべて含めてください";
-							return false;
-						}
-
-						return valid;
-					}
-
 					// 全体バリデーション
 					function validateForm() {
 						const isNameValid = validateName();
 						const isMailValid = validateMail();
-						const isPasswordValid = validatePasswords();
 
-						return isNameValid && isMailValid && isPasswordValid;
+						return isNameValid && isMailValid;
 					}
 
 					// バイト数取得関数（全角2バイト、半角1バイト）
@@ -261,10 +175,32 @@
 					authSales.addEventListener("change", updateAuthCheckboxes);
 					authAccount
 							.addEventListener("change", updateAuthCheckboxes);
+
+					// クリアボタンの処理
+					function clearForm() {
+						// 入力値を空にする
+						document.querySelector('input[name="name"]').value = "";
+						document.querySelector('input[name="mail"]').value = "";
+
+						// エラーメッセージもクリア
+						document.getElementById("error-name").textContent = "";
+						document.getElementById("error-mail").textContent = "";
+
+						// チェックボックスをすべて外す
+						authNone.checked = false;
+						authSales.checked = false;
+						authAccount.checked = false;
+
+						// 無効になってるチェックボックスも有効に戻す
+						authSales.disabled = false;
+						authAccount.disabled = false;
+					}
 				</script>
 
 				<div class="text-end mt-4">
-					<button class="btn btn-primary">登録</button>
+					<button type="submit" class="btn btn-primary">検索</button>
+					<button type="button" class="btn btn-secondary ms-2"
+						onclick="clearForm()">クリア</button>
 				</div>
 			</form>
 		</div>
