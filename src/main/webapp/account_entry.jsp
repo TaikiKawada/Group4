@@ -31,8 +31,8 @@
 				<div class="form-row">
 					<div class="form-label-col">
 						<div class="label-box">
-							<label class="form-label mb-0 me-2"> 氏名 </label> <span
-								class="badge text-bg-secondary">必須</span>
+							<label class="form-label mb-0 me-1">氏名</label> <span
+								class="badge text-bg-secondary">必須</span> </span>
 						</div>
 					</div>
 					<div class="form-input-col">
@@ -46,8 +46,8 @@
 				<div class="form-row">
 					<div class="form-label-col">
 						<div class="label-box">
-							<label class="form-label mb-0 me-2">メールアドレス</label> <span
-								class="badge text-bg-secondary">必須</span>
+							<label class="form-label mb-0 me-1">パスワード</label><span
+								class="badge text-bg-secondary">必須</span> </span>
 						</div>
 					</div>
 					<div class="form-input-col">
@@ -61,8 +61,8 @@
 				<div class="form-row">
 					<div class="form-label-col">
 						<div class="label-box">
-							<label class="form-label mb-0 me-2">パスワード</label> <span
-								class="badge text-bg-secondary">必須</span>
+							<label class="form-label mb-0 me-1">パスワード</label> <span
+								class="badge text-bg-secondary">必須</span> </span>
 						</div>
 					</div>
 					<div class="form-input-col">
@@ -76,8 +76,8 @@
 				<div class="form-row">
 					<div class="form-label-col">
 						<div class="label-box">
-							<label class="col-form-label mb-0 me-2">パスワード確認</label> <span
-								class="badge text-bg-secondary">必須</span>
+							<label class="form-label mb-0 me-1">パスワード確認</label> <span
+								class="badge text-bg-secondary">必須</span> </span>
 						</div>
 					</div>
 					<div class="form-input-col">
