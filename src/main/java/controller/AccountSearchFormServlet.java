@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import DAO.AccountDao;
 import DTO.AccountDto;
-import services.AccountService;
 
 /**
  * Servlet implementation class AccountSearchFormServlet
@@ -44,15 +44,22 @@ public class AccountSearchFormServlet extends HttpServlet {
 
 		String name = request.getParameter("name");
 		String mail = request.getParameter("mail");
-		String auth = request.getParameter("auth");
+		String[] authValues = request.getParameterValues("auth");
 
-		AccountService service = new AccountService();
-		ArrayList<AccountDto> accountList = service.searchAccounts(name, mail, auth);
+		ArrayList<Integer> authList = new ArrayList<>();
+		if(authValues != null) {
+			for(String val : authValues) {
+				authList.add(Integer.parseInt(val));
+			}
+		}
 
-		request.setAttribute("accountList", accountList);
+		AccountDao dao = new AccountDao();
+		ArrayList<AccountDto> accounts = dao.searchAccounts(name, mail, authList);
 		
+		request.setAttribute("accountList", accounts);
+	
 		//検索結果画面へ遷移
-		response.sendRedirect(request.getContextPath() + "/account/search/result.html");
+		request.getRequestDispatcher("/account_search_result.jsp").forward(request, response);
 
 	}
 

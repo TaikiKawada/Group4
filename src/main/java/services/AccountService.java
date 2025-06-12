@@ -3,13 +3,13 @@ package services;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import DAO.AccountDao;
 import DTO.AccountDto;
 import utils.Db;
 
 public class AccountService {
+	private AccountDao dao = new AccountDao();
 	
 	// アカウント登録
 	public void signup(AccountDto obj) {
@@ -33,20 +33,6 @@ public class AccountService {
 			e.printStackTrace();
 		}
 	}
-	
-	// アカウント検索
-	public ArrayList<AccountDto> searchAccounts(String name, String mail, String authStr) {
-		Integer auth = null;
-		if (authStr != null && !authStr.isEmpty()) {
-			try {
-				auth = Integer.parseInt(authStr);
-		    } catch (NumberFormatException e) {
-		    	e.printStackTrace();
-		    }
-		}
-		
-		AccountDao dao = new AccountDao();
-		return dao.search(name, mail, auth);
-	}
+
 }
 

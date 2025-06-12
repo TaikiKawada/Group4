@@ -13,7 +13,9 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/formLabel.css" type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/formLabel.css"
+	type="text/css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -31,7 +33,7 @@
 				<div class="form-row">
 					<div class="form-label-col">
 						<div class="label-box">
-							<label class="form-label mb-0 me-1">氏名</label> <span
+							<label class="form-label label-box">氏名</label><span
 								class="badge text-bg-secondary">必須</span> </span>
 						</div>
 					</div>
@@ -46,7 +48,7 @@
 				<div class="form-row">
 					<div class="form-label-col">
 						<div class="label-box">
-							<label class="form-label mb-0 me-1">メールアドレス</label><span
+							<label class="form-label label-box">メールアドレス</label><span
 								class="badge text-bg-secondary">必須</span> </span>
 						</div>
 					</div>

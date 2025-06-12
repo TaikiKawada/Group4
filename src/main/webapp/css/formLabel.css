@@ -4,7 +4,6 @@
 .label-box {
   display: inline-flex;
   align-items: center;
-  padding: 0.3rem 0.6rem;
   gap: 0.4rem;
   font-size: 0.95rem;
 }
