@@ -88,6 +88,7 @@ public class AccountDao {
 				ps.setObject(i + 1, params.get(i));
 			}
 
+			// SQL文の実行、resultListに格納
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				AccountDto ad = new AccountDto(
@@ -112,13 +113,14 @@ public class AccountDao {
 		
 		try (
 				Connection con = Db.getConnection();
-				PreparedStatement ps = con.prepareStatement(sql);
-			) {
+				PreparedStatement ps = con.prepareStatement(sql);){
 			
 			ps.setInt(1, accountId);
 			
+			// SQL文の実行、accountに格納
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
+						account.setAccount_id(rs.getInt("account_id"));
 						account.setName(rs.getString("name"));
 						account.setMail(rs.getString("mail"));
 						account.setPassword(rs.getString("password"));
@@ -134,4 +136,28 @@ public class AccountDao {
 		return account;
 	}
 
+	public boolean deleteAccount(int accountId) {
+		String sql = "delete from accounts where account_id = ?";
+		
+		try(
+			Connection con = Db.getConnection();
+			PreparedStatement ps = con.prepareStatement(sql);){
+			
+			ps.setInt(1, accountId);
+			
+			// SQL文の実行
+			int result = ps.executeUpdate();
+			
+			// 削除出来たらtrueを返す
+			return result > 0;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 }

@@ -8,9 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import DAO.AccountDao;
-import DTO.AccountDto;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class AccountSearchFormServlet
@@ -40,12 +38,20 @@ public class AccountSearchFormServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		// セッションの取得
+		HttpSession session = request.getSession();
 
 		// 入力値の取得
 		String name = request.getParameter("name");
 		String mail = request.getParameter("mail");
 		String[] authValues = request.getParameterValues("auth");
+		
+		// 確認用
+		System.out.println("検索条件: ");
+		System.out.println("name = " + name);
+		System.out.println("mail = " + mail);
+		System.out.println("authList = " + authValues);
+
 
 		// 権限をリストに
 		ArrayList<Integer> authList = new ArrayList<>();
@@ -54,16 +60,14 @@ public class AccountSearchFormServlet extends HttpServlet {
 				authList.add(Integer.parseInt(val));
 			}
 		}
-
 		
-		AccountDao dao = new AccountDao();
-		ArrayList<AccountDto> accounts = dao.searchAccounts(name, mail, authList);
 		
-		request.setAttribute("accountList", accounts);
+		session.setAttribute("lastSearchName", name);
+		session.setAttribute("lastSearchMail", mail);
+		session.setAttribute("lastSearchAuth", authList);
 	
 		//検索結果画面へ遷移
-		request.getRequestDispatcher("/account_search_result.jsp").forward(request, response);
-
+		response.sendRedirect(request.getContextPath() + "/account/search/result.html");
 	}
 
 }
