@@ -15,7 +15,7 @@ import utils.Db;
 
 public class LoginService {
 
-    // 最大試行回数
+    // 最大試行回数5回
     private static final int MAX_ATTEMPTS = 5;
 
     public boolean authenticate(HttpServletRequest request) {
@@ -27,16 +27,17 @@ public class LoginService {
         if (failCount == null) {
             failCount = 0;
         }
-
+        //ログイン失敗回数の確認
         if (failCount >= MAX_ATTEMPTS) {
             request.setAttribute("error", "ログイン試行回数が上限に達しました。しばらく時間をおいて再試行してください。");
             return false;
         }
         
-        
+        //入力値を取得
         String email = request.getParameter("mail");
         String password = request.getParameter("password");
 
+        //入力形式が正しくなかった場合、コンソールに出力
         if (!validateInputs(request, email, password)) {
             System.out.println("入力検証失敗");
             return false;
@@ -47,30 +48,27 @@ public class LoginService {
             session.removeAttribute("failCount"); // 成功したらリセット
             return true;
         } else {
-            // 認証失敗時、カウントアップしてメッセージ
+            // 認証失敗時、失敗回数をカウントしてメッセージを出す
             session.setAttribute("failCount", failCount + 1);
-            request.setAttribute("error", "メールアドレスまたはパスワードが正しくありません。");
+            request.setAttribute("error", "ログインに失敗しました。再度お試しください。");
             return false;
         }
     }
 
-    // 入力バリデーション
+    //入力されたデータが、正しい形式に合致しているかチェックし、エラーを防止するメソッド
     private boolean validateInputs(HttpServletRequest request, String email, String password) {
         boolean isValid = true;
 
-        if (email == null || email.isEmpty()) {
-            request.setAttribute("emailError", "メールアドレスは必須です。");
-            System.out.println("入力エラー: メールアドレス未入力");
-            isValid = false;
-        } else if (!isValidEmail(email)) {
+    //入力した形式が正しいか
+    if (!isValidEmail(email)) {
             request.setAttribute("emailError", "有効なメールアドレスを入力してください。");
-            System.out.println("入力エラー: メールアドレス形式不正");
+            System.out.println("入力エラー：メールアドレス形式不正");
             isValid = false;
         }
 
-        if (password == null || password.isEmpty()) {
-            request.setAttribute("passwordError", "パスワードは必須です。");
-            System.out.println("入力エラー: パスワード未入力");
+    if (isValidEmail(password)) {
+            request.setAttribute("passwordError", "不正");
+            System.out.println("入力エラー：パスワード形式不正");
             isValid = false;
         }
 
@@ -84,6 +82,14 @@ public class LoginService {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+    
+    private boolean isValidPassword(String password) {
+        String emailRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*()_+\\\\-=[\\\\]{};':\\\"\\\\\\\\|,.<>/?]).{8,}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+    
 
     // DBでユーザー認証
     private boolean authenticateUser(HttpServletRequest request, String email, String password) {
