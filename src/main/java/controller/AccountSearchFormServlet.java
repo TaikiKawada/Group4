@@ -45,12 +45,6 @@ public class AccountSearchFormServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String mail = request.getParameter("mail");
 		String[] authValues = request.getParameterValues("auth");
-		
-		// 確認用
-		System.out.println("検索条件: ");
-		System.out.println("name = " + name);
-		System.out.println("mail = " + mail);
-		System.out.println("authList = " + authValues);
 
 
 		// 権限をリストに
@@ -61,7 +55,7 @@ public class AccountSearchFormServlet extends HttpServlet {
 			}
 		}
 		
-		
+		// セッションに値を保存
 		session.setAttribute("lastSearchName", name);
 		session.setAttribute("lastSearchMail", mail);
 		session.setAttribute("lastSearchAuth", authList);

@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import DAO.AccountDao;
 import DTO.AccountDto;
@@ -57,8 +58,32 @@ public class AccountEditServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		// 更新する値を取得
+		int accountId = Integer.parseInt(request.getParameter("account_id"));
+		String name = request.getParameter("name");
+		String mail = request.getParameter("mail");
+		String password = request.getParameter("password");
+		String[] authValues = request.getParameterValues("auth");
+		
+		// 権限のビット値を計算
+		int auth = 0;
+		if(authValues != null) {
+			for(String val : authValues) {
+				auth |= Integer.parseInt(val);
+			}
+		}
+		
+		// 更新情報をaccountに格納
+		AccountDto account = new AccountDto(accountId,name, mail, password, auth);
+		
+		// セッションの取得、値の保存
+		HttpSession session = request.getSession();
+		session.setAttribute("accountData", account);
+		// 更新確認画面に遷移
+		response.sendRedirect(request.getContextPath() + "/account/edit/confirm.html");
+				
+		
 	}
 
 }

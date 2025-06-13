@@ -32,9 +32,6 @@ public class AccountDao {
 	    return list;
 	}
 
-
-
-
 	public ArrayList<AccountDto> searchAccounts(String name, String mail, List<Integer> authList) {
 		ArrayList<AccountDto> resultList = new ArrayList<>();
 		StringBuilder sql = new StringBuilder("SELECT * FROM accounts WHERE 1=1");
@@ -95,9 +92,12 @@ public class AccountDao {
 						rs.getInt("account_id"),
 						rs.getString("name"),
 						rs.getString("mail"),
+						rs.getString("password"),
 						rs.getInt("authority"));
 				resultList.add(ad);
 			}
+
+			// 例外処理
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -110,54 +110,73 @@ public class AccountDao {
 	public AccountDto findById(int accountId) {
 		String sql = "select * from accounts where account_id = ?";
 		AccountDto account = new AccountDto();
-		
-		try (
-				Connection con = Db.getConnection();
-				PreparedStatement ps = con.prepareStatement(sql);){
-			
+
+		try (Connection con = Db.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);) {
+
 			ps.setInt(1, accountId);
-			
+
 			// SQL文の実行、accountに格納
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-						account.setAccount_id(rs.getInt("account_id"));
-						account.setName(rs.getString("name"));
-						account.setMail(rs.getString("mail"));
-						account.setPassword(rs.getString("password"));
-						account.setAuth(rs.getInt("authority"));
+				account.setAccount_id(rs.getInt("account_id"));
+				account.setName(rs.getString("name"));
+				account.setMail(rs.getString("mail"));
+				account.setPassword(rs.getString("password"));
+				account.setAuth(rs.getInt("authority"));
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+			// 例外処理
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		return account;
 	}
 
-	public boolean deleteAccount(int accountId) {
-		String sql = "delete from accounts where account_id = ?";
-		
-		try(
-			Connection con = Db.getConnection();
-			PreparedStatement ps = con.prepareStatement(sql);){
+	// アカウント編集
+	public boolean editAccount(AccountDto account) {
+		String sql = "update accounts set name = ?, mail = ?, password = ?, authority = ? where account_id = ?";
+
+		try (Connection con = Db.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);) {
 			
-			ps.setInt(1, accountId);
+			ps.setString(1, account.getName());
+			ps.setString(2, account.getMail());
+			ps.setString(3, account.getPassword());
+			ps.setInt(4, account.getAuth());
+			ps.setInt(5, account.getAccount_id());
 			
 			// SQL文の実行
 			int result = ps.executeUpdate();
 			
-			// 削除出来たらtrueを返す
+			// 更新出来たらtrueを返す
 			return result > 0;
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		} catch (ClassNotFoundException e) {
+		// 例外処理
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			return false;
 		}
-		
+	}
+
+	// アカウント削除
+	public boolean deleteAccount(int accountId) {
+		String sql = "delete from accounts where account_id = ?";
+
+		try (Connection con = Db.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);) {
+
+			ps.setInt(1, accountId);
+
+			// SQL文の実行
+			int result = ps.executeUpdate();
+
+			// 削除出来たらtrueを返す
+			return result > 0;
+
+			// 例外処理
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }
