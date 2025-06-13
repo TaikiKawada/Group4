@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import DTO.AccountDto;
-import utils.Db;
 
 /**
  * Servlet implementation class AccountEntryServlet
@@ -34,6 +31,7 @@ public class AccountEntryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
 		request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 	}
 
@@ -42,14 +40,12 @@ public class AccountEntryServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try (Connection con = Db.getConnection();) {
+		
 			//入力値の取得
 			String name = request.getParameter("name");
 			String mail = request.getParameter("mail");
 			String password = request.getParameter("password");
 			String passConfirm = request.getParameter("passConfirm");
-			
-			//チェックボックスの値取得
 			String[] authValues = request.getParameterValues("auth");
 			
 			//権限のビット値を計算
@@ -77,16 +73,6 @@ public class AccountEntryServlet extends HttpServlet {
 			
 			//確認画面へリダイレクト
 			response.sendRedirect(request.getContextPath() + "/account/entry/confirm.html");
-
-
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

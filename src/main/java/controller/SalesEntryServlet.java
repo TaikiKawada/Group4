@@ -52,7 +52,7 @@ public class SalesEntryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<String> staffList = DAO.AccountDAO.getAllAccounts();
+        List<String> staffList = DAO.AccountDao.getAllAccounts();
         List<Map<String, String>> categoryList = DAO.CategoryDAO.getActiveCategories();
 
         request.setAttribute("staffList", staffList);

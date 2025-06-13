@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import DAO.SaleDAO;
+import DTO.AccountDto;
 import beans.Sale;
 
 /**
@@ -40,6 +41,10 @@ public class DashboardServlet extends HttpServlet {
 		    response.sendRedirect("login.jsp"); // 未ログインならログインページにリダイレクト
 		    return;
 		}
+		
+		// user情報からauthority取得
+		AccountDto loginUser = (AccountDto) session.getAttribute("user");
+		int authority = loginUser.getAuth(); // int型（0〜3）
 
 		try {
 			//SaleDAOを使ってデータを取得
@@ -48,7 +53,8 @@ public class DashboardServlet extends HttpServlet {
 			
 			//JSPにデータを渡す
 			request.setAttribute("sales", sales);
-			request.getRequestDispatcher("/Dashboard.jsp").forward(request, response);
+			request.setAttribute("authority", authority);
+			request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
 		}catch(Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "売上データの取得中にエラーが発生しました。");

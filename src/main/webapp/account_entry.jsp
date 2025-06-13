@@ -13,71 +13,103 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
-<link rel="stylesheet" href="css/dashboard.css" type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/formLabel.css"
+	type="text/css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div class="container mt-5 d-flex justify-content-center">
-
-		<div class="w-50" style="max-width: 600px;">
+	<div class="container mt-5">
+		<div class="mx-auto w-100" style="max-width: 800px;">
 			<h2 class="mb-4">アカウント登録</h2>
 
 			<!--登録フォーム-->
-			<form method="post" action="${pageContext.request.contextPath}/account/entry.html"
+			<form method="post"
+				action="${pageContext.request.contextPath}/account/entry.html"
 				onsubmit="return validateForm()">
 
 				<!--氏名-->
-				<div class="mb-3">
-					<label class="form-label">氏名</label> <span
-						class="badge text-bg-secondary">必須</span> <input type="text"
-						name="name" class="form-control" placeholder="氏名"
-						value="${sessionScope.accountData.name }" />
-					<div id="error-name" class="text-danger"></div>
+				<div class="form-row">
+					<div class="form-label-col">
+						<div class="label-box">
+							<label class="form-label label-box">氏名</label><span
+								class="badge text-bg-secondary">必須</span> </span>
+						</div>
+					</div>
+					<div class="form-input-col">
+						<input type="text" name="name" class="form-control"
+							placeholder="氏名" value="${sessionScope.accountData.name }" />
+						<div id="error-name" class="text-danger"></div>
+					</div>
 				</div>
 
 				<!--メールアドレス-->
-				<div class="mb-3">
-					<label class="form-label">メールアドレス</label> <span
-						class="badge text-bg-secondary">必須</span> <input type="email"
-						name="mail" class="form-control" placeholder="メールアドレス"
-						value="${sessionScope.accountData.mail }" />
-					<div id="error-mail" class="text-danger"></div>
+				<div class="form-row">
+					<div class="form-label-col">
+						<div class="label-box">
+							<label class="form-label label-box">メールアドレス</label><span
+								class="badge text-bg-secondary">必須</span> </span>
+						</div>
+					</div>
+					<div class="form-input-col">
+						<input type="email" name="mail" class="form-control"
+							placeholder="メールアドレス" value="${sessionScope.accountData.mail }" />
+						<div id="error-mail" class="text-danger"></div>
+					</div>
 				</div>
 
 				<!--パスワード-->
-				<div class="mb-3">
-					<label class="form-label">パスワード</label> <span
-						class="badge text-bg-secondary">必須</span> <input type="password"
-						name="password" class="form-control" placeholder="パスワード" />
-					<div id="error-password" class="text-danger"></div>
+				<div class="form-row">
+					<div class="form-label-col">
+						<div class="label-box">
+							<label class="form-label mb-0 me-1">パスワード</label> <span
+								class="badge text-bg-secondary">必須</span> </span>
+						</div>
+					</div>
+					<div class="form-input-col">
+						<input type="password" name="password" class="form-control"
+							placeholder="パスワード" />
+						<div id="error-password" class="text-danger"></div>
+					</div>
 				</div>
 
 				<!--パスワード確認-->
-				<div class="mb-3">
-					<label class="form-label">パスワード確認</label> <span
-						class="badge text-bg-secondary">必須</span> <input type="password"
-						name="passConfirm" class="form-control" placeholder="パスワード（確認）" />
-					<div id="error-confirm" class="text-danger"></div>
+				<div class="form-row">
+					<div class="form-label-col">
+						<div class="label-box">
+							<label class="form-label mb-0 me-1">パスワード確認</label> <span
+								class="badge text-bg-secondary">必須</span> </span>
+						</div>
+					</div>
+					<div class="form-input-col">
+						<input type="password" name="passConfirm" class="form-control"
+							placeholder="パスワード（確認）" />
+						<div id="error-confirm" class="text-danger"></div>
+					</div>
 				</div>
 
 				<!--権限-->
-				<div class="mb-3 d-flex align-items-center flex-wrap gap-3">
-					<label class="form-label mb-0 me-2 d-flex align-items-center">
-						権限 <span class="badge text-bg-secondary ms-2">必須</span>
-					</label>
-					<div class="d-flex gap-3 flex-wrap">
-
-						<label class="d-flex align-items-center gap-1"> <input
-							type="checkbox" id="authNone" name="auth" value="0"
-							<c:if test="${ hasNoneAuth }">checked</c:if> /> 権限なし
-						</label> <label class="d-flex align-items-center gap-1"> <input
-							type="checkbox" id="authSales" name="auth" value="1"
-							<c:if test="${ hasSalesAuth }">checked</c:if> /> 売上登録
-						</label> <label class="d-flex align-items-center gap-1"> <input
-							type="checkbox" id="authAccount" name="auth" value="2"
-							<c:if test="${ hasAccountAuth }">checked</c:if> /> アカウント登録
-						</label>
+				<div class="form-row">
+					<div class="form-label-col">
+						<div class="label-box">
+							<label class="form-label mb-0 me-2 d-flex align-items-center">
+								権限</label> <span class="badge text-bg-secondary ms-2">必須</span>
+						</div>
+					</div>
+					<div class="form-input-col">
+						<div class="checkbox-group">
+							<label class="form-check-label"> <input type="checkbox"
+								id="authNone" name="auth" value="0"
+								<c:if test="${ hasNoneAuth }">checked</c:if> /> 権限なし
+							</label> <label class="form-check-label"> <input type="checkbox"
+								id="authSales" name="auth" value="1"
+								<c:if test="${ hasSalesAuth }">checked</c:if> /> 売上登録
+							</label> <label class="form-check-label"> <input type="checkbox"
+								id="authAccount" name="auth" value="2"
+								<c:if test="${ hasAccountAuth }">checked</c:if> /> アカウント登録
+							</label>
+						</div>
 					</div>
 				</div>
 
@@ -146,7 +178,6 @@
 
 						errorPassword.textContent = "";
 						errorConfirm.textContent = "";
-
 
 						let valid = true;
 

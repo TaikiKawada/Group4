@@ -4,10 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import DAO.AccountDao;
 import DTO.AccountDto;
 import utils.Db;
 
 public class AccountService {
+	private AccountDao dao = new AccountDao();
+	
+	// アカウント登録
 	public void signup(AccountDto obj) {
 		String sql = "insert into accounts (name, mail, password, authority) values (?, ?, ?, ?)";
 		
@@ -21,7 +25,6 @@ public class AccountService {
 			ps.setString(3, obj.getPassword());
 			ps.setInt(4, obj.getAuth());
 			
-			
 			ps.executeUpdate();
 			
 		}catch(SQLException e){
@@ -30,4 +33,6 @@ public class AccountService {
 			e.printStackTrace();
 		}
 	}
+
 }
+
