@@ -26,13 +26,15 @@
 
 				<div class="mb-3">
 					<label class="form-label">担当</label> <span
-						class="badge text-bg-secondary">必須</span> <select name="staff"
-						class="form-select" required>
-						<option value="">選択してください</option>
-						<c:forEach var="staff" items="${staffList}">
-							<option value="${staff}">${staff}</option>
-						</c:forEach>
-					</select>
+						class="badge text-bg-secondary">必須</span> <select name="staff" class="form-select" required>
+    <option value="">選択してください</option>
+    <c:forEach var="staff" items="${staffList}">
+        <option value="${staff.id}">${staff.name}</option>
+    </c:forEach>
+</select>
+
+
+
 				</div>
 
 
@@ -51,7 +53,7 @@
 				<div class="mb-3">
 					<label class="form-label">商品名</label> <span
 						class="badge text-bg-secondary">必須</span> <input type="text"
-						name="productName" class="form-control" required>
+						name="tradeName" class="form-control" required>
 				</div>
 
 				<div class="mb-3">
@@ -63,12 +65,12 @@
 				<div class="mb-3">
 					<label class="form-label">個数</label> <span
 						class="badge text-bg-secondary">必須</span> <input type="number"
-						name="quantity" class="form-control" required>
+						name="saleNumber" class="form-control" required>
 				</div>
 
 				<div class="mb-3">
 					<label class="form-label">備考</label>
-					<textarea name="remarks" class="form-control" rows="3"></textarea>
+					<textarea name="note" class="form-control" rows="3"></textarea>
 				</div>
 
 				<div class="text-end mt-4">

@@ -6,28 +6,34 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import DTO.AccountDto;
 import utils.Db;
 
 public class AccountDao {
-	public static List<String> getAllAccounts() {
-		List<String> list = new ArrayList<>();
+	public static List<Map<String, String>> getAllAccounts() {
+	    List<Map<String, String>> list = new ArrayList<>();
 
-		try (Connection conn = Db.getConnection();
-				PreparedStatement stmt = conn.prepareStatement("SELECT name FROM accounts");
-				ResultSet rs = stmt.executeQuery()) {
+	    try (Connection conn = Db.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement("SELECT account_id, name FROM accounts");
+	         ResultSet rs = stmt.executeQuery()) {
 
-			while (rs.next()) {
-				list.add(rs.getString("name"));
-			}
+	        while (rs.next()) {
+	            Map<String, String> map = new java.util.HashMap<>();
+	            map.put("id", String.valueOf(rs.getInt("account_id")));
+	            map.put("name", rs.getString("name"));
+	            list.add(map);
+	        }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 
-		return list;
+	    return list;
 	}
+
+
 
 	public ArrayList<AccountDto> searchAccounts(String name, String mail, List<Integer> authList) {
 		ArrayList<AccountDto> resultList = new ArrayList<>();

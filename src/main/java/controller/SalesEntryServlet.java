@@ -29,19 +29,20 @@ public class SalesEntryServlet extends HttpServlet {
         String salesDate = request.getParameter("salesDate");
         String staff = request.getParameter("staff");
         String category = request.getParameter("category");
-        String productName = request.getParameter("productName");
+        String tradeName = request.getParameter("tradeName");
         String unitPrice = request.getParameter("unitPrice");
-        String quantity = request.getParameter("quantity");
-        String remarks = request.getParameter("remarks");
+        String saleNumber = request.getParameter("saleNumber");
+        String note = request.getParameter("note");
 
         // 値をリクエストスコープに格納
         request.setAttribute("salesDate", salesDate);
         request.setAttribute("staff", staff);
         request.setAttribute("category", category);
-        request.setAttribute("productName", productName);
+        request.setAttribute("tradeName", tradeName);
+        
         request.setAttribute("unitPrice", unitPrice);
-        request.setAttribute("quantity", quantity);
-        request.setAttribute("remarks", remarks);
+        request.setAttribute("saleNumber", saleNumber);
+        request.setAttribute("note", note);
 
         // 確認画面へフォワード
         RequestDispatcher dispatcher = request.getRequestDispatcher("sales_entry_confirm.jsp");
@@ -52,7 +53,7 @@ public class SalesEntryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<String> staffList = DAO.AccountDao.getAllAccounts();
+        List<Map<String, String>> staffList = DAO.AccountDao.getAllAccounts();
         List<Map<String, String>> categoryList = DAO.CategoryDAO.getActiveCategories();
 
         request.setAttribute("staffList", staffList);
@@ -60,5 +61,6 @@ public class SalesEntryServlet extends HttpServlet {
 
         request.getRequestDispatcher("sales_entry.jsp").forward(request, response);
     }
+
 
 }

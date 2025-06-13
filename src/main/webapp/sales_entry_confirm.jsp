@@ -17,10 +17,10 @@
 				<tr><th>販売日</th><td>${salesDate}</td></tr>
 				<tr><th>担当</th><td>${staff}</td></tr>
 				<tr><th>商品カテゴリー</th><td>${category}</td></tr>
-				<tr><th>商品名</th><td>${productName}</td></tr>
+				<tr><th>商品名</th><td>${tradeName}</td></tr>
 				<tr><th>単価</th><td>${unitPrice} 円</td></tr>
-				<tr><th>個数</th><td>${quantity}</td></tr>
-				<tr><th>備考</th><td>${remarks}</td></tr>
+				<tr><th>個数</th><td>${saleNumber}</td></tr>
+				<tr><th>備考</th><td>${note}</td></tr>
 			</table>
 
 			<!-- 登録処理へ送る hidden フォーム -->
@@ -28,10 +28,10 @@
 				<input type="hidden" name="salesDate" value="${salesDate}" />
 				<input type="hidden" name="staff" value="${staff}" />
 				<input type="hidden" name="category" value="${category}" />
-				<input type="hidden" name="productName" value="${productName}" />
+				<input type="hidden" name="tradeName" value="${tradeName}" />
 				<input type="hidden" name="unitPrice" value="${unitPrice}" />
-				<input type="hidden" name="quantity" value="${quantity}" />
-				<input type="hidden" name="remarks" value="${remarks}" />
+				<input type="hidden" name="saleNumber" value="${saleNumber}" />
+				<input type="hidden" name="note" value="${note}" />
 
 				<div class="text-end">
 					<button class="btn btn-success">この内容で登録</button>
