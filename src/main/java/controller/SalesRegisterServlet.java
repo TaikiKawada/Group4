@@ -30,20 +30,20 @@ public class SalesRegisterServlet extends HttpServlet {
         String salesDate = request.getParameter("salesDate");
         int accountId = Integer.parseInt(request.getParameter("staff"));
         int categoryId = Integer.parseInt(request.getParameter("category"));
-        String productName = request.getParameter("productName");
+        String tradeName = request.getParameter("tradeName");
         int unitPrice = Integer.parseInt(request.getParameter("unitPrice"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        String remarks = request.getParameter("remarks");
+        int saleNumber = Integer.parseInt(request.getParameter("saleNumber"));
+        String note = request.getParameter("note");
 
         // DTOにまとめる
         SalesDto dto = new SalesDto(
             salesDate,
             accountId,
             categoryId,
-            productName,
+            tradeName,
             unitPrice,
-            quantity,
-            remarks
+            saleNumber,
+            note
         );
 
         // DAOを呼び出してDBに登録

@@ -6,28 +6,34 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import DTO.AccountDto;
 import utils.Db;
 
 public class AccountDao {
-	public static List<String> getAllAccounts() {
-		List<String> list = new ArrayList<>();
+	public static List<Map<String, String>> getAllAccounts() {
+	    List<Map<String, String>> list = new ArrayList<>();
 
-		try (Connection conn = Db.getConnection();
-				PreparedStatement stmt = conn.prepareStatement("SELECT name FROM accounts");
-				ResultSet rs = stmt.executeQuery()) {
+	    try (Connection conn = Db.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement("SELECT account_id, name FROM accounts");
+	         ResultSet rs = stmt.executeQuery()) {
 
-			while (rs.next()) {
-				list.add(rs.getString("name"));
-			}
+	        while (rs.next()) {
+	            Map<String, String> map = new java.util.HashMap<>();
+	            map.put("id", String.valueOf(rs.getInt("account_id")));
+	            map.put("name", rs.getString("name"));
+	            list.add(map);
+	        }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 
-		return list;
+	    return list;
 	}
+
+
 
 	public ArrayList<AccountDto> searchAccounts(String name, String mail, List<Integer> authList) {
 		ArrayList<AccountDto> resultList = new ArrayList<>();
@@ -58,13 +64,13 @@ public class AccountDao {
 			}
 
 			if (containsZero && requiredBits == 0) {
-				sql.append("and cast(authority as unsigned) = 0");
+				sql.append(" and cast(authority as unsigned) = 0");
 			} else if (containsZero) {
-				sql.append("and (cast(authority as unsigned) = 0 or (cast(authority as unsigned) & ?) = ?)");
+				sql.append(" and (cast(authority as unsigned) = 0 or (cast(authority as unsigned) & ?) = ?)");
 				params.add(requiredBits);
 				params.add(requiredBits);
 			} else {
-				sql.append("and (cast(authority as unsigned) & ?) = ?");
+				sql.append(" and (cast(authority as unsigned) & ?) = ?");
 				params.add(requiredBits);
 				params.add(requiredBits);
 			}
@@ -75,22 +81,22 @@ public class AccountDao {
 		System.out.println("パラメータ: " + params);
 
 		try (
-			Connection conn = Db.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+				Connection conn = Db.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql.toString())) {
 
-			for(int i = 0; i < params.size(); i++) {
-				stmt.setObject(i + 1, params.get(i));
+			for (int i = 0; i < params.size(); i++) {
+				ps.setObject(i + 1, params.get(i));
 			}
-			
-			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
 				AccountDto ad = new AccountDto(
-					rs.getInt("account_id"),
-					rs.getString("name"),
-					rs.getString("mail"),
-					rs.getInt("authority"));
+						rs.getInt("account_id"),
+						rs.getString("name"),
+						rs.getString("mail"),
+						rs.getInt("authority"));
 				resultList.add(ad);
-			}		
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -99,4 +105,33 @@ public class AccountDao {
 
 		return resultList;
 	}
+
+	public AccountDto findById(int accountId) {
+		String sql = "select * from accounts where account_id = ?";
+		AccountDto account = new AccountDto();
+		
+		try (
+				Connection con = Db.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);
+			) {
+			
+			ps.setInt(1, accountId);
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+						account.setName(rs.getString("name"));
+						account.setMail(rs.getString("mail"));
+						account.setPassword(rs.getString("password"));
+						account.setAuth(rs.getInt("authority"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return account;
+	}
+
 }
