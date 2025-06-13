@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,31 +11,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import DAO.SaleDAO;
-import DTO.SalesDto;
+import DAO.AccountDao;
+import DAO.CategoryDAO;
 
 @WebServlet("/SalesSearchServlet")
 public class SalesSearchServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public SalesSearchServlet() {
-        super();
-    }
-
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
+        List<Map<String, String>> staffList = AccountDao.getAllAccounts();
+        List<Map<String, String>> categoryList = CategoryDAO.getActiveCategories();
 
-        String keyword = request.getParameter("keyword");
+        request.setAttribute("staffList", staffList);
+        request.setAttribute("categoryList", categoryList);
 
-        // DAOで検索
-        List<SalesDto> results = SaleDAO.searchByProductName(keyword);
-
-        // JSPへ渡す
-        request.setAttribute("resultList", results);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("sales_search_result.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("sales_search_form.jsp");
         dispatcher.forward(request, response);
     }
 }
+

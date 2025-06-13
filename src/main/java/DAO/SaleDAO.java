@@ -100,5 +100,66 @@ public class SaleDAO {
 
         return list;
     }
+    
+    public static List<SalesDto> searchSales(String fromDate, String toDate, String staff, String category, String tradeName, String note) {
+        List<SalesDto> list = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM sales WHERE 1=1");
+        List<Object> params = new ArrayList<>();
+
+        if (fromDate != null && !fromDate.isEmpty()) {
+            sql.append(" AND sale_date >= ?");
+            params.add(fromDate);
+        }
+        if (toDate != null && !toDate.isEmpty()) {
+            sql.append(" AND sale_date <= ?");
+            params.add(toDate);
+        }
+        if (staff != null && !staff.isEmpty()) {
+            sql.append(" AND account_id = ?");
+            params.add(Integer.parseInt(staff));
+        }
+        if (category != null && !category.isEmpty()) {
+            sql.append(" AND category_id = ?");
+            params.add(Integer.parseInt(category));
+        }
+        if (tradeName != null && !tradeName.isEmpty()) {
+            sql.append(" AND trade_name LIKE ?");
+            params.add("%" + tradeName + "%");
+        }
+        if (note != null && !note.isEmpty()) {
+            sql.append(" AND note LIKE ?");
+            params.add("%" + note + "%");
+        }
+
+        try (Connection conn = Db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                SalesDto dto = new SalesDto(
+                    rs.getInt("sale_id"),
+                    rs.getString("sale_date"),
+                    rs.getInt("account_id"),
+                    rs.getInt("category_id"),
+                    rs.getString("trade_name"),
+                    rs.getInt("unit_price"),
+                    rs.getInt("sale_number"),
+                    rs.getString("note")
+                );
+                list.add(dto);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    
 
 }

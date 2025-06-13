@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,13 +15,12 @@ import utils.Db;
 public class AccountDao {
 	public static List<Map<String, String>> getAllAccounts() {
 	    List<Map<String, String>> list = new ArrayList<>();
-
 	    try (Connection conn = Db.getConnection();
 	         PreparedStatement stmt = conn.prepareStatement("SELECT account_id, name FROM accounts");
 	         ResultSet rs = stmt.executeQuery()) {
 
 	        while (rs.next()) {
-	            Map<String, String> map = new java.util.HashMap<>();
+	            Map<String, String> map = new HashMap<>();
 	            map.put("id", String.valueOf(rs.getInt("account_id")));
 	            map.put("name", rs.getString("name"));
 	            list.add(map);
@@ -29,9 +29,9 @@ public class AccountDao {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-
 	    return list;
 	}
+
 
 
 
