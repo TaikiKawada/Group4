@@ -27,7 +27,7 @@
 					<span class="badge text-bg-secondary">必須</span>
 					<input type="text" name="mail" class="form-control" id="email" 
 					placeholder="メールアドレス" required>
-					<div class="invalid-feedback">メールアドレスを入力してください。</div>
+
 					<small>例：user@example.com</small>
 					<c:if test="${not empty emailError}">
 						<div class="text-danger">${emailError}</div>
@@ -41,6 +41,7 @@
 					
 					<input type="password" name="password" class="form-control" id="password"
 						placeholder="パスワード" required>
+					
 						<small>8文字以上であり、大文字・数字・小文字・記号を含める必要があります</small>
 						</div>	
 					<!-- パスワード表示切替ボタン -->

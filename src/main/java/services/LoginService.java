@@ -15,72 +15,64 @@ import utils.Db;
 
 public class LoginService {
 
-    // 最大試行回数5回
-    private static final int MAX_ATTEMPTS = 5;
+
 
     public boolean authenticate(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-     
-
-        // セッションから試行回数を取得（初期値は0）
-        Integer failCount = (Integer) session.getAttribute("loginAttempts");
-        if (failCount == null) {
-            failCount = 0;
-        }
-        //ログイン失敗回数の確認
-        if (failCount >= MAX_ATTEMPTS) {
-            request.setAttribute("error", "ログイン試行回数が上限に達しました。しばらく時間をおいて再試行してください。");
-            return false;
-        }
-        
-        //入力値を取得
         String email = request.getParameter("mail");
         String password = request.getParameter("password");
-
-        //入力形式が正しくなかった場合、コンソールに出力
+        
+     // 入力検証
         if (!validateInputs(request, email, password)) {
-            System.out.println("入力検証失敗");
             return false;
         }
 
-        // 認証処理（DBチェック）
-        if (authenticateUser(request, email, password)) {
-            session.removeAttribute("loginAttempts"); // 成功したらリセット
-            return true;
-        } else {
-            // 認証失敗時、失敗回数をカウントしてメッセージを出す
-            session.setAttribute("loginAttempts", failCount + 1);
-            request.setAttribute("error", "ログインに失敗しました。再度お試しください。");
-            return false;
-        }
+        // 認証処理
+        return authenticateUser(request, email, password);
     }
 
     //入力されたデータが、正しい形式に合致しているかチェックし、エラーを防止するメソッド
     private boolean validateInputs(HttpServletRequest request, String email, String password) {
         boolean isValid = true;
-
-    //入力したメールアドレスの形式が正しいか
-    if (!isValidEmail(email)) {
+        
+        // 1-3 メールアドレスの形式チェック
+        if (!isValidEmail(email)) {
             request.setAttribute("emailError", "メールアドレスを正しく入力してください。");
-            System.out.println("入力エラー：メールアドレス形式不正");
+//            System.out.println("入力エラー：メールアドレス形式不正");
             isValid = false;
         }
-    // パスワードの未入力チェック
-    if (password == null || password.isEmpty()) {
-        request.setAttribute("passwordError", "パスワードは必須です。");
-        isValid = false;
-    }
-    //入力されたパスワードの形式が正しいか
-    if (!isValidPassword(password)) {
-            request.setAttribute("passwordError", "有効なパスワードを入力してください。");
-            System.out.println("入力エラー：パスワード形式不正");
+        
+        // 1-1 メールアドレス必須入力チェック
+        if (email == null || email.isEmpty()) {
+            request.setAttribute("emailError", "メールアドレスが未入力です。");
+//            System.out.println("入力エラー：メールアドレスが未入力です。");
             isValid = false;
+        }
+        
+        // 1-2 メールアドレスの長さチェック
+        if (!isValidEmailLength(email)) {
+            request.setAttribute("emailError", "メールアドレスが長すぎます。");
+//            System.out.println("入力エラー：メールアドレスが長すぎます。");
+            isValid = false;
+        }
+        
+     // 1-5 パスワードの長さチェック
+        if (!isValidPasswordLength(password)) {
+            request.setAttribute("passwordError", "パスワードが長すぎます。");
+//            System.out.println("入力エラー：パスワードが長すぎます。");
+            isValid = false;
+        }
+        
+         // 1-4 パスワード必須入力チェック
+        if (password == null || password.isEmpty()) {
+        	request.setAttribute("passwordError", "パスワードが未入力です。");
+//        	System.out.println("入力エラー：パスワードが未入力です。");
+        	isValid = false;
         }
 
         return isValid;
     }
 
-    // メールアドレス形式チェック
+    // メールアドレス形式チェックメソッド
     private boolean isValidEmail(String email) {
     	if(email == null)return false;
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -88,13 +80,34 @@ public class LoginService {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-    //パスワード形式チェック
-    private boolean isValidPassword(String password) {
-    	if(password == null)return false;
-        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,30}$\r\n";
-        Pattern pattern = Pattern.compile(passwordRegex);
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
+   
+    //メールアドレス長さチェックメソッド
+    private boolean isValidEmailLength(String email) {
+        if (email == null) return false;
+        try {
+            int byteLength = email.getBytes("UTF-8").length;
+            return byteLength <= 101;
+        } catch (java.io.UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    //パスワード長さチェックメソッド
+    private boolean isValidPasswordLength(String password) {
+    	 if (password == null) return false;
+
+    	    try {
+    	        // パスワードのバイト長を取得（UTF-8エンコード想定）
+    	        int byteLength = password.getBytes("UTF-8").length;
+
+    	        // 1文字以上かつ30バイト以内かをチェック
+    	        return byteLength > 0 && byteLength <= 30;
+    	    } catch (java.io.UnsupportedEncodingException e) {
+    	        // UTF-8がサポートされていない場合はfalse
+    	        e.printStackTrace();
+    	        return false;
+    	    }
     }
     
 
