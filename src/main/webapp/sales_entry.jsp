@@ -1,83 +1,126 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>売上登録</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet" />
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<meta charset="UTF-8">
+	<title>売上登録</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div class="container mt-5 d-flex justify-content-center">
-		<div class="w-50" style="max-width: 600px;">
-			<h2 class="mb-4 text-center">売上登録</h2>
 
-			<form action="SalesEntryServlet" method="post">
-				<div class="mb-3">
-					<label class="form-label">販売日</label> <span
-						class="badge text-bg-secondary">必須</span> <input type="date"
-						name="salesDate" class="form-control" required>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="DashboardServlet">ダッシュボード</a>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav me-auto">
+				<c:if test="${authority == 1 || authority == 3}">
+					<li class="nav-item"><a class="nav-link" href="sales_entry.jsp">売上登録</a></li>
+				</c:if>
+				<li class="nav-item"><a class="nav-link" href="sales_search_form.jsp">売上検索</a></li>
+				<c:if test="${authority == 2 || authority == 3}">
+					<li class="nav-item"><a class="nav-link" href="account_entry.jsp">アカウント登録</a></li>
+				</c:if>
+				<li class="nav-item"><a class="nav-link" href="AccountSerchFormServlet">アカウント検索</a></li>
+			</ul>
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item"><a class="nav-link btn btn-outline-light px-3 py-1" href="login">ログアウト</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container mt-5 pt-5 d-flex justify-content-center">
+	<div class="w-50" style="max-width: 600px;">
+		<h2 class="mb-4 text-start">売上登録</h2>
+
+		<form action="SalesEntryServlet" method="post">
+
+			<!-- 販売日 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">
+					販売日 <span class="badge bg-secondary">必須</span>
+				</label>
+				<div class="col-sm-8">
+					<input type="date" name="salesDate" class="form-control" required>
 				</div>
+			</div>
 
-				<div class="mb-3">
-					<label class="form-label">担当</label> <span
-						class="badge text-bg-secondary">必須</span> <select name="staff" class="form-select" required>
-    <option value="">選択してください</option>
-    <c:forEach var="staff" items="${staffList}">
-        <option value="${staff.id}">${staff.name}</option>
-    </c:forEach>
-</select>
-
-
-
+			<!-- 担当 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">
+					担当 <span class="badge bg-secondary">必須</span>
+				</label>
+				<div class="col-sm-8">
+					<select name="staff" class="form-select" required>
+						<option value="">選択してください</option>
+						<c:forEach var="staff" items="${staffList}">
+							<option value="${staff.id}">${staff.name}</option>
+						</c:forEach>
+					</select>
 				</div>
+			</div>
 
-
-				<div class="mb-3">
-					<label class="form-label">商品カテゴリー</label> <span
-						class="badge text-bg-secondary">必須</span> <select name="category"
-						class="form-select" required>
+			<!-- 商品カテゴリー -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">
+					商品カテゴリー <span class="badge bg-secondary">必須</span>
+				</label>
+				<div class="col-sm-8">
+					<select name="category" class="form-select" required>
 						<option value="">選択してください</option>
 						<c:forEach var="cat" items="${categoryList}">
 							<option value="${cat.id}">${cat.name}</option>
 						</c:forEach>
 					</select>
 				</div>
+			</div>
 
-
-				<div class="mb-3">
-					<label class="form-label">商品名</label> <span
-						class="badge text-bg-secondary">必須</span> <input type="text"
-						name="tradeName" class="form-control" required>
+			<!-- 商品名 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">
+					商品名 <span class="badge bg-secondary">必須</span>
+				</label>
+				<div class="col-sm-8">
+					<input type="text" name="tradeName" class="form-control" required>
 				</div>
+			</div>
 
-				<div class="mb-3">
-					<label class="form-label">単価</label> <span
-						class="badge text-bg-secondary">必須</span> <input type="number"
-						name="unitPrice" class="form-control" required>
+			<!-- 単価 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">
+					単価 <span class="badge bg-secondary">必須</span>
+				</label>
+				<div class="col-sm-8">
+					<input type="number" name="unitPrice" class="form-control" required>
 				</div>
+			</div>
 
-				<div class="mb-3">
-					<label class="form-label">個数</label> <span
-						class="badge text-bg-secondary">必須</span> <input type="number"
-						name="saleNumber" class="form-control" required>
+			<!-- 個数 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">
+					個数 <span class="badge bg-secondary">必須</span>
+				</label>
+				<div class="col-sm-8">
+					<input type="number" name="saleNumber" class="form-control" required>
 				</div>
+			</div>
 
-				<div class="mb-3">
-					<label class="form-label">備考</label>
+			<!-- 備考 -->
+			<div class="mb-3 row">
+				<label class="col-sm-4 col-form-label text-end">備考</label>
+				<div class="col-sm-8">
 					<textarea name="note" class="form-control" rows="3"></textarea>
 				</div>
+			</div>
 
-				<div class="text-end mt-4">
-					<button class="btn btn-primary" type="submit">登録</button>
-				</div>
-			</form>
-		</div>
+			<div class="text-center mt-4">
+				<button class="btn btn-primary" type="submit">✔ 登録</button>
+			</div>
+		</form>
 	</div>
+</div>
+
 </body>
 </html>
