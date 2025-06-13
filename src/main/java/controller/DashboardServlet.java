@@ -34,7 +34,7 @@ public class DashboardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//セッションチェック//不要かもです
+		//セッションチェック
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession(false);
 		if (session == null || session.getAttribute("user") == null) {//個々の"user"はsession.setAttribute("user", loginUser);で確認
