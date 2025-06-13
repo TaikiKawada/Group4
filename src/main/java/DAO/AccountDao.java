@@ -64,13 +64,13 @@ public class AccountDao {
 			}
 
 			if (containsZero && requiredBits == 0) {
-				sql.append("and cast(authority as unsigned) = 0");
+				sql.append(" and cast(authority as unsigned) = 0");
 			} else if (containsZero) {
-				sql.append("and (cast(authority as unsigned) = 0 or (cast(authority as unsigned) & ?) = ?)");
+				sql.append(" and (cast(authority as unsigned) = 0 or (cast(authority as unsigned) & ?) = ?)");
 				params.add(requiredBits);
 				params.add(requiredBits);
 			} else {
-				sql.append("and (cast(authority as unsigned) & ?) = ?");
+				sql.append(" and (cast(authority as unsigned) & ?) = ?");
 				params.add(requiredBits);
 				params.add(requiredBits);
 			}
@@ -81,22 +81,22 @@ public class AccountDao {
 		System.out.println("パラメータ: " + params);
 
 		try (
-			Connection conn = Db.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+				Connection conn = Db.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql.toString())) {
 
-			for(int i = 0; i < params.size(); i++) {
-				stmt.setObject(i + 1, params.get(i));
+			for (int i = 0; i < params.size(); i++) {
+				ps.setObject(i + 1, params.get(i));
 			}
-			
-			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
 				AccountDto ad = new AccountDto(
-					rs.getInt("account_id"),
-					rs.getString("name"),
-					rs.getString("mail"),
-					rs.getInt("authority"));
+						rs.getInt("account_id"),
+						rs.getString("name"),
+						rs.getString("mail"),
+						rs.getInt("authority"));
 				resultList.add(ad);
-			}		
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -105,4 +105,33 @@ public class AccountDao {
 
 		return resultList;
 	}
+
+	public AccountDto findById(int accountId) {
+		String sql = "select * from accounts where account_id = ?";
+		AccountDto account = new AccountDto();
+		
+		try (
+				Connection con = Db.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);
+			) {
+			
+			ps.setInt(1, accountId);
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+						account.setName(rs.getString("name"));
+						account.setMail(rs.getString("mail"));
+						account.setPassword(rs.getString("password"));
+						account.setAuth(rs.getInt("authority"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return account;
+	}
+
 }

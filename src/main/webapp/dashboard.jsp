@@ -16,7 +16,7 @@
 	<!-- ナビゲーションバー -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed-top">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="DashboardServlet">ダッシュボード</a>
+			<a class="navbar-brand" href="Dashboard">ダッシュボード</a>
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav me-auto">
 					<!-- 売上登録：権限 1 または 3 -->
@@ -35,11 +35,11 @@
 					</c:if>
 
 					<li class="nav-item"><a class="nav-link"
-						href="AccountSerchFormServlet">アカウント検索</a></li>
+						href="AccountSearchFormServlet">アカウント検索</a></li>
 				</ul>
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a
-						class="nav-link btn btn-outline-light px-3 py-1" href=login>ログアウト</a>
+						class="nav-link btn btn-outline-light px-3 py-1" href="login">ログアウト</a>
 					</li>
 				</ul>
 			</div>

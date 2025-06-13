@@ -52,7 +52,7 @@
 						</div>
 					</div>
 					<div class="form-input-col">
-						<input type="email" name="mail" class="form-control"
+						<input type="text" name="mail" class="form-control"
 							placeholder="メールアドレス" />
 						<div id="error-mail" class="text-danger"></div>
 					</div>

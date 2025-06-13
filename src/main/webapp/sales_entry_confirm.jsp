@@ -9,6 +9,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed-top">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="DashboardServlet">ダッシュボード</a>
@@ -31,6 +32,7 @@
 	</nav>
 
 	<div class="container mt-5 pt-5 d-flex justify-content-center">
+
 		<div class="w-50" style="max-width: 600px;">
 			<h2 class="mb-4 text-start">売上登録確認</h2>
 
