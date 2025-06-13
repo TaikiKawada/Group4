@@ -123,6 +123,7 @@
 					<input type="hidden" name="auth" value="2" />
 				</c:if>
 
+				<!--ボタン-->
 				<div class="text-end mt-4">
 					<button type="submit" class="btn btn-primary">登録</button>
 					<a href="${pageContext.request.contextPath}/account/entry.html"

@@ -22,20 +22,20 @@
 					<!-- 売上登録：権限 1 または 3 -->
 					<c:if test="${authority == 1 || authority == 3}">
 						<li class="nav-item"><a class="nav-link"
-							href="sales_entry.jsp">売上登録</a></li>
+							href="SalesEntryServlet">売上登録</a></li>
 					</c:if>
 
 					<li class="nav-item"><a class="nav-link"
-						href="sales_search_form.jsp">売上検索</a></li>
+						href="SalesSearchServlet">売上検索</a></li>
 
 					<!-- アカウント登録：権限 2 または 3 -->
 					<c:if test="${authority == 2 || authority == 3}">
 						<li class="nav-item"><a class="nav-link"
-							href="account_entry.jsp">アカウント登録</a></li>
+							href="account/entry.html">アカウント登録</a></li>
 					</c:if>
 
 					<li class="nav-item"><a class="nav-link"
-						href="AccountSearchFormServlet">アカウント検索</a></li>
+						href="account/search.html">アカウント検索</a></li>
 				</ul>
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a
