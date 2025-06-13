@@ -39,7 +39,7 @@
 				</ul>
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a
-						class="nav-link btn btn-outline-light px-3 py-1" href=ログイン画面>ログアウト</a>
+						class="nav-link btn btn-outline-light px-3 py-1" href=login>ログアウト</a>
 					</li>
 				</ul>
 			</div>
