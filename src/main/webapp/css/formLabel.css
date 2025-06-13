@@ -19,13 +19,28 @@
 /* ラベル側の調整 */
 .form-label-col {
 	width: 20%;
-	min-width: 100px;
+	min-width: 120px;
+	text-align: right;
+	padding-right: 0.5rem;
+}
+
+.form-badge-col {
+	width: 4rem;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
 }
 
 /* 入力欄側 */
 .form-input-col {
-  width: 80%;
+  flex: 1;
 }
+
+.badge {
+	line-height: 1.5;
+	font-size: 0.8rem;
+}
+
 
 
 /* スマホ向け（画面が768px以下） */

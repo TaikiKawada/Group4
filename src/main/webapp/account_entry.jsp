@@ -32,10 +32,10 @@
 				<!--氏名-->
 				<div class="form-row">
 					<div class="form-label-col">
-						<div class="label-box">
-							<label class="form-label label-box">氏名</label><span
-								class="badge text-bg-secondary">必須</span> </span>
-						</div>
+						<label class="form-label label-box">氏名</label>
+					</div>
+					<div class="form-badge-col">
+						<span class="badge text-bg-secondary">必須</span>
 					</div>
 					<div class="form-input-col">
 						<input type="text" name="name" class="form-control"
@@ -47,10 +47,10 @@
 				<!--メールアドレス-->
 				<div class="form-row">
 					<div class="form-label-col">
-						<div class="label-box">
-							<label class="form-label label-box">メールアドレス</label><span
-								class="badge text-bg-secondary">必須</span> </span>
-						</div>
+						<label class="form-label label-box">メールアドレス</label>
+					</div>
+					<div class="form-badge-col">
+						<span class="badge text-bg-secondary">必須</span>
 					</div>
 					<div class="form-input-col">
 						<input type="email" name="mail" class="form-control"
@@ -62,11 +62,12 @@
 				<!--パスワード-->
 				<div class="form-row">
 					<div class="form-label-col">
-						<div class="label-box">
-							<label class="form-label mb-0 me-1">パスワード</label> <span
-								class="badge text-bg-secondary">必須</span> </span>
-						</div>
+						<label class="form-label label-box">パスワード</label>
 					</div>
+					<div class="form-badge-col">
+						<span class="badge text-bg-secondary">必須</span>
+					</div>
+
 					<div class="form-input-col">
 						<input type="password" name="password" class="form-control"
 							placeholder="パスワード" />
@@ -74,13 +75,15 @@
 					</div>
 				</div>
 
+
 				<!--パスワード確認-->
 				<div class="form-row">
 					<div class="form-label-col">
-						<div class="label-box">
-							<label class="form-label mb-0 me-1">パスワード確認</label> <span
-								class="badge text-bg-secondary">必須</span> </span>
-						</div>
+						<label class="form-label label-box">パスワード確認</label>
+					</div>
+					<div class="form-badge-col">
+						<span class="badge text-bg-secondary">必須</span>
+
 					</div>
 					<div class="form-input-col">
 						<input type="password" name="passConfirm" class="form-control"
@@ -92,10 +95,10 @@
 				<!--権限-->
 				<div class="form-row">
 					<div class="form-label-col">
-						<div class="label-box">
-							<label class="form-label mb-0 me-2 d-flex align-items-center">
-								権限</label> <span class="badge text-bg-secondary ms-2">必須</span>
-						</div>
+						<label class="form-label label-box"> 権限</label>
+					</div>
+					<div class="form-badge-col">
+						<span class="badge text-bg-secondary">必須</span>
 					</div>
 					<div class="form-input-col">
 						<div class="checkbox-group">
