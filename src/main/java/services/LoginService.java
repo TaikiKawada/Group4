@@ -45,11 +45,11 @@ public class LoginService {
 
         // 認証処理（DBチェック）
         if (authenticateUser(request, email, password)) {
-            session.removeAttribute("failCount"); // 成功したらリセット
+            session.removeAttribute("loginAttempts"); // 成功したらリセット
             return true;
         } else {
             // 認証失敗時、失敗回数をカウントしてメッセージを出す
-            session.setAttribute("failCount", failCount + 1);
+            session.setAttribute("loginAttempts", failCount + 1);
             request.setAttribute("error", "ログインに失敗しました。再度お試しください。");
             return false;
         }
@@ -59,15 +59,20 @@ public class LoginService {
     private boolean validateInputs(HttpServletRequest request, String email, String password) {
         boolean isValid = true;
 
-    //入力した形式が正しいか
+    //入力したメールアドレスの形式が正しいか
     if (!isValidEmail(email)) {
-            request.setAttribute("emailError", "有効なメールアドレスを入力してください。");
+            request.setAttribute("emailError", "メールアドレスを正しく入力してください。");
             System.out.println("入力エラー：メールアドレス形式不正");
             isValid = false;
         }
-
-    if (isValidEmail(password)) {
-            request.setAttribute("passwordError", "不正");
+    // パスワードの未入力チェック
+    if (password == null || password.isEmpty()) {
+        request.setAttribute("passwordError", "パスワードは必須です。");
+        isValid = false;
+    }
+    //入力されたパスワードの形式が正しいか
+    if (!isValidPassword(password)) {
+            request.setAttribute("passwordError", "有効なパスワードを入力してください。");
             System.out.println("入力エラー：パスワード形式不正");
             isValid = false;
         }
@@ -77,15 +82,17 @@ public class LoginService {
 
     // メールアドレス形式チェック
     private boolean isValidEmail(String email) {
+    	if(email == null)return false;
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-    
+    //パスワード形式チェック
     private boolean isValidPassword(String password) {
-        String emailRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*()_+\\\\-=[\\\\]{};':\\\"\\\\\\\\|,.<>/?]).{8,}$";
-        Pattern pattern = Pattern.compile(emailRegex);
+    	if(password == null)return false;
+        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,30}$\r\n";
+        Pattern pattern = Pattern.compile(passwordRegex);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
@@ -108,7 +115,6 @@ public class LoginService {
                         loginUser.setName(rs.getString("name"));
                         loginUser.setMail(rs.getString("mail"));
                         loginUser.setAuth(rs.getInt("authority"));  // authorityをintでセット
-                        // 他に必要なカラムもセットしてください
 
                         HttpSession session = request.getSession();
 

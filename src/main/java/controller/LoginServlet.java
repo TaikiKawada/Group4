@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
             
         //アカウント情報が一致しなかったらエラーメッセージを出す
         } else {
-//            request.setAttribute("error", "メールアドレスまたはパスワードが正しくありません。");
+            request.setAttribute("error", "メールアドレスまたはパスワードが正しくありません。");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }

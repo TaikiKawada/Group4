@@ -15,11 +15,11 @@
 </head>
 <body>
 	<div class="container mt-5 d-flex justify-content-center">
-		<div class="w-50" style="max-width: 600px;">
+		<div class="w-40" style="max-width: 800px;">
 
 			<h2 class="mb-4 text-center">物品売上管理システム</h2>
 
-			<form id="login-form" action="login" method="post">
+			<form id="login-form" action="login" method="post" class="needs-validate" novalidate>
 
 				<!--メールアドレスを入力-->
 				<div class="mb-3">
@@ -27,6 +27,7 @@
 					<span class="badge text-bg-secondary">必須</span>
 					<input type="text" name="mail" class="form-control" id="email" 
 					placeholder="メールアドレス" required>
+					<div class="invalid-feedback">メールアドレスを入力してください。</div>
 					<small>例：user@example.com</small>
 					<c:if test="${not empty emailError}">
 						<div class="text-danger">${emailError}</div>
