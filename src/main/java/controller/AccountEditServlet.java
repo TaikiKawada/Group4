@@ -75,7 +75,7 @@ public class AccountEditServlet extends HttpServlet {
 		}
 		
 		// 更新情報をaccountに格納
-		AccountDto account = new AccountDto(accountId,name, mail, password, auth);
+		AccountDto account = new AccountDto(accountId, name, mail, password, auth);
 		
 		// セッションの取得、値の保存
 		HttpSession session = request.getSession();
