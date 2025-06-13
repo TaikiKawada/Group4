@@ -19,20 +19,36 @@
 
 			<h2 class="mb-4 text-center">物品売上管理システム</h2>
 
-			<form id="login-form" action="ログイン画面" method="post">
+			<form id="login-form" action="login" method="post">
 
 				<!--メールアドレスを入力-->
 				<div class="mb-3">
-					<label for="email" class="form-label">メールアドレス</label> <span
-						class="badge text-bg-secondary">必須</span> <input type="text"
-						name="mail" class="form-control" id="email" required>
+					<label for="email" class="form-label">メールアドレス</label>
+					<span class="badge text-bg-secondary">必須</span>
+					<input type="text" name="mail" class="form-control" id="email" 
+					placeholder="メールアドレス" required>
+					<small>例：user@example.com</small>
+					<c:if test="${not empty emailError}">
+						<div class="text-danger">${emailError}</div>
+					</c:if>
 				</div>
 
 				<!--パスワードを入力-->
 				<div class="mb-3">
-					<label for="password" class="form-label">パスワード</label> <span
-						class="badge text-bg-secondary">必須</span> <input type="password"
-						name="password" class="form-control" id="password" required>
+					<label for="password" class="form-label">パスワード</label>
+					<span class="badge text-bg-secondary">必須</span>
+					
+					<input type="password" name="password" class="form-control" id="password"
+						placeholder="パスワード" required>
+						<small>8文字以上であり、大文字・数字・小文字・記号を含める必要があります</small>
+						</div>	
+					<!-- パスワード表示切替ボタン -->
+					<div>
+					<button type="button" id="toggle-password" class="btn btn-outline-secondary">表示</button>
+				
+						<c:if test="${not empty passwordError}">
+							<div class="text-danger">${passwordError}</div>
+						</c:if>
 				</div>
 
 				<!--ログインボタン-->
@@ -40,39 +56,27 @@
 					<button type="submit" class="btn btn-primary">ログイン</button>
 				</div>
 			</form>
-			
-			<!--エラーメッセージを表示-->
+
+			<!--アカウントが一致しなかった場合のエラーメッセージを表示-->
 			<c:if test="${not empty error}">
 				<div class="alert alert-danger mt-3">${error}</div>
 			</c:if>
-			
+
+			<!--パスワードの表示・非表示の設定-->
 			<script>
-    document.getElementById("login-form").onsubmit = function() {
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
-        var errorMessage = "";
-
-        // メールアドレスの未入力チェック
-        if (!email) {
-            errorMessage += "メールアドレスは必須です。\n";
-        } else if (!/\S+@\S+\.\S+/.test(email)) { //aa@a.testの形式
-            errorMessage += "有効なメールアドレスを入力してください。\n";
-        }
-
-        // パスワードの未入力チェック
-        if (!password) {
-            errorMessage += "パスワードは必須です。\n";
-        }
-
-        // エラーメッセージがある場合は表示し、送信を中止
-        if (errorMessage) {
-            alert(errorMessage);
-            return false;
-        }
-
-        return true;
-    };
-</script>
+				document
+						.getElementById('toggle-password')
+						.addEventListener(
+								'click',
+								function() {
+									var passwordField = document
+											.getElementById('password');
+									var passwordType = passwordField.type === 'password' ? 'text'
+											: 'password';
+									passwordField.type = passwordType;
+									this.textContent = passwordType === 'password' ? '表示': '非表示';
+								});
+			</script>
 			
 		</div>
 	</div>
