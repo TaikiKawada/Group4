@@ -52,8 +52,9 @@ public class SalesRegisterServlet extends HttpServlet {
         // 登録成功・失敗で画面遷移を分ける
         if (success) {
             request.setAttribute("message", "売上情報を登録しました。");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("sales_register_complete.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("sales_entry.jsp");
             dispatcher.forward(request, response);
+
         } else {
             request.setAttribute("error", "売上情報の登録に失敗しました。");
             RequestDispatcher dispatcher = request.getRequestDispatcher("sales_entry_confirm.jsp");

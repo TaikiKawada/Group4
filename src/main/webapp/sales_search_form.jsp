@@ -9,44 +9,74 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div class="container mt-5 d-flex justify-content-center">
+	<div class="container mt-5 pt-5 d-flex justify-content-center">
 		<div class="w-50" style="max-width: 600px;">
-			<h2 class="mb-4 text-center">売上検索</h2>
+			<h2 class="mb-4 text-start">売上検索</h2>
 
 			<form method="get" action="SalesSearchServlet">
-				<div class="mb-3">
-					<label class="form-label">販売日（開始）</label>
-					<input type="date" name="fromDate" class="form-control" />
+				
+				<!-- 販売日（開始～終了） -->
+				<div class="mb-3 row align-items-center">
+					<label class="col-sm-4 col-form-label text-end">販売日</label>
+					<div class="col-sm-3">
+						<input type="date" name="fromDate" class="form-control" />
+					</div>
+					<div class="col-sm-1 text-center">～</div>
+					<div class="col-sm-4">
+						<input type="date" name="toDate" class="form-control" />
+					</div>
 				</div>
 
-				<div class="mb-3">
-					<label class="form-label">販売日（終了）</label>
-					<input type="date" name="toDate" class="form-control" />
+				<!-- 担当者 -->
+				<div class="mb-3 row align-items-center">
+					<label class="col-sm-4 col-form-label text-end">担当</label>
+					<div class="col-sm-8">
+						<select name="staff" class="form-select">
+							<option value="">選択してください</option>
+							<c:forEach var="staff" items="${staffList}">
+								<option value="${staff.id}">${staff.name}</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
 
-				<div class="mb-3">
-					<label class="form-label">担当</label>
-					<select name="staff" class="form-select">
-						<option value="">指定なし</option>
-						<!-- 担当者一覧をここに動的に出力（今は未設定） -->
-					</select>
+				<!-- 商品カテゴリー -->
+				<div class="mb-3 row align-items-center">
+					<label class="col-sm-4 col-form-label text-end">商品カテゴリー</label>
+					<div class="col-sm-8">
+						<select name="category" class="form-select">
+							<option value="">選択してください</option>
+							<c:forEach var="cat" items="${categoryList}">
+								<option value="${cat.id}">${cat.name}</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
 
-				<div class="mb-3">
-					<label class="form-label">商品カテゴリー</label>
-					<select name="category" class="form-select">
-						<option value="">指定なし</option>
-						<!-- カテゴリー一覧をここに動的に出力（今は未設定） -->
-					</select>
+				<!-- 商品名 -->
+				<div class="mb-3 row align-items-center">
+					<label class="col-sm-4 col-form-label text-end">
+						商品名 <span class="badge bg-secondary">部分一致</span>
+					</label>
+					<div class="col-sm-8">
+						<input type="text" name="productName" class="form-control" placeholder="商品名" />
+					</div>
 				</div>
 
-				<div class="mb-3">
-					<label class="form-label">商品名</label>
-					<input type="text" name="productName" class="form-control" placeholder="部分一致で検索可" />
+				<!-- 備考 -->
+				<div class="mb-3 row align-items-center">
+					<label class="col-sm-4 col-form-label text-end">
+						備考 <span class="badge bg-secondary">部分一致</span>
+					</label>
+					<div class="col-sm-8">
+						<input type="text" name="note" class="form-control" placeholder="備考" />
+					</div>
 				</div>
 
-				<div class="text-end mt-4">
-					<button class="btn btn-primary" type="submit">検索</button>
+				<!-- ボタン -->
+				<div class="text-center mt-4">
+					<button class="btn btn-primary me-2" type="submit">🔍 検索</button>
+					<button class="btn btn-secondary" type="reset">クリア</button>
 				</div>
 			</form>
 		</div>

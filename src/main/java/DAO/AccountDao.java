@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,13 +15,12 @@ import utils.Db;
 public class AccountDao {
 	public static List<Map<String, String>> getAllAccounts() {
 	    List<Map<String, String>> list = new ArrayList<>();
-
 	    try (Connection conn = Db.getConnection();
 	         PreparedStatement stmt = conn.prepareStatement("SELECT account_id, name FROM accounts");
 	         ResultSet rs = stmt.executeQuery()) {
 
 	        while (rs.next()) {
-	            Map<String, String> map = new java.util.HashMap<>();
+	            Map<String, String> map = new HashMap<>();
 	            map.put("id", String.valueOf(rs.getInt("account_id")));
 	            map.put("name", rs.getString("name"));
 	            list.add(map);
@@ -29,11 +29,8 @@ public class AccountDao {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-
 	    return list;
 	}
-
-
 
 	public ArrayList<AccountDto> searchAccounts(String name, String mail, List<Integer> authList) {
 		ArrayList<AccountDto> resultList = new ArrayList<>();
@@ -88,15 +85,19 @@ public class AccountDao {
 				ps.setObject(i + 1, params.get(i));
 			}
 
+			// SQL文の実行、resultListに格納
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				AccountDto ad = new AccountDto(
 						rs.getInt("account_id"),
 						rs.getString("name"),
 						rs.getString("mail"),
+						rs.getString("password"),
 						rs.getInt("authority"));
 				resultList.add(ad);
 			}
+
+			// 例外処理
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -109,29 +110,73 @@ public class AccountDao {
 	public AccountDto findById(int accountId) {
 		String sql = "select * from accounts where account_id = ?";
 		AccountDto account = new AccountDto();
-		
-		try (
-				Connection con = Db.getConnection();
-				PreparedStatement ps = con.prepareStatement(sql);
-			) {
-			
+
+		try (Connection con = Db.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);) {
+
 			ps.setInt(1, accountId);
-			
+
+			// SQL文の実行、accountに格納
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-						account.setName(rs.getString("name"));
-						account.setMail(rs.getString("mail"));
-						account.setPassword(rs.getString("password"));
-						account.setAuth(rs.getInt("authority"));
+				account.setAccount_id(rs.getInt("account_id"));
+				account.setName(rs.getString("name"));
+				account.setMail(rs.getString("mail"));
+				account.setPassword(rs.getString("password"));
+				account.setAuth(rs.getInt("authority"));
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+			// 例外処理
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		return account;
 	}
 
+	// アカウント編集
+	public boolean editAccount(AccountDto account) {
+		String sql = "update accounts set name = ?, mail = ?, password = ?, authority = ? where account_id = ?";
+
+		try (Connection con = Db.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);) {
+			
+			ps.setString(1, account.getName());
+			ps.setString(2, account.getMail());
+			ps.setString(3, account.getPassword());
+			ps.setInt(4, account.getAuth());
+			ps.setInt(5, account.getAccount_id());
+			
+			// SQL文の実行
+			int result = ps.executeUpdate();
+			
+			// 更新出来たらtrueを返す
+			return result > 0;
+			
+		// 例外処理
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	// アカウント削除
+	public boolean deleteAccount(int accountId) {
+		String sql = "delete from accounts where account_id = ?";
+
+		try (Connection con = Db.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);) {
+
+			ps.setInt(1, accountId);
+
+			// SQL文の実行
+			int result = ps.executeUpdate();
+
+			// 削除出来たらtrueを返す
+			return result > 0;
+
+			// 例外処理
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

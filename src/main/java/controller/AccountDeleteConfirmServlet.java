@@ -57,8 +57,21 @@ public class AccountDeleteConfirmServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		int accountId = Integer.parseInt(request.getParameter("account_id"));
+		System.out.println(accountId);
+		
+		AccountDao dao = new AccountDao();
+		boolean success = dao.deleteAccount(accountId);
+		
+		if(success) {
+			// 削除成功時は検索結果画面に
+			response.sendRedirect(request.getContextPath() + "/account/search/result.html");
+		}else {
+			// 削除失敗時にエラー文表示
+			request.setAttribute("error", "アカウントの削除に失敗しました");
+			request.getRequestDispatcher("/account_delete_confirm.jsp").forward(request, response);
+		}
 	}
 
 }

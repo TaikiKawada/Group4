@@ -25,11 +25,16 @@
 	<div class="container mt-5 d-flex justify-content-center">
 		<div class="w-50" style="max-width: 600px;">
 
-			<h2 class="mb-4">この内容で登録しますか？</h2>
+			<h2 class="mb-4">アカウント詳細編集確認</h2>
 
-			<!--登録内容確認フォーム-->
+			<!--編集内容確認フォーム-->
 			<form method="post"
-				action="${pageContext.request.contextPath}/account/entry/confirm.html">
+				action="${pageContext.request.contextPath}/account/edit/confirm.html">
+
+				<!--更新できなかったらエラーメッセージを表示-->
+				<c:if test="${ not empty error }">
+					<div class="alert alert-danger" role="alert">${ error }</div>
+				</c:if>
 
 				<!--氏名-->
 				<div class="form-row">
@@ -126,7 +131,7 @@
 				<!--ボタン-->
 				<div class="text-end mt-4">
 					<button type="submit" class="btn btn-primary">登録</button>
-					<a href="${pageContext.request.contextPath}/account/entry.html"
+					<a href="${pageContext.request.contextPath}/account/edit.html"
 						class="btn btn-secondary">キャンセル</a>
 				</div>
 			</form>
