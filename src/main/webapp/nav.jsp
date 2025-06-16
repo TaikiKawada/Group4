@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="DashboardServlet">ダッシュボード</a>
+    <a class="navbar-brand" href="Dashboard">ダッシュボード</a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
         <c:if test="${authority == 1 || authority == 3}">
