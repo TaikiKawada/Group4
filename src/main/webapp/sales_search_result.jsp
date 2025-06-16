@@ -20,7 +20,7 @@
 <jsp:include page="/nav.jsp" />
 
 <div class="container mt-5 pt-5">
-    <h2 class="mb-4 text-center">売上検索結果</h2>
+    <h2 class="mb-4 text-start">売上検索結果</h2>
 
     <c:choose>
         <c:when test="${empty resultList}">

@@ -111,6 +111,7 @@ public class LoginService {
     // DBでユーザー認証
     private boolean authenticateUser(HttpServletRequest request, String email, String password) {
         try (Connection conn = Db.getConnection()) {
+
             String sql = "SELECT * FROM accounts WHERE mail = ? AND password = ?";
             
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -127,6 +128,7 @@ public class LoginService {
                         HttpSession accounts = request.getSession();
 
                         accounts.setAttribute("user", rs.getString("name")); // ユーザー名などを保存
+
                         accounts.setAttribute("user", loginUser);  // ここでAccountDtoオブジェクトをセット
 
                         return true;
