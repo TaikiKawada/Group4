@@ -20,11 +20,11 @@
 
 	<jsp:include page="/nav.jsp" />
 
-	<div class="container mt-5 pt-5 d-flex justify-content-center">
+	<div class="container mt-5 pt-5">
 		<h2 class="mb-4">アカウント検索結果表示</h2>
 
 		<!--検索結果の表示-->
-		<table class="table">
+		<table class="table mt-1">
 			<thead>
 				<tr>
 					<th scope="col">操作</th>
@@ -38,7 +38,9 @@
 			<tbody>
 				<!--該当アカウントがない時の処理-->
 				<c:if test="${empty accountList}">
-					<td>該当するアカウントが見つかりませんでした。</td>
+					<tr>
+						<td colspan="5" class="text-center">該当するアカウントが見つかりませんでした。</td>
+					</tr>
 				</c:if>
 				<!--検索結果の表示-->
 				<c:forEach var="account" items="${ accountList }" varStatus="status">

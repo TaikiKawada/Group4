@@ -19,16 +19,15 @@
 
 			<h2 class="mb-4 text-center">物品売上管理システム</h2>
 
-			<form id="login-form" action="login" method="post" class="needs-validate" novalidate>
+			<form id="login-form" action="login" method="post"
+				class="needs-validate" novalidate>
 
 				<!--メールアドレスを入力-->
 				<div class="mb-3">
-					<label for="email" class="form-label">メールアドレス</label>
-					<span class="badge text-bg-secondary">必須</span>
-					<input type="text" name="mail" class="form-control" id="email" 
-					placeholder="メールアドレス" required>
-
-					<small>例：user@example.com</small>
+					<label for="email" class="form-label">メールアドレス</label> <span
+						class="badge text-bg-secondary">必須</span> <input type="text"
+						name="mail" class="form-control" id="email" placeholder="メールアドレス"
+						required> <small>例：user@example.com</small>
 					<c:if test="${not empty emailError}">
 						<div class="text-danger">${emailError}</div>
 					</c:if>
@@ -36,22 +35,20 @@
 
 				<!--パスワードを入力-->
 				<div class="mb-3">
-					<label for="password" class="form-label">パスワード</label>
-					<span class="badge text-bg-secondary">必須</span>
-					
-					<input type="password" name="password" class="form-control" id="password"
-						placeholder="パスワード" required>
-					
-						<small>8文字以上であり、大文字・数字・小文字・記号を含める必要があります</small>
-						</div>	
-					<!-- パスワード表示切替ボタン -->
-					<div>
-					<button type="button" id="toggle-password" class="btn btn-outline-secondary">表示</button>
-				
-						<c:if test="${not empty passwordError}">
-							<div class="text-danger">${passwordError}</div>
-						</c:if>
-					</div>
+					<label for="password" class="form-label">パスワード</label> <span
+						class="badge text-bg-secondary">必須</span> <input type="password"
+						name="password" class="form-control" id="password"
+						placeholder="パスワード" required> <small>8文字以上であり、大文字・数字・小文字・記号を含める必要があります</small>
+				</div>
+				<!-- パスワード表示切替ボタン -->
+				<div>
+					<button type="button" id="toggle-password"
+						class="btn btn-outline-secondary">表示</button>
+
+					<c:if test="${not empty passwordError}">
+						<div class="text-danger">${passwordError}</div>
+					</c:if>
+				</div>
 
 				<!--ログインボタン-->
 				<div class="text-end mb-3">
@@ -64,7 +61,7 @@
 				<div class="alert alert-danger mt-3">${error}</div>
 			</c:if>
 
-			
+
 			<script src="${pageContext.request.contextPath}/js/login.js"></script>
 		</div>
 	</div>

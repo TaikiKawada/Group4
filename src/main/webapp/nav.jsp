@@ -18,7 +18,7 @@
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link btn btn-outline-light px-3 py-1" href="login">ログアウト</a>
+           <a class="nav-link text-danger" href="${pageContext.request.contextPath}/Logout">ログアウト</a>
         </li>
       </ul>
     </div>
