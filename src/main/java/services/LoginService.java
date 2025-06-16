@@ -34,12 +34,6 @@ public class LoginService {
     private boolean validateInputs(HttpServletRequest request, String email, String password) {
         boolean isValid = true;
         
-        // 1-3 メールアドレスの形式チェック
-        if (!isValidMail(email)) {
-            request.setAttribute("emailError", "メールアドレスを正しく入力してください。");
-            isValid = false;
-        }
-        
         // 1-1 メールアドレス必須入力チェック
         if (email == null || email.isEmpty()) {
             request.setAttribute("emailError", "メールアドレスが未入力です。");
@@ -47,22 +41,31 @@ public class LoginService {
         }
         
         // 1-2 メールアドレスの長さチェック
-        if (!isValidMailLength(email)) {
+        else if (!isValidMailLength(email)) {
             request.setAttribute("emailError", "メールアドレスが長すぎます。");
             isValid = false;
         }
         
-     // 1-5 パスワードの長さチェック
-        if (!isValidPasswordLength(password)) {
-            request.setAttribute("passwordError", "パスワードが長すぎます。");
+        // 1-3 メールアドレスの形式チェック
+        else if (!isValidMail(email)) {
+            request.setAttribute("emailError", "メールアドレスを正しく入力してください。");
             isValid = false;
         }
         
-         // 1-4 パスワード必須入力チェック
+        // 1-4 パスワード必須入力チェック
         if (password == null || password.isEmpty()) {
         	request.setAttribute("passwordError", "パスワードが未入力です。");
         	isValid = false;
         }
+  
+        
+        // 1-5 パスワードの長さチェック
+        else if (!isValidPasswordLength(password)) {
+            request.setAttribute("passwordError", "パスワードが長すぎます。");
+            isValid = false;
+        }
+        
+       
 
         return isValid;
     }
@@ -108,13 +111,12 @@ public class LoginService {
     // DBでユーザー認証
     private boolean authenticateUser(HttpServletRequest request, String email, String password) {
         try (Connection conn = Db.getConnection()) {
-//            System.out.println("DB接続成功");
 
             String sql = "SELECT * FROM accounts WHERE mail = ? AND password = ?";
+            
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, email);
                 ps.setString(2, password);
-//                System.out.println("SQL準備完了: " + ps.toString());
 
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
@@ -123,17 +125,13 @@ public class LoginService {
                         loginUser.setMail(rs.getString("mail"));
                         loginUser.setAuth(rs.getInt("authority"));  // authorityをintでセット
 
-                        HttpSession acounts = request.getSession();
+                        HttpSession accounts = request.getSession();
 
-                        acounts.setAttribute("user", rs.getString("name")); // ユーザー名などを保存
+                        accounts.setAttribute("user", rs.getString("name")); // ユーザー名などを保存
 
-                        acounts.setAttribute("user", loginUser);  // ここでAccountDtoオブジェクトをセット
-
-//                        System.out.println("認証成功: ユーザー名=" + loginUser.getName());
+                        accounts.setAttribute("user", loginUser);  // ここでAccountDtoオブジェクトをセット
 
                         return true;
-                    } else {
-//                        System.out.println("認証失敗: 該当ユーザーなし");
                     }
                 }
             }
