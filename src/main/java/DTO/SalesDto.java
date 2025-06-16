@@ -9,6 +9,8 @@ public class SalesDto {
     private int unitPrice;
     private int saleNumber;
     private String note;
+    private String accountName;
+    private String categoryName;
 
     // デフォルトコンストラクタ
     public SalesDto() {}
@@ -38,6 +40,22 @@ public class SalesDto {
         this.note = note;
     }
 
+    // コンストラクタ（名前も含む：検索結果用）
+    public SalesDto(int saleId, String saleDate, int accountId, int categoryId,
+                    String tradeName, int unitPrice, int saleNumber, String note,
+                    String accountName, String categoryName) {
+        this.saleId = saleId;
+        this.saleDate = saleDate;
+        this.accountId = accountId;
+        this.categoryId = categoryId;
+        this.tradeName = tradeName;
+        this.unitPrice = unitPrice;
+        this.saleNumber = saleNumber;
+        this.note = note;
+        this.accountName = accountName;
+        this.categoryName = categoryName;
+    }
+
     // getter / setter
     public int getSaleId() { return saleId; }
     public void setSaleId(int saleId) { this.saleId = saleId; }
@@ -62,4 +80,20 @@ public class SalesDto {
 
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }

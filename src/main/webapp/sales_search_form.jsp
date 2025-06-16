@@ -9,11 +9,33 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="DashboardServlet">ダッシュボード</a>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav me-auto">
+				<c:if test="${authority == 1 || authority == 3}">
+					<li class="nav-item"><a class="nav-link" href="SalesEntryServlet">売上登録</a></li>
+				</c:if>
+				<li class="nav-item"><a class="nav-link" href="SalesSearchServlet">売上検索</a></li>
+				<c:if test="${authority == 2 || authority == 3}">
+					<li class="nav-item"><a class="nav-link" href="AccountEntryServlet">アカウント登録</a></li>
+				</c:if>
+				<li class="nav-item"><a class="nav-link" href="AccountSerchFormServlet">アカウント検索</a></li>
+			</ul>
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item"><a class="nav-link btn btn-outline-light px-3 py-1" href="login">ログアウト</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
 	<div class="container mt-5 pt-5 d-flex justify-content-center">
 		<div class="w-50" style="max-width: 600px;">
 			<h2 class="mb-4 text-start">売上検索</h2>
 
-			<form method="get" action="SalesSearchServlet">
+			<form method="post" action="SalesSearchServlet">
 				
 				<!-- 販売日（開始～終了） -->
 				<div class="mb-3 row align-items-center">
@@ -26,6 +48,7 @@
 						<input type="date" name="toDate" class="form-control" />
 					</div>
 				</div>
+				
 
 				<!-- 担当者 -->
 				<div class="mb-3 row align-items-center">

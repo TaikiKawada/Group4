@@ -68,7 +68,7 @@ public class SaleDAO {
             return false;
         }
     }
-    
+
     public static List<SalesDto> searchByProductName(String keyword) {
         List<SalesDto> list = new ArrayList<>();
 
@@ -100,34 +100,40 @@ public class SaleDAO {
 
         return list;
     }
-    
+
     public static List<SalesDto> searchSales(String fromDate, String toDate, String staff, String category, String tradeName, String note) {
         List<SalesDto> list = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM sales WHERE 1=1");
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT s.*, a.name AS account_name, c.category_name AS category_name ");
+        sql.append("FROM sales s ");
+        sql.append("LEFT JOIN accounts a ON s.account_id = a.account_id ");
+        sql.append("LEFT JOIN categories c ON s.category_id = c.category_id ");
+        sql.append("WHERE 1=1");
+
         List<Object> params = new ArrayList<>();
 
         if (fromDate != null && !fromDate.isEmpty()) {
-            sql.append(" AND sale_date >= ?");
+            sql.append(" AND s.sale_date >= ?");
             params.add(fromDate);
         }
         if (toDate != null && !toDate.isEmpty()) {
-            sql.append(" AND sale_date <= ?");
+            sql.append(" AND s.sale_date <= ?");
             params.add(toDate);
         }
         if (staff != null && !staff.isEmpty()) {
-            sql.append(" AND account_id = ?");
+            sql.append(" AND s.account_id = ?");
             params.add(Integer.parseInt(staff));
         }
         if (category != null && !category.isEmpty()) {
-            sql.append(" AND category_id = ?");
+            sql.append(" AND s.category_id = ?");
             params.add(Integer.parseInt(category));
         }
         if (tradeName != null && !tradeName.isEmpty()) {
-            sql.append(" AND trade_name LIKE ?");
+            sql.append(" AND s.trade_name LIKE ?");
             params.add("%" + tradeName + "%");
         }
         if (note != null && !note.isEmpty()) {
-            sql.append(" AND note LIKE ?");
+            sql.append(" AND s.note LIKE ?");
             params.add("%" + note + "%");
         }
 
@@ -148,7 +154,9 @@ public class SaleDAO {
                     rs.getString("trade_name"),
                     rs.getInt("unit_price"),
                     rs.getInt("sale_number"),
-                    rs.getString("note")
+                    rs.getString("note"),
+                    rs.getString("account_name"),
+                    rs.getString("category_name")
                 );
                 list.add(dto);
             }
@@ -159,7 +167,4 @@ public class SaleDAO {
 
         return list;
     }
-
-    
-
-}
+} 
