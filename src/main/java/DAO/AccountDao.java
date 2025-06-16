@@ -178,5 +178,29 @@ public class AccountDao {
 			e.printStackTrace();
 			return false;
 		}
+		
+		
 	}
+	
+	public static String getNameById(int id) {
+	    String name = "";
+	    String sql = "SELECT name FROM accounts WHERE account_id = ?";
+
+	    try (Connection conn = Db.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ps.setInt(1, id);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            name = rs.getString("name");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+	    
+
+	    return name;
+	}
+
 }

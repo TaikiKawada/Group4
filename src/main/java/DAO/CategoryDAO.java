@@ -33,4 +33,23 @@ public class CategoryDAO {
 
         return list;
     }
+    public static String getNameById(int id) {
+        String name = "";
+        String sql = "SELECT category_name FROM categories WHERE category_id = ?";
+
+        try (Connection conn = Db.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                name = rs.getString("category_name");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return name;
+    }
+
 }

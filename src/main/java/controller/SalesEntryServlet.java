@@ -11,6 +11,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import DAO.AccountDao;
+import DAO.CategoryDAO;
+
 @WebServlet("/SalesEntryServlet")
 public class SalesEntryServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -25,29 +28,33 @@ public class SalesEntryServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        // 入力値の取得
         String salesDate = request.getParameter("salesDate");
-        String staff = request.getParameter("staff");
-        String category = request.getParameter("category");
+        int accountId = Integer.parseInt(request.getParameter("staff"));
+        int categoryId = Integer.parseInt(request.getParameter("category"));
         String tradeName = request.getParameter("tradeName");
-        String unitPrice = request.getParameter("unitPrice");
-        String saleNumber = request.getParameter("saleNumber");
+        int unitPrice = Integer.parseInt(request.getParameter("unitPrice"));
+        int saleNumber = Integer.parseInt(request.getParameter("saleNumber"));
         String note = request.getParameter("note");
 
-        // 値をリクエストスコープに格納
+        // 担当名・カテゴリ名取得（←これが重要！）
+        String staffName = AccountDao.getNameById(accountId);
+        String categoryName = CategoryDAO.getNameById(categoryId);
+
+        // JSPに渡す
         request.setAttribute("salesDate", salesDate);
-        request.setAttribute("staff", staff);
-        request.setAttribute("category", category);
+        request.setAttribute("staff", accountId);
+        request.setAttribute("staffName", staffName);
+        request.setAttribute("category", categoryId);
+        request.setAttribute("categoryName", categoryName);
         request.setAttribute("tradeName", tradeName);
-        
         request.setAttribute("unitPrice", unitPrice);
         request.setAttribute("saleNumber", saleNumber);
         request.setAttribute("note", note);
 
-        // 確認画面へフォワード
         RequestDispatcher dispatcher = request.getRequestDispatcher("sales_entry_confirm.jsp");
         dispatcher.forward(request, response);
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
