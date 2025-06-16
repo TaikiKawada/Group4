@@ -20,7 +20,41 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div class="container mt-5">
+
+	<!-- ナビゲーションバー -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed-top">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="Dashboard">ダッシュボード</a>
+			<div class="collapse navbar-collapse">
+				<ul class="navbar-nav me-auto">
+					<!-- 売上登録：権限 1 または 3 -->
+					<c:if test="${authority == 1 || authority == 3}">
+						<li class="nav-item"><a class="nav-link"
+							href="SalesEntryServlet">売上登録</a></li>
+					</c:if>
+
+					<li class="nav-item"><a class="nav-link"
+						href="SalesSearchServlet">売上検索</a></li>
+
+					<!-- アカウント登録：権限 2 または 3 -->
+					<c:if test="${authority == 2 || authority == 3}">
+						<li class="nav-item"><a class="nav-link"
+							href="account/entry.html">アカウント登録</a></li>
+					</c:if>
+
+					<li class="nav-item"><a class="nav-link"
+						href="account/search.html">アカウント検索</a></li>
+				</ul>
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a
+						class="nav-link btn btn-outline-light px-3 py-1" href="login">ログアウト</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container mt-5 pt-5 d-flex justify-content-center">
 		<div class="mx-auto w-100" style="max-width: 800px;">
 			<h2 class="mb-4">アカウント検索条件入力</h2>
 
@@ -63,7 +97,7 @@
 					<div class="form-label-col">
 						<div class="label-box">
 							<label class="form-label mb-0 me-2 d-flex align-items-center">
-								権限</label> <span class="badge text-bg-secondary ms-2">必須</span>
+								権限</label>
 						</div>
 					</div>
 					<div class="form-input-col">

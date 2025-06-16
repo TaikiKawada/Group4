@@ -22,7 +22,42 @@
 </head>
 
 <body>
-	<div class="container mt-5 d-flex justify-content-center">
+
+	<!-- ナビゲーションバー -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed-top">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="Dashboard">ダッシュボード</a>
+			<div class="collapse navbar-collapse">
+				<ul class="navbar-nav me-auto">
+					<!-- 売上登録：権限 1 または 3 -->
+					<c:if test="${authority == 1 || authority == 3}">
+						<li class="nav-item"><a class="nav-link"
+							href="SalesEntryServlet">売上登録</a></li>
+					</c:if>
+
+					<li class="nav-item"><a class="nav-link"
+						href="SalesSearchServlet">売上検索</a></li>
+
+					<!-- アカウント登録：権限 2 または 3 -->
+					<c:if test="${authority == 2 || authority == 3}">
+						<li class="nav-item"><a class="nav-link"
+							href="account/entry.html">アカウント登録</a></li>
+					</c:if>
+
+					<li class="nav-item"><a class="nav-link"
+						href="account/search.html">アカウント検索</a></li>
+				</ul>
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a
+						class="nav-link btn btn-outline-light px-3 py-1" href="login">ログアウト</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<div class="container mt-5 pt-5 d-flex justify-content-center">
 		<div class="w-50" style="max-width: 600px;">
 
 			<h2 class="mb-4">この内容で登録しますか？</h2>
@@ -90,7 +125,10 @@
 				<!--権限-->
 				<div class="form-row">
 					<div class="form-label-col">
-						<label class="form-label label-box"> 権限 </label>
+						<div class="label-box">
+							<label class="form-label mb-0 me-2 d-flex align-items-center">
+								権限 </label>
+						</div>
 					</div>
 					<div class="form-badge-col">
 						<span class="badge text-bg-secondary">必須</span>
