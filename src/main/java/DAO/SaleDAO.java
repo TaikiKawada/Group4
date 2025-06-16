@@ -167,4 +167,69 @@ public class SaleDAO {
 
         return list;
     }
+    
+    public static SalesDto getSaleById(int saleId) {
+    	SalesDto dto = null;
+
+    	String sql = "SELECT s.*, a.name AS account_name, c.category_name AS category_name "
+    	           + "FROM sales s "
+    	           + "LEFT JOIN accounts a ON s.account_id = a.account_id "
+    	           + "LEFT JOIN categories c ON s.category_id = c.category_id "
+    	           + "WHERE s.sale_id = ?";
+
+    	try (Connection conn = Db.getConnection();
+    	     PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+    		stmt.setInt(1, saleId);
+    		ResultSet rs = stmt.executeQuery();
+
+    		if (rs.next()) {
+    			dto = new SalesDto(
+    				rs.getInt("sale_id"),
+    				rs.getString("sale_date"),
+    				rs.getInt("account_id"),
+    				rs.getInt("category_id"),
+    				rs.getString("trade_name"),
+    				rs.getInt("unit_price"),
+    				rs.getInt("sale_number"),
+    				rs.getString("note"),
+    				rs.getString("account_name"),
+    				rs.getString("category_name")
+    			);
+    		}
+
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+
+    	return dto;
+    }
+    
+    public static boolean update(SalesDto dto) {
+        String sql = "UPDATE sales SET sale_date = ?, account_id = ?, category_id = ?, "
+                   + "trade_name = ?, unit_price = ?, sale_number = ?, note = ? "
+                   + "WHERE sale_id = ?";
+
+        try (Connection conn = Db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, dto.getSaleDate());
+            stmt.setInt(2, dto.getAccountId());
+            stmt.setInt(3, dto.getCategoryId());
+            stmt.setString(4, dto.getTradeName());
+            stmt.setInt(5, dto.getUnitPrice());
+            stmt.setInt(6, dto.getSaleNumber());
+            stmt.setString(7, dto.getNote());
+            stmt.setInt(8, dto.getSaleId());
+
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 } 

@@ -59,6 +59,23 @@ public class AccountEditServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession(false);
+		AccountDto loginUser = (AccountDto) session.getAttribute("user");
+		
+		if(loginUser == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+			return;
+		}
+		
+		int loginUserAuth = loginUser.getAuth();
+		boolean hasEditPermission = (loginUserAuth & 0b10) != 0;
+		
+		if(!hasEditPermission) {
+			request.setAttribute("error", "権限がありません");
+			request.getRequestDispatcher("/account_edit.jsp").forward(request, response);
+			return;
+		}
+		
 		// 更新する値を取得
 		int accountId = Integer.parseInt(request.getParameter("account_id"));
 		String name = request.getParameter("name");
@@ -77,8 +94,7 @@ public class AccountEditServlet extends HttpServlet {
 		// 更新情報をaccountに格納
 		AccountDto account = new AccountDto(accountId, name, mail, password, auth);
 		
-		// セッションの取得、値の保存
-		HttpSession session = request.getSession();
+		// セッションに値を保存
 		session.setAttribute("accountData", account);
 		// 更新確認画面に遷移
 		response.sendRedirect(request.getContextPath() + "/account/edit/confirm.html");

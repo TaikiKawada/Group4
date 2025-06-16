@@ -126,7 +126,8 @@ public class LoginService {
 
                         HttpSession accounts = request.getSession();
 
-                        accounts.setAttribute("user", loginUser);    // ユーザー名などを保存 
+                        accounts.setAttribute("user", rs.getString("name")); // ユーザー名などを保存
+                        accounts.setAttribute("user", loginUser);  // ここでAccountDtoオブジェクトをセット
 
                         return true;
                     }

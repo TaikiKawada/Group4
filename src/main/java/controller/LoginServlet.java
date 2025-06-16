@@ -29,6 +29,7 @@ public class LoginServlet extends HttpServlet {
     	
     	request.setCharacterEncoding("UTF-8");
     	
+    	
         //アカウント情報が一致したらdashboard.jspへ遷移
         if (loginService.authenticate(request)) {
             response.sendRedirect("Dashboard");

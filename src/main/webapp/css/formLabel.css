@@ -2,18 +2,18 @@
 
 /* ラベル＋バッジのデザイン */
 .label-box {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.95rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	font-size: 0.95rem;
 }
 
 /*PC画面（デフォルト）*/
 /* 行全体の並び調整 */
 .form-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
+	display: flex;
+	align-items: center;
+	margin-bottom: 1rem;
 }
 
 /* ラベル側の調整 */
@@ -33,7 +33,7 @@
 
 /* 入力欄側 */
 .form-input-col {
-  flex: 1;
+	flex: 1;
 }
 
 .badge {
@@ -45,33 +45,30 @@
 
 /* スマホ向け（画面が768px以下） */
 @media (max-width: 768px) {
-  .form-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+	.form-row {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 
-  .form-label-col,
-  .form-input-col {
-    width: 100%;
-  }
-
-  .form-label-col {
-    margin-bottom: 0.3rem;
-  }
+	.form-label-col,
+	.form-badge-col,
+	.form-input-col {
+		width: 100%;
+		text-align: left;
+	}
 }
 
 /* チェックボックス群の横並び */
 .checkbox-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
 }
 
 /* チェックボックス＋ラベルの見た目整え */
 .checkbox-group .form-check-label {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-weight: 400;
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+	font-weight: 400;
 }
-

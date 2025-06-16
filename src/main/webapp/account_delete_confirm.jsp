@@ -19,7 +19,10 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div class="container mt-5">
+
+	<jsp:include page="/nav.jsp" />
+
+	<div class="container mt-5 pt-5 d-flex justify-content-center">
 		<div class="mx-auto w-100" style="max-width: 800px;">
 			<h2 class="mb-4">アカウント詳細削除確認</h2>
 
@@ -32,7 +35,7 @@
 				<c:if test="${ not empty error }">
 					<div class="alert alert-danger" role="alert">${ error }</div>
 				</c:if>
-				
+
 				<!--account_idの値だけ送信-->
 				<input type="hidden" name="account_id"
 					value="${ account.account_id }" />
@@ -89,7 +92,10 @@
 				<!--権限-->
 				<div class="form-row">
 					<div class="form-label-col">
-						<label class="form-label label-box"> 権限</label>
+						<div class="label-box">
+							<label class="form-label mb-0 me-2 d-flex align-items-center">
+								権限</label>
+						</div>
 					</div>
 					<div class="form-input-col">
 						<div class="checkbox-group">

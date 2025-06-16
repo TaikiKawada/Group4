@@ -49,13 +49,14 @@ public class SalesSearchServlet extends HttpServlet {
         String productName = request.getParameter("productName");
         String note = request.getParameter("note");
         
-        System.out.println("[SalesSearchServlet] 受け取った検索パラメータ:");
-        System.out.println("fromDate = " + fromDate);
-        System.out.println("toDate = " + toDate);
-        System.out.println("staff = " + staff);
-        System.out.println("category = " + category);
-        System.out.println("productName = " + productName);
-        System.out.println("note = " + note);
+//        ↓デバッグ用
+//        System.out.println("[SalesSearchServlet] 受け取った検索パラメータ:");
+//        System.out.println("fromDate = " + fromDate);
+//        System.out.println("toDate = " + toDate);
+//        System.out.println("staff = " + staff);
+//        System.out.println("category = " + category);
+//        System.out.println("productName = " + productName);
+//        System.out.println("note = " + note);
 
         List<SalesDto> resultList = SaleDAO.searchSales(fromDate, toDate, staff, category, productName, note);
 
