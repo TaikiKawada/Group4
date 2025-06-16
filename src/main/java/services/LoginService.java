@@ -127,7 +127,9 @@ public class LoginService {
 
                         acounts.setAttribute("user", rs.getString("name")); // ユーザー名などを保存
 
+
                         acounts.setAttribute("user", loginUser);  // ここでAccountDtoオブジェクトをセット
+
                         System.out.println("認証成功: ユーザー名=" + loginUser.getName());
 
                         return true;
