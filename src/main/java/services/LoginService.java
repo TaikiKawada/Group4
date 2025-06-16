@@ -18,16 +18,16 @@ public class LoginService {
 
 
     public boolean authenticate(HttpServletRequest request) {
-        String email = request.getParameter("mail");
+        String mail = request.getParameter("mail");
         String password = request.getParameter("password");
         
      // 入力検証
-        if (!validateInputs(request, email, password)) {
+        if (!validateInputs(request, mail, password)) {
             return false;
         }
 
         // 認証処理
-        return authenticateUser(request, email, password);
+        return authenticateUser(request, mail, password);
     }
 
     //入力されたデータが、正しい形式に合致しているかチェックし、エラーを防止するメソッド
@@ -35,37 +35,32 @@ public class LoginService {
         boolean isValid = true;
         
         // 1-3 メールアドレスの形式チェック
-        if (!isValidEmail(email)) {
+        if (!isValidMail(email)) {
             request.setAttribute("emailError", "メールアドレスを正しく入力してください。");
-//            System.out.println("入力エラー：メールアドレス形式不正");
             isValid = false;
         }
         
         // 1-1 メールアドレス必須入力チェック
         if (email == null || email.isEmpty()) {
             request.setAttribute("emailError", "メールアドレスが未入力です。");
-//            System.out.println("入力エラー：メールアドレスが未入力です。");
             isValid = false;
         }
         
         // 1-2 メールアドレスの長さチェック
-        if (!isValidEmailLength(email)) {
+        if (!isValidMailLength(email)) {
             request.setAttribute("emailError", "メールアドレスが長すぎます。");
-//            System.out.println("入力エラー：メールアドレスが長すぎます。");
             isValid = false;
         }
         
      // 1-5 パスワードの長さチェック
         if (!isValidPasswordLength(password)) {
             request.setAttribute("passwordError", "パスワードが長すぎます。");
-//            System.out.println("入力エラー：パスワードが長すぎます。");
             isValid = false;
         }
         
          // 1-4 パスワード必須入力チェック
         if (password == null || password.isEmpty()) {
         	request.setAttribute("passwordError", "パスワードが未入力です。");
-//        	System.out.println("入力エラー：パスワードが未入力です。");
         	isValid = false;
         }
 
@@ -73,16 +68,16 @@ public class LoginService {
     }
 
     // メールアドレス形式チェックメソッド
-    private boolean isValidEmail(String email) {
+    private boolean isValidMail(String email) {
     	if(email == null)return false;
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pattern = Pattern.compile(emailRegex);
+        String mailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(mailRegex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
    
     //メールアドレス長さチェックメソッド
-    private boolean isValidEmailLength(String email) {
+    private boolean isValidMailLength(String email) {
         if (email == null) return false;
         try {
             int byteLength = email.getBytes("UTF-8").length;
@@ -104,7 +99,6 @@ public class LoginService {
     	        // 1文字以上かつ30バイト以内かをチェック
     	        return byteLength > 0 && byteLength <= 30;
     	    } catch (java.io.UnsupportedEncodingException e) {
-    	        // UTF-8がサポートされていない場合はfalse
     	        e.printStackTrace();
     	        return false;
     	    }
@@ -129,11 +123,11 @@ public class LoginService {
                         loginUser.setMail(rs.getString("mail"));
                         loginUser.setAuth(rs.getInt("authority"));  // authorityをintでセット
 
-                        HttpSession session = request.getSession();
+                        HttpSession acounts = request.getSession();
 
-                        session.setAttribute("user", rs.getString("name")); // ユーザー名などを保存
+                        acounts.setAttribute("user", rs.getString("name")); // ユーザー名などを保存
 
-                        session.setAttribute("user", loginUser);  // ここでAccountDtoオブジェクトをセット
+//                        acounts.setAttribute("user", loginUser);  // ここでAccountDtoオブジェクトをセット
                         System.out.println("認証成功: ユーザー名=" + loginUser.getName());
 
                         return true;

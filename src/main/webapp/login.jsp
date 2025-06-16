@@ -51,10 +51,10 @@
 						<c:if test="${not empty passwordError}">
 							<div class="text-danger">${passwordError}</div>
 						</c:if>
-				</div>
+					</div>
 
 				<!--ログインボタン-->
-				<div class="text-end mt-4">
+				<div class="text-end mb-3">
 					<button type="submit" class="btn btn-primary">ログイン</button>
 				</div>
 			</form>
@@ -64,23 +64,10 @@
 				<div class="alert alert-danger mt-3">${error}</div>
 			</c:if>
 
-			<!--パスワードの表示・非表示の設定-->
-			<script>
-				document
-						.getElementById('toggle-password')
-						.addEventListener(
-								'click',
-								function() {
-									var passwordField = document
-											.getElementById('password');
-									var passwordType = passwordField.type === 'password' ? 'text'
-											: 'password';
-									passwordField.type = passwordType;
-									this.textContent = passwordType === 'password' ? '表示': '非表示';
-								});
-			</script>
 			
+			<script src="${pageContext.request.contextPath}/js/login.js"></script>
 		</div>
 	</div>
+
 </body>
 </html>
