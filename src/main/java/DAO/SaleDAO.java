@@ -204,5 +204,32 @@ public class SaleDAO {
 
     	return dto;
     }
+    
+    public static boolean update(SalesDto dto) {
+        String sql = "UPDATE sales SET sale_date = ?, account_id = ?, category_id = ?, "
+                   + "trade_name = ?, unit_price = ?, sale_number = ?, note = ? "
+                   + "WHERE sale_id = ?";
+
+        try (Connection conn = Db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, dto.getSaleDate());
+            stmt.setInt(2, dto.getAccountId());
+            stmt.setInt(3, dto.getCategoryId());
+            stmt.setString(4, dto.getTradeName());
+            stmt.setInt(5, dto.getUnitPrice());
+            stmt.setInt(6, dto.getSaleNumber());
+            stmt.setString(7, dto.getNote());
+            stmt.setInt(8, dto.getSaleId());
+
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 } 
