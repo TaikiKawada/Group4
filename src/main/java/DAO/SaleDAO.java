@@ -167,4 +167,42 @@ public class SaleDAO {
 
         return list;
     }
+    
+    public static SalesDto getSaleById(int saleId) {
+    	SalesDto dto = null;
+
+    	String sql = "SELECT s.*, a.name AS account_name, c.category_name AS category_name "
+    	           + "FROM sales s "
+    	           + "LEFT JOIN accounts a ON s.account_id = a.account_id "
+    	           + "LEFT JOIN categories c ON s.category_id = c.category_id "
+    	           + "WHERE s.sale_id = ?";
+
+    	try (Connection conn = Db.getConnection();
+    	     PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+    		stmt.setInt(1, saleId);
+    		ResultSet rs = stmt.executeQuery();
+
+    		if (rs.next()) {
+    			dto = new SalesDto(
+    				rs.getInt("sale_id"),
+    				rs.getString("sale_date"),
+    				rs.getInt("account_id"),
+    				rs.getInt("category_id"),
+    				rs.getString("trade_name"),
+    				rs.getInt("unit_price"),
+    				rs.getInt("sale_number"),
+    				rs.getString("note"),
+    				rs.getString("account_name"),
+    				rs.getString("category_name")
+    			);
+    		}
+
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+
+    	return dto;
+    }
+
 } 
