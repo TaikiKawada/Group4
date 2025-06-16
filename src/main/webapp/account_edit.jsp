@@ -29,6 +29,10 @@
 				action="${pageContext.request.contextPath}/account/edit.html"
 				onsubmit="return validateForm()">
 
+				<!--account_idの値だけ送信-->
+				<input type="hidden" name="account_id"
+					value="${ account.account_id }" />
+
 				<!--氏名-->
 				<div class="form-row">
 					<div class="form-label-col">
@@ -87,7 +91,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="password" name="passConfirm" class="form-control"
-							placeholder="パスワード（確認）" value="${ account.password }"/>
+							placeholder="パスワード（確認）" value="${ account.password }" />
 						<div id="error-confirm" class="text-danger"></div>
 					</div>
 				</div>

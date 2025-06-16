@@ -16,11 +16,11 @@
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav me-auto">
 				<c:if test="${authority == 1 || authority == 3}">
-					<li class="nav-item"><a class="nav-link" href="sales_entry.jsp">売上登録</a></li>
+					<li class="nav-item"><a class="nav-link" href="SalesEntryServlet">売上登録</a></li>
 				</c:if>
-				<li class="nav-item"><a class="nav-link" href="sales_search_form.jsp">売上検索</a></li>
+				<li class="nav-item"><a class="nav-link" href="SalesSearchServlet">売上検索</a></li>
 				<c:if test="${authority == 2 || authority == 3}">
-					<li class="nav-item"><a class="nav-link" href="account_entry.jsp">アカウント登録</a></li>
+					<li class="nav-item"><a class="nav-link" href="AccountEntryServlet">アカウント登録</a></li>
 				</c:if>
 				<li class="nav-item"><a class="nav-link" href="AccountSerchFormServlet">アカウント検索</a></li>
 			</ul>
