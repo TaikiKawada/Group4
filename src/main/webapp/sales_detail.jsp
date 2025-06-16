@@ -12,7 +12,7 @@
 <jsp:include page="/nav.jsp" />
 
 <div class="container mt-5 pt-5">
-	<h2 class="mb-4 text-center">売上詳細表示</h2>
+	<h2 class="mb-4 text-start">売上詳細表示</h2>
 
 	<div class="row justify-content-center">
 		<div class="col-md-6">

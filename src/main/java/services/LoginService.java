@@ -108,13 +108,13 @@ public class LoginService {
     // DBでユーザー認証
     private boolean authenticateUser(HttpServletRequest request, String email, String password) {
         try (Connection conn = Db.getConnection()) {
-            System.out.println("DB接続成功");
+//            System.out.println("DB接続成功");
 
             String sql = "SELECT * FROM accounts WHERE mail = ? AND password = ?";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, email);
                 ps.setString(2, password);
-                System.out.println("SQL準備完了: " + ps.toString());
+//                System.out.println("SQL準備完了: " + ps.toString());
 
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
@@ -130,11 +130,11 @@ public class LoginService {
 
                         acounts.setAttribute("user", loginUser);  // ここでAccountDtoオブジェクトをセット
 
-                        System.out.println("認証成功: ユーザー名=" + loginUser.getName());
+//                        System.out.println("認証成功: ユーザー名=" + loginUser.getName());
 
                         return true;
                     } else {
-                        System.out.println("認証失敗: 該当ユーザーなし");
+//                        System.out.println("認証失敗: 該当ユーザーなし");
                     }
                 }
             }

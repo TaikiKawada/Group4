@@ -12,9 +12,9 @@
 
 <jsp:include page="/nav.jsp" />
 
-	<div class="container mt-5 d-flex justify-content-center">
+	<div class="container mt-5 pt-5 d-flex justify-content-center">
 		<div class="w-50" style="max-width: 600px;">
-			<h2 class="mb-4 text-center text-danger">この売上情報を削除しますか？</h2>
+			<h2 class="mb-4 text-start text-danger">この売上情報を削除しますか？</h2>
 
 			<table class="table table-bordered">
 				<tr><th>販売日</th><td>${salesDate}</td></tr>
