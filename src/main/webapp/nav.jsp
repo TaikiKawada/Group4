@@ -12,9 +12,9 @@
         </c:if>
         <li class="nav-item"><a class="nav-link" href="SalesSearchServlet">売上検索</a></li>
         <c:if test="${authority == 2 || authority == 3}">
-          <li class="nav-item"><a class="nav-link" href="AccountEntryServlet">アカウント登録</a></li>
+          <li class="nav-item"><a class="nav-link" href="${ pageContext.request.contextPath }/account/entry.html">アカウント登録</a></li>
         </c:if>
-        <li class="nav-item"><a class="nav-link" href="AccountSerchFormServlet">アカウント検索</a></li>
+        <li class="nav-item"><a class="nav-link" href="${ pageContext.request.contextPath }/account/search.html">アカウント検索</a></li>
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">

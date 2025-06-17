@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import DAO.AccountDao;
 import DTO.AccountDto;
+import services.AccountService;
 
 /**
  * Servlet implementation class AccountSearchResultServlet
@@ -41,8 +41,8 @@ public class AccountSearchResultServlet extends HttpServlet {
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> authList = (ArrayList<Integer>) session.getAttribute("lastSearchAuth");
 		
-		AccountDao dao = new AccountDao();
-		ArrayList<AccountDto> accounts = dao.searchAccounts(name, mail, authList);
+		AccountService service = new AccountService();
+		ArrayList<AccountDto> accounts = service.search(name, mail, authList);
 		
 		request.setAttribute("accountList", accounts);
 		
