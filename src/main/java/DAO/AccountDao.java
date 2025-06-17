@@ -95,9 +95,9 @@ public class AccountDao {
 			}
 		}
 
-		// 処理の確認
-		System.out.println("実行SQL: " + sql.toString());
-		System.out.println("パラメータ: " + params);
+//		// 処理の確認
+//		System.out.println("実行SQL: " + sql.toString());
+//		System.out.println("パラメータ: " + params);
 
 		try (
 				Connection conn = Db.getConnection();
