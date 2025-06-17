@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import DAO.AccountDao;
 import DTO.AccountDto;
+import services.AccountService;
 
 /**
  * Servlet implementation class AccountDeleteConfirmServlet
@@ -35,7 +35,7 @@ public class AccountDeleteConfirmServlet extends HttpServlet {
 		int accountId = Integer.parseInt(request.getParameter("account_id"));
 		
 		// 削除するアカウントの情報を取得
-		AccountDto account = new AccountDao().findById(accountId);
+		AccountDto account = new AccountService().findById(accountId);
 		
 		// 権限のチェック
 		int auth = account.getAuth();
@@ -59,10 +59,10 @@ public class AccountDeleteConfirmServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int accountId = Integer.parseInt(request.getParameter("account_id"));
-		System.out.println(accountId);
+//		System.out.println(accountId);
 		
-		AccountDao dao = new AccountDao();
-		boolean success = dao.deleteAccount(accountId);
+		AccountService service = new AccountService();
+		boolean success = service.delete(accountId);
 		
 		if(success) {
 			// 削除成功時は検索結果画面に

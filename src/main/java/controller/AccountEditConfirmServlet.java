@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import DAO.AccountDao;
 import DTO.AccountDto;
+import services.AccountService;
 
 /**
  * Servlet implementation class AccountEditConfirmServlet
@@ -56,8 +56,8 @@ public class AccountEditConfirmServlet extends HttpServlet {
 		
 		AccountDto account = (AccountDto) session.getAttribute("accountData");
 		
-		AccountDao dao = new AccountDao();
-		boolean success = dao.editAccount(account);
+		AccountService service = new AccountService();
+		boolean success = service.edit(account);
 		
 		if(success) {
 			response.sendRedirect(request.getContextPath() + "/account/search/result.html");

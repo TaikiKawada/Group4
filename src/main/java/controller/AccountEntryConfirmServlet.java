@@ -42,13 +42,11 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 			//権限を判定してbooleanに変換してjspに渡す
 			if (account != null) {
 				int auth = account.getAuth();
-
 				request.setAttribute("hasNoneAuth", (auth == 0));
 				request.setAttribute("hasSalesAuth", (auth & 1) != 0);
 				request.setAttribute("hasAccountAuth", (auth & 2) != 0);
 			}
 		}
-
 		request.getRequestDispatcher("/account_entry_confirm.jsp").forward(request, response);
 	}
 
@@ -76,12 +74,12 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 			return;
 		}
 
+		// アカウント登録処理
 		AccountService as = new AccountService();
 		as.signup(accountDto);
 
 		//セッションの値を削除
 		session.removeAttribute("accountData");
-
 		//登録画面へ遷移
 		response.sendRedirect(request.getContextPath() + "/account/entry.html");
 

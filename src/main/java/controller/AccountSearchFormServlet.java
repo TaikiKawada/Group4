@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import utils.Validator;
+
 /**
  * Servlet implementation class AccountSearchFormServlet
  */
@@ -46,20 +48,34 @@ public class AccountSearchFormServlet extends HttpServlet {
 		String mail = request.getParameter("mail");
 		String[] authValues = request.getParameterValues("auth");
 
-
 		// 権限をリストに
 		ArrayList<Integer> authList = new ArrayList<>();
-		if(authValues != null) {
-			for(String val : authValues) {
+		if (authValues != null) {
+			for (String val : authValues) {
 				authList.add(Integer.parseInt(val));
 			}
 		}
 		
+		// バリデーション
+		// 名前長さチェック
+		if (!Validator.isValidName(name)) {
+			request.setAttribute("error", "氏名は20バイト以内で入力してください");
+			request.getRequestDispatcher("/account_search_form.jsp").forward(request, response);
+			return;
+		}
+
+		// メールアドレス長さチェック
+		if (!Validator.isValidMail(mail)) {
+			request.setAttribute("error", "メールアドレスは100バイト以内で入力してください");
+			request.getRequestDispatcher("/account_search_form.jsp").forward(request, response);
+			return;
+		}
+
 		// セッションに値を保存
 		session.setAttribute("lastSearchName", name);
 		session.setAttribute("lastSearchMail", mail);
 		session.setAttribute("lastSearchAuth", authList);
-	
+
 		//検索結果画面へ遷移
 		response.sendRedirect(request.getContextPath() + "/account/search/result.html");
 	}
