@@ -51,10 +51,11 @@
 									action="${ pageContext.request.contextPath }/account/edit.html">
 									<input type="hidden" name="account_id"
 										value="${ account.account_id }" />
-									<c:if
-										test="${ account.authority == 2 || account.authority == 3}">
+									<c:if test="${ account != null }"
+										<c:if
+										test="${ account.authority == 2 || account.authority == 3) ">
 										<button type="submit" class="btn btn-primary">編集</button>
-									</c:if>
+									</c:if></c:if>
 								</form>
 								<form method="get"
 									action="${ pageContext.request.contextPath }/account/delete.html">
