@@ -1,9 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -12,52 +9,43 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import DAO.AccountDao;
-import DAO.CategoryDAO;
-import utils.Db;
+import DAO.SaleDAO;
+import DTO.SalesDto;
 
 @WebServlet("/SalesDeleteConfirmServlet")
 public class SalesDeleteConfirmServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
-		String saleId = request.getParameter("saleId");
+        request.setCharacterEncoding("UTF-8");
+        String saleIdStr = request.getParameter("saleId");
 
-		try (Connection conn = Db.getConnection()) {
-			String sql = "SELECT * FROM sales WHERE sale_id = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, saleId);
-			ResultSet rs = stmt.executeQuery();
+        try {
+            int saleId = Integer.parseInt(saleIdStr);
+            SalesDto sale = SaleDAO.getSaleById(saleId);
 
-			if (rs.next()) {
-				int accountId = rs.getInt("account_id");
-				int categoryId = rs.getInt("category_id");
+            if (sale != null) {
+                request.setAttribute("saleId", sale.getSaleId());
+                request.setAttribute("salesDate", sale.getSaleDate());
+                request.setAttribute("staff", sale.getAccountId());
+                request.setAttribute("staffName", sale.getAccountName());
+                request.setAttribute("category", sale.getCategoryId());
+                request.setAttribute("categoryName", sale.getCategoryName());
+                request.setAttribute("productName", sale.getTradeName());
+                request.setAttribute("unitPrice", sale.getUnitPrice());
+                request.setAttribute("quantity", sale.getSaleNumber());
+                request.setAttribute("remarks", sale.getNote());
+            } else {
+                request.setAttribute("error", "指定された売上データが見つかりませんでした。");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "データベースエラーが発生しました。");
+        }
 
-				String accountName = AccountDao.getNameById(accountId);     // ← 名前を取得
-				String categoryName = CategoryDAO.getNameById(categoryId);  // ← カテゴリー名を取得
-
-				request.setAttribute("saleId", rs.getInt("sale_id"));
-				request.setAttribute("salesDate", rs.getString("sale_date"));
-				request.setAttribute("staff", accountId);
-				request.setAttribute("staffName", accountName); // ← ここでセット
-				request.setAttribute("category", categoryId);
-				request.setAttribute("categoryName", categoryName); // ← ここでセット
-				request.setAttribute("productName", rs.getString("trade_name"));
-				request.setAttribute("unitPrice", rs.getInt("unit_price"));
-				request.setAttribute("quantity", rs.getInt("sale_number"));
-				request.setAttribute("remarks", rs.getString("note"));
-			} else {
-				request.setAttribute("error", "指定された売上データが見つかりませんでした。");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("error", "データベースエラーが発生しました。");
-		}
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("sales_delete_confirm.jsp");
-		dispatcher.forward(request, response);
-	}
+        RequestDispatcher dispatcher = request.getRequestDispatcher("sales_delete_confirm.jsp");
+        dispatcher.forward(request, response);
+    }
 }

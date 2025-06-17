@@ -230,6 +230,23 @@ public class SaleDAO {
             return false;
         }
     }
+    
+    public static boolean deleteById(int saleId) {
+        String sql = "DELETE FROM sales WHERE sale_id = ?";
+
+        try (Connection conn = Db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, saleId);
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
 } 

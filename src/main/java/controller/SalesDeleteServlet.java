@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -11,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import utils.Db;
+import DAO.SaleDAO;
 
 @WebServlet("/SalesDeleteServlet")
 public class SalesDeleteServlet extends HttpServlet {
@@ -21,22 +19,9 @@ public class SalesDeleteServlet extends HttpServlet {
 		throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
-		String saleId = request.getParameter("saleId");
+		int saleId = Integer.parseInt(request.getParameter("saleId"));
 
-		boolean success = false;
-
-		try (Connection conn = Db.getConnection()) {
-			String sql = "DELETE FROM sales WHERE sale_id = ?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, saleId);
-
-			int rows = stmt.executeUpdate();
-			success = (rows > 0);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("error", "データベースエラーが発生しました。");
-		}
+		boolean success = SaleDAO.deleteById(saleId);
 
 		if (success) {
 			request.setAttribute("message", "売上情報を削除しました。");
