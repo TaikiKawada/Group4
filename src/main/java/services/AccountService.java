@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import DAO.AccountDao;
 import DTO.AccountDto;
 import utils.Db;
+import utils.PasswordUtils;
 
 public class AccountService {
 	private AccountDao dao = new AccountDao();
@@ -22,7 +23,9 @@ public class AccountService {
 			
 			ps.setString(1, obj.getName());
 			ps.setString(2, obj.getMail());
-			ps.setString(3, obj.getPassword());
+			
+			String hashedPassword = PasswordUtils.hashPassword(obj.getPassword());
+			ps.setString(3, hashedPassword);
 			ps.setInt(4, obj.getAuth());
 			
 			ps.executeUpdate();

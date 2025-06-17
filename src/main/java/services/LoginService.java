@@ -12,11 +12,11 @@ import jakarta.servlet.http.HttpSession;
 
 import DTO.AccountDto;
 import utils.Db;
+import utils.PasswordUtils;
 
 public class LoginService {
-
-
-
+	
+	//ログイン要求のメイン処理
     public boolean authenticate(HttpServletRequest request) {
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
@@ -58,14 +58,11 @@ public class LoginService {
         	isValid = false;
         }
   
-        
         // 1-5 パスワードの長さチェック
         else if (!isValidPasswordLength(password)) {
             request.setAttribute("passwordError", "パスワードが長すぎます。");
             isValid = false;
         }
-        
-       
 
         return isValid;
     }
@@ -106,36 +103,35 @@ public class LoginService {
     	        return false;
     	    }
     }
-    
 
     // DBでユーザー認証
     private boolean authenticateUser(HttpServletRequest request, String email, String password) {
-        try (Connection conn = Db.getConnection()) {
+        try (Connection conn = Db.getConnection()) {//データベースと接続
 
-            String sql = "SELECT * FROM accounts WHERE mail = ? AND password = ?";
+            String sql = "SELECT name, mail, password, authority FROM accounts WHERE mail = ?";
             
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setString(1, email);
-                ps.setString(2, password);
 
-                try (ResultSet rs = ps.executeQuery()) {
+                try (ResultSet rs = ps.executeQuery()) {//結果取得と照合。メールアドレスが登録されているか。
                     if (rs.next()) {
-                    	AccountDto loginUser = new AccountDto();
-                        loginUser.setName(rs.getString("name"));
-                        loginUser.setMail(rs.getString("mail"));
-                        loginUser.setAuth(rs.getInt("authority"));  // authorityをintでセット
+                    	String storedHash = rs.getString("password");//パスワードのハッシュ値を取得
+                    	
+                        if (PasswordUtils.matches(password, storedHash)) {//パスワードの照合
+                        HttpSession accounts = request.getSession();//ログイン成功処理(セッション保存)
+                        
+                        AccountDto account = new AccountDto();
+                        account.setName(rs.getString("name"));
+                        account.setMail(rs.getString("mail"));
+                        account.setAuth(rs.getInt("authority")); //authorityをintでセット
 
-                        HttpSession accounts = request.getSession();
-
-                        accounts.setAttribute("user", rs.getString("name")); // ユーザー名などを保存
-
-                        accounts.setAttribute("user", loginUser);  // ここでAccountDtoオブジェクトをセット
-
+                        accounts.setAttribute("user", account); // AccountDtoとして保存。ユーザー名などを保存
                         return true;
+                        }
                     }
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {//エラー処理
             System.out.println("データベース接続エラー:");
             e.printStackTrace();
             request.setAttribute("error", "システムエラーが発生しました。");

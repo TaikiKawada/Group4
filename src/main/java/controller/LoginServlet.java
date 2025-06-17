@@ -15,7 +15,7 @@ import services.LoginService;
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private LoginService loginService = new LoginService();
-
+    
     @Override
     //login.jspを取得
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,5 +40,6 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("error", "メールアドレス、パスワードを正しく入力してください。");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
+
     }
 }

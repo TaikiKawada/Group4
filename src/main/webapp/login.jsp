@@ -24,7 +24,8 @@
 
 				<!--メールアドレスを入力-->
 				<div class="mb-3">
-					<label for="email" class="form-label">メールアドレス</label> <span
+					<label for="email" class="form-label">メールアドレス</label>
+					<span 
 						class="badge text-bg-secondary">必須</span> <input type="text"
 						name="mail" class="form-control" id="email" placeholder="メールアドレス"
 						required> <small>例：user@example.com</small>
@@ -35,10 +36,12 @@
 
 				<!--パスワードを入力-->
 				<div class="mb-3">
-					<label for="password" class="form-label">パスワード</label> <span
+					<label for="password" class="form-label">パスワード</label>
+					<span
 						class="badge text-bg-secondary">必須</span> <input type="password"
 						name="password" class="form-control" id="password"
-						placeholder="パスワード" required> <small>8文字以上であり、大文字・数字・小文字・記号を含める必要があります</small>
+						placeholder="パスワード" required>
+					<small>8文字以上であり、大文字・数字・小文字・記号を含める必要があります</small>
 				</div>
 				<!-- パスワード表示切替ボタン -->
 				<div>

@@ -16,5 +16,7 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jakarta.servlet.jsp.jstl-3.0.1.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jakarta.servlet.jsp.jstl-api-3.0.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mariadb-java-client-3.5.3.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/spring-security-core-5.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/commons-logging-1.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
