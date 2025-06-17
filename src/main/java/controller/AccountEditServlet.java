@@ -38,7 +38,7 @@ public class AccountEditServlet extends HttpServlet {
 		String idParam = request.getParameter("account_id");
 		// account_idがnullまたは空じゃないかのチェック
 		if(idParam == null || idParam.isEmpty()) {
-			response.sendRedirect("account/search.html");
+			response.sendRedirect(request.getContextPath() + "/account/search.html");
 			return;
 		}
 		
