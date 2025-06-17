@@ -29,14 +29,17 @@ public class SalesEditServlet extends HttpServlet {
 
         try {
             int saleId = Integer.parseInt(request.getParameter("saleId"));
-            SalesDto sale = SaleDAO.getSaleById(saleId);
+            SalesDto sale = SaleDAO.getSaleById(saleId); // ← DBから売上情報取得
 
             List<Map<String, String>> staffList = AccountDao.getAllAccounts();
             List<Map<String, String>> categoryList = CategoryDAO.getActiveCategories();
 
-            request.setAttribute("sale", sale);
+            request.setAttribute("sale", sale); // ← sale オブジェクトを渡す
             request.setAttribute("staffList", staffList);
             request.setAttribute("categoryList", categoryList);
+
+            // ★ もし JPS 側で ${salesDate} を使ってるなら下記も追加（なくてもいい）
+            request.setAttribute("salesDate", sale.getSaleDate());
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("sales_edit.jsp");
             dispatcher.forward(request, response);
@@ -46,6 +49,7 @@ public class SalesEditServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+
 
     // 編集内容確認へ（POST）
     @Override
@@ -112,7 +116,7 @@ public class SalesEditServlet extends HttpServlet {
         String categoryName = CategoryDAO.getNameById(category);
 
         request.setAttribute("saleId", saleId);
-        request.setAttribute("salesDate", saleDate);
+        request.setAttribute("saleDate", saleDate);
         request.setAttribute("staff", staff);
         request.setAttribute("staffName", staffName);
         request.setAttribute("category", category);
