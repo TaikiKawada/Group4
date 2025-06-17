@@ -35,9 +35,15 @@ public class AccountEditServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// 更新するアカウントのaccount_idを取得
-		int accountId = Integer.parseInt(request.getParameter("account_id"));
-
+		String idParam = request.getParameter("account_id");
+		// account_idがnullまたは空じゃないかのチェック
+		if(idParam == null || idParam.isEmpty()) {
+			response.sendRedirect("account/search.html");
+			return;
+		}
+		
 		// 更新するアカウントの情報を取得
+		int accountId = Integer.parseInt(idParam);
 		AccountDto account = new AccountService().findById(accountId);
 
 		// 権限のチェック
