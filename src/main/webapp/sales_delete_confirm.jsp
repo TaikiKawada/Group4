@@ -12,28 +12,79 @@
 
 <jsp:include page="/nav.jsp" />
 
-	<div class="container mt-5 pt-5 d-flex justify-content-center">
-		<div class="w-50" style="max-width: 600px;">
-			<h2 class="mb-4 text-start text-danger">この売上情報を削除しますか？</h2>
+<div class="container mt-5 pt-5 d-flex justify-content-center">
+	<div class="w-50" style="max-width: 600px;">
+		<h2 class="mb-4 text-start text-danger">売上詳細削除確認</h2>
 
-			<table class="table table-bordered">
-				<tr><th>販売日</th><td>${salesDate}</td></tr>
-				<tr><th>担当</th><td>${staff}</td></tr>
-				<tr><th>商品カテゴリー</th><td>${category}</td></tr>
-				<tr><th>商品名</th><td>${productName}</td></tr>
-				<tr><th>単価</th><td>${unitPrice}</td></tr>
-				<tr><th>個数</th><td>${quantity}</td></tr>
-				<tr><th>備考</th><td>${remarks}</td></tr>
-			</table>
+		<form action="SalesDeleteServlet" method="post">
+			<input type="hidden" name="saleId" value="${saleId}" />
 
-			<form action="SalesDeleteServlet" method="post">
-				<input type="hidden" name="saleId" value="${saleId}" />
-				<div class="text-end mt-4 d-flex justify-content-between">
-					<a href="sales_search_result.jsp" class="btn btn-secondary">キャンセル</a>
-					<button type="submit" class="btn btn-danger">削除する</button>
+			<!-- 販売日 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">販売日</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" value="${salesDate}" disabled />
 				</div>
-			</form>
-		</div>
+			</div>
+
+			<!-- 担当 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">担当</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" value="${staffName}" disabled />
+					<input type="hidden" name="staff" value="${staff}" />
+				</div>
+			</div>
+
+			<!-- 商品カテゴリー -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">商品カテゴリー</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" value="${categoryName}" disabled />
+					<input type="hidden" name="category" value="${category}" />
+				</div>
+			</div>
+
+			<!-- 商品名 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">商品名</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" value="${productName}" disabled />
+				</div>
+			</div>
+
+			<!-- 単価 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">単価</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" value="${unitPrice} 円" disabled />
+				</div>
+			</div>
+
+			<!-- 個数 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">個数</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" value="${quantity}" disabled />
+				</div>
+			</div>
+
+			<!-- 備考 -->
+			<div class="mb-3 row">
+				<label class="col-sm-4 col-form-label text-end">備考</label>
+				<div class="col-sm-8">
+					<textarea class="form-control" rows="3" disabled>${remarks}</textarea>
+				</div>
+			</div>
+
+			<!-- ボタン -->
+			<div class="text-center mt-4">
+				<button type="submit" class="btn btn-danger me-2">✖ 削除</button>
+				<a href="SalesSearchServlet?saleId=${saleId}" class="btn btn-secondary">キャンセル</a>
+			</div>
+		</form>
 	</div>
+</div>
+
 </body>
 </html>

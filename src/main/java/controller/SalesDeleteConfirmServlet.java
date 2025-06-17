@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import DAO.AccountDao;
+import DAO.CategoryDAO;
 import utils.Db;
 
 @WebServlet("/SalesDeleteConfirmServlet")
@@ -31,13 +33,21 @@ public class SalesDeleteConfirmServlet extends HttpServlet {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				request.setAttribute("saleId", rs.getString("sale_id"));
+				int accountId = rs.getInt("account_id");
+				int categoryId = rs.getInt("category_id");
+
+				String accountName = AccountDao.getNameById(accountId);     // ← 名前を取得
+				String categoryName = CategoryDAO.getNameById(categoryId);  // ← カテゴリー名を取得
+
+				request.setAttribute("saleId", rs.getInt("sale_id"));
 				request.setAttribute("salesDate", rs.getString("sale_date"));
-				request.setAttribute("staff", rs.getString("account_id"));
-				request.setAttribute("category", rs.getString("category_id"));
+				request.setAttribute("staff", accountId);
+				request.setAttribute("staffName", accountName); // ← ここでセット
+				request.setAttribute("category", categoryId);
+				request.setAttribute("categoryName", categoryName); // ← ここでセット
 				request.setAttribute("productName", rs.getString("trade_name"));
-				request.setAttribute("unitPrice", rs.getString("unit_price"));
-				request.setAttribute("quantity", rs.getString("sale_number"));
+				request.setAttribute("unitPrice", rs.getInt("unit_price"));
+				request.setAttribute("quantity", rs.getInt("sale_number"));
 				request.setAttribute("remarks", rs.getString("note"));
 			} else {
 				request.setAttribute("error", "指定された売上データが見つかりませんでした。");

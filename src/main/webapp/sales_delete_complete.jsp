@@ -12,7 +12,7 @@
 
 <jsp:include page="/nav.jsp" />
 
-	<div class="container mt-5 d-flex justify-content-center">
+	<div class="container mt-5 pt-5 d-flex justify-content-center">
 		<div class="text-center" style="max-width: 600px;">
 			<h2 class="mb-4 text-success">削除完了</h2>
 
@@ -20,7 +20,7 @@
 				<div class="alert alert-success">${message}</div>
 			</c:if>
 
-			<a href="sales_search_form.jsp" class="btn btn-primary mt-3">検索画面に戻る</a>
+			<a href="SalesSearchServlet" class="btn btn-primary mt-3">検索画面に戻る</a>
 		</div>
 	</div>
 </body>
