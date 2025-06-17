@@ -51,9 +51,9 @@
 									action="${ pageContext.request.contextPath }/account/edit.html">
 									<input type="hidden" name="account_id"
 										value="${ account.account_id }" />
-									<c:if test="${ account != null }"
+									<c:if test="${ account != null }">
 										<c:if
-										test="${ account.authority == 2 || account.authority == 3) ">
+										test="${ user.auth == 2 || user.auth  == 3 }">
 										<button type="submit" class="btn btn-primary">編集</button>
 									</c:if></c:if>
 								</form>

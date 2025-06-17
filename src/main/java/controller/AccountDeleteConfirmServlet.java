@@ -32,9 +32,15 @@ public class AccountDeleteConfirmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// 削除するアカウントのaccount_idを取得
-		int accountId = Integer.parseInt(request.getParameter("account_id"));
+		String idParam = request.getParameter("account_id");
+		
+		if(idParam == null || idParam.isEmpty()) {
+			response.sendRedirect("/account/search.html");
+			return;
+		}
 		
 		// 削除するアカウントの情報を取得
+		int accountId = Integer.parseInt(idParam);
 		AccountDto account = new AccountService().findById(accountId);
 		
 		// 権限のチェック

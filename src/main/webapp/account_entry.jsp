@@ -71,7 +71,6 @@
 					<div class="form-badge-col">
 						<span class="badge text-bg-secondary">必須</span>
 					</div>
-
 					<div class="form-input-col">
 						<input type="password" name="password" class="form-control"
 							placeholder="パスワード" />
@@ -87,7 +86,6 @@
 					</div>
 					<div class="form-badge-col">
 						<span class="badge text-bg-secondary">必須</span>
-
 					</div>
 					<div class="form-input-col">
 						<input type="password" name="passConfirm" class="form-control"
