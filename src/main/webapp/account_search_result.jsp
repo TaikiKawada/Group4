@@ -23,8 +23,8 @@
 		<h2 class="mb-4">アカウント検索結果表示</h2>
 
 		<!--検索結果の表示-->
-		<table class="table mt-1">
-			<thead>
+		<table class="table table-striped table-hover align-middle mt-1">
+			<thead class="table-light">
 				<tr>
 					<th scope="col">操作</th>
 					<th scope="col">No</th>
@@ -38,7 +38,13 @@
 				<!--該当アカウントがない時の処理-->
 				<c:if test="${empty accountList}">
 					<tr>
-						<td colspan="5" class="text-center">該当するアカウントが見つかりませんでした。</td>
+						<td colspan="5" class="text-center">該当するアカウントが見つかりませんでした。<br />
+							<form method="get"
+								action="${ pageContext.request.contextPath }/account/search.html"
+								class="d-inline-block mt-3">
+								<button type="submit" class="btn btn-secondary">検索条件の入力に戻る</button>
+							</form>
+						</td>
 					</tr>
 				</c:if>
 				<!--検索結果の表示-->
@@ -51,10 +57,10 @@
 									<input type="hidden" name="account_id"
 										value="${ account.account_id }" />
 									<c:if test="${ account != null }">
-										<c:if
-										test="${ user.auth == 2 || user.auth  == 3 }">
-										<button type="submit" class="btn btn-primary">編集</button>
-									</c:if></c:if>
+										<c:if test="${ user.auth == 2 || user.auth  == 3 }">
+											<button type="submit" class="btn btn-primary">編集</button>
+										</c:if>
+									</c:if>
 								</form>
 								<form method="get"
 									action="${ pageContext.request.contextPath }/account/delete.html">

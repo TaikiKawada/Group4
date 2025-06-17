@@ -89,11 +89,9 @@
 				<!--権限-->
 				<div class="form-row">
 					<div class="form-label-col">
-						<div class="label-box">
-							<label class="form-label label-box">
-								権限<span class="badge text-bg-secondary">必須</span>
-							</label>
-						</div>
+						<label class="form-label label-box">権限<span
+							class="badge text-bg-secondary">必須</span>
+						</label>
 					</div>
 					<div class="form-input-col">
 						<div class="checkbox-group">
@@ -111,6 +109,7 @@
 					</div>
 				</div>
 
+				<!--ボタン-->
 				<div class="text-end mt-4">
 					<button class="btn btn-primary">登録</button>
 				</div>
