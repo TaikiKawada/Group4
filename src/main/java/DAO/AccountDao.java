@@ -11,27 +11,53 @@ import java.util.Map;
 
 import DTO.AccountDto;
 import utils.Db;
+import utils.PasswordUtils;
 
 public class AccountDao {
-	public static List<Map<String, String>> getAllAccounts() {
-	    List<Map<String, String>> list = new ArrayList<>();
-	    try (Connection conn = Db.getConnection();
-	         PreparedStatement stmt = conn.prepareStatement("SELECT account_id, name FROM accounts");
-	         ResultSet rs = stmt.executeQuery()) {
 
-	        while (rs.next()) {
-	            Map<String, String> map = new HashMap<>();
-	            map.put("id", String.valueOf(rs.getInt("account_id")));
-	            map.put("name", rs.getString("name"));
-	            list.add(map);
-	        }
+	// アカウント登録
+	public void insertAccount(AccountDto obj) {
+		String sql = "insert into accounts (name, mail, password, authority) values (?, ?, ?, ?)";
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return list;
+		try (Connection con = Db.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);) {
+
+			ps.setString(1, obj.getName());
+			ps.setString(2, obj.getMail());
+			
+			String hashedPassword = PasswordUtils.hashPassword(obj.getPassword());
+			ps.setString(3, hashedPassword);
+
+			ps.setInt(4, obj.getAuth());
+
+			ps.executeUpdate();
+
+			// 例外処理
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
+	public static List<Map<String, String>> getAllAccounts() {
+		List<Map<String, String>> list = new ArrayList<>();
+		try (Connection conn = Db.getConnection();
+				PreparedStatement stmt = conn.prepareStatement("SELECT account_id, name FROM accounts");
+				ResultSet rs = stmt.executeQuery()) {
+
+			while (rs.next()) {
+				Map<String, String> map = new HashMap<>();
+				map.put("id", String.valueOf(rs.getInt("account_id")));
+				map.put("name", rs.getString("name"));
+				list.add(map);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	// アカウント検索
 	public ArrayList<AccountDto> searchAccounts(String name, String mail, List<Integer> authList) {
 		ArrayList<AccountDto> resultList = new ArrayList<>();
 		StringBuilder sql = new StringBuilder("SELECT * FROM accounts WHERE 1=1");
@@ -73,9 +99,9 @@ public class AccountDao {
 			}
 		}
 
-		// 処理の確認
-		System.out.println("実行SQL: " + sql.toString());
-		System.out.println("パラメータ: " + params);
+//		// 処理の確認
+//		System.out.println("実行SQL: " + sql.toString());
+//		System.out.println("パラメータ: " + params);
 
 		try (
 				Connection conn = Db.getConnection();
@@ -107,6 +133,7 @@ public class AccountDao {
 		return resultList;
 	}
 
+	// account_idと一致するアカウントの検索
 	public AccountDto findById(int accountId) {
 		String sql = "select * from accounts where account_id = ?";
 		AccountDto account = new AccountDto();
@@ -138,20 +165,20 @@ public class AccountDao {
 
 		try (Connection con = Db.getConnection();
 				PreparedStatement ps = con.prepareStatement(sql);) {
-			
+
 			ps.setString(1, account.getName());
 			ps.setString(2, account.getMail());
 			ps.setString(3, account.getPassword());
 			ps.setInt(4, account.getAuth());
 			ps.setInt(5, account.getAccount_id());
-			
+
 			// SQL文の実行
 			int result = ps.executeUpdate();
-			
+
 			// 更新出来たらtrueを返す
 			return result > 0;
-			
-		// 例外処理
+
+			// 例外処理
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			return false;
@@ -178,5 +205,29 @@ public class AccountDao {
 			e.printStackTrace();
 			return false;
 		}
+		
+		
 	}
+	
+	public static String getNameById(int id) {
+	    String name = "";
+	    String sql = "SELECT name FROM accounts WHERE account_id = ?";
+
+	    try (Connection conn = Db.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ps.setInt(1, id);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            name = rs.getString("name");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+	    
+
+	    return name;
+	}
+
 }

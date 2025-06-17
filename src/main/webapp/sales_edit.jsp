@@ -40,7 +40,9 @@
 					<select name="staff" class="form-select">
 						<option value="">選択してください</option>
 						<c:forEach var="staffItem" items="${staffList}">
-							<option value="${staffItem.id}" ${staffItem.id == sale.accountId ? "selected" : ""}>${staffItem.name}</option>
+							<option value="${staffItem.id}" <c:if test="${staffItem.id == sale.accountId}">selected</c:if>>
+								${staffItem.name}
+							</option>
 						</c:forEach>
 					</select>
 					<c:if test="${errors.staff != null}">
@@ -58,7 +60,9 @@
 					<select name="category" class="form-select">
 						<option value="">選択してください</option>
 						<c:forEach var="cat" items="${categoryList}">
-							<option value="${cat.id}" ${cat.id == sale.categoryId ? "selected" : ""}>${cat.name}</option>
+							<option value="${cat.id}" <c:if test="${cat.id == sale.categoryId}">selected</c:if>>
+								${cat.name}
+							</option>
 						</c:forEach>
 					</select>
 					<c:if test="${errors.category != null}">

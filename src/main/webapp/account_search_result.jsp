@@ -12,7 +12,6 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
-
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -51,7 +50,11 @@
 									action="${ pageContext.request.contextPath }/account/edit.html">
 									<input type="hidden" name="account_id"
 										value="${ account.account_id }" />
-									<button type="submit" class="btn btn-primary">編集</button>
+									<c:if test="${ account != null }">
+										<c:if
+										test="${ user.auth == 2 || user.auth  == 3 }">
+										<button type="submit" class="btn btn-primary">編集</button>
+									</c:if></c:if>
 								</form>
 								<form method="get"
 									action="${ pageContext.request.contextPath }/account/delete.html">

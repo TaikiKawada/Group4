@@ -1,8 +1,6 @@
-
-
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +44,10 @@
                         <button class="btn btn-sm btn-outline-primary">✔詳細</button>
                     </form>
                     <div class="me-3" style="width: 60px;">${status.index + 1}</div>
-                    <div class="me-3" style="width: 120px;">${row.saleDate}</div>
+                    <div class="me-3" style="width: 120px;">
+                        <fmt:parseDate value="${row.saleDate}" pattern="yyyy-MM-dd" var="parsedDate" />
+                        <fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" />
+                    </div>
                     <div class="me-3" style="width: 100px;">${row.accountName}</div>
                     <div class="me-3" style="width: 120px;">${row.categoryName}</div>
                     <div class="me-3" style="width: 100px;">${row.tradeName}</div>

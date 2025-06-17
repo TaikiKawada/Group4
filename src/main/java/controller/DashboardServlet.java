@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -10,8 +11,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import DAO.AccountDao;
 import DAO.SaleDAO;
 import DTO.AccountDto;
+import DTO.SalesDto;
 import beans.Sale;
 
 /**
@@ -48,19 +51,45 @@ public class DashboardServlet extends HttpServlet {
 		int authority = loginUser.getAuth(); // int型（0〜3）
 
 		try {
-			//SaleDAOを使ってデータを取得
-			SaleDAO saleDAO=new SaleDAO();
-			List<Sale>sales=saleDAO.getAllSales();//全売上データ取得
-			
-			//JSPにデータを渡す
-			request.setAttribute("sales", sales);
-			request.setAttribute("authority", authority);
-			request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
-		}catch(Exception e) {
-			e.printStackTrace();
-			request.setAttribute("error", "売上データの取得中にエラーが発生しました。");
-			request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
-		}
+            // 売上一覧をSaleで取得
+            List<Sale> sales = SaleDAO.getAllSales();
+
+            // AccountDaoを用意
+            AccountDao accountDao = new AccountDao();
+
+            // SalesDtoのリストを作成
+            List<SalesDto> salesWithNames = new ArrayList<>();
+
+            for (Sale s : sales) {
+                String accountName = accountDao.getNameById(s.getAccountId()); // ここで担当者名を取得
+
+                SalesDto dto = new SalesDto(
+                        s.getSaleId(),
+                        s.getSaleDate().toString(),
+                        s.getAccountId(),
+                        s.getCategoryId(),
+                        s.getTradeName(),
+                        s.getUnitPrice(),
+                        s.getSaleNumber(),
+                        s.getNote(),
+                        accountName,
+                        null // categoryNameはnullのまま（必要なら別処理）
+                );
+
+                salesWithNames.add(dto);
+            }
+
+            // JSPに渡す
+            request.setAttribute("sales", salesWithNames);
+            request.setAttribute("authority", authority);
+
+            request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "売上データの取得中にエラーが発生しました。");
+            request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
+        }
 	}
 	
 

@@ -116,7 +116,8 @@ public class LoginService {
                 try (ResultSet rs = ps.executeQuery()) {//結果取得と照合。メールアドレスが登録されているか。
                     if (rs.next()) {
                     	String storedHash = rs.getString("password");//パスワードのハッシュ値を取得
-                    	
+                    	System.out.println("DBに保存されているハッシュ: " + storedHash);
+
                         if (PasswordUtils.matches(password, storedHash)) {//パスワードの照合
                         HttpSession accounts = request.getSession();//ログイン成功処理(セッション保存)
                         
