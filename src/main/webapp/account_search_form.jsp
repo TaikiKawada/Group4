@@ -41,7 +41,7 @@
 					<div class="form-label-col">
 						<div class="label-box">
 							<label class="form-label mb-0 me-1">氏名</label> <span
-								class="badge text-bg-secondary">部分一致</span> </span>
+								class="badge bg-secondary">部分一致</span> </span>
 						</div>
 					</div>
 					<div class="form-input-col">
