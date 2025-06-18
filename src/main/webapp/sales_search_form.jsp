@@ -5,6 +5,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>売上検索</title>
+	<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -77,10 +79,13 @@
 					</div>
 				</div>
 
-				<!-- ボタン -->
 				<div class="text-center mt-4">
-					<button class="btn btn-primary me-2" type="submit">🔍 検索</button>
-					<button class="btn btn-secondary" type="reset">クリア</button>
+					<button type="submit" class="btn btn-primary">
+						<i class="bi bi-search"></i> 検索
+					</button>
+					
+					<button type="button" class="btn btn-white-custom"
+						onclick="clearForm()">クリア</button>
 				</div>
 			</form>
 		</div>
