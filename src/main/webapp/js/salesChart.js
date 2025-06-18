@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const labels = Object.keys(salesAggregated).sort();//横軸（日付）
     const data = labels.map(date => salesAggregated[date]);//縦軸（売上データ）
-
+	
+	//グラフの描画部分
     const ctx = document.getElementById('saleChart').getContext('2d');
     new Chart(ctx, {
         type: 'line',//線グラフ
