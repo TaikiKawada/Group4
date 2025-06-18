@@ -33,4 +33,20 @@ public class Validator {
 	public static boolean isPasswordConfirmed(String password, String confirm) {
 		return password != null && password.equals(confirm);
 	}
+	
+	//パスワード長さチェックメソッド
+    public static boolean isValidPasswordLength(String password) {
+    	 if (password == null) return false;
+
+    	    try {
+    	        // パスワードのバイト長を取得（UTF-8エンコード想定）
+    	        int byteLength = password.getBytes("UTF-8").length;
+
+    	        // 1文字以上かつ30バイト以内かをチェック
+    	        return byteLength > 0 && byteLength <= 30;
+    	    } catch (java.io.UnsupportedEncodingException e) {
+    	        e.printStackTrace();
+    	        return false;
+    	    }
+    }
 }
