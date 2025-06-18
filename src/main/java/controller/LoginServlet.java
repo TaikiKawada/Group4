@@ -18,7 +18,6 @@ public class LoginServlet extends HttpServlet {
     private LoginService loginService = new LoginService();
     
     @Override
-    //login.jspを取得
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -41,6 +40,5 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("error", "メールアドレス、パスワードを正しく入力してください。");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
-
     }
 }

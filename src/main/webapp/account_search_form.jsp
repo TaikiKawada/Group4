@@ -14,8 +14,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/style.css"
-	type="text/css">
+	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <script
@@ -47,7 +46,11 @@
 					<div class="form-input-col">
 						<input type="text" name="name" class="form-control"
 							placeholder="氏名" />
-						<div id="error-name" class="text-danger"></div>
+						<div id="error-name" class="text-danger">
+							<c:if test="${ not empty errors.name }">
+						${ errors.error }
+						</c:if>
+						</div>
 					</div>
 				</div>
 
@@ -61,7 +64,11 @@
 					<div class="form-input-col">
 						<input type="text" name="mail" class="form-control"
 							placeholder="メールアドレス" />
-						<div id="error-mail" class="text-danger"></div>
+						<div id="error-mail" class="text-danger">
+							<c:if test="${ not empty errors.name }">
+						${ errors.error }
+						</c:if>
+						</div>
 					</div>
 				</div>
 
