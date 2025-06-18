@@ -18,7 +18,6 @@ public class LoginServlet extends HttpServlet {
     private LoginService loginService = new LoginService();
     
     @Override
-    //login.jspを取得
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -29,18 +28,21 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
     	
     	request.setCharacterEncoding("UTF-8");
+    	    	
+    	boolean isSuccess = loginService.authenticate(request);
     	
+    	if(isSuccess) {
+    		response.sendRedirect("Dashboard");
+    		return;
+    	}
     	
-        //アカウント情報が一致したらdashboard.jspへ遷移
-        if (loginService.authenticate(request)) {
-            response.sendRedirect("Dashboard");
-            return;//処理終了
+    	Boolean systemError = (Boolean) request.getAttribute("systemError");
+    	
+        if (systemError != null && systemError) {
+        	request.getRequestDispatcher("/login_error.jsp").forward(request, response);
             
-        //アカウント情報が一致しなかったらエラーメッセージを出す
         } else {
-            request.setAttribute("error", "メールアドレス、パスワードを正しく入力してください。");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
-
     }
 }

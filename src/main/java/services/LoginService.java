@@ -20,7 +20,7 @@ public class LoginService {
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
         
-     // 入力検証
+        // 入力検証
         if (!validateInputs(request, mail, password)) {
             return false;
         }
@@ -29,7 +29,7 @@ public class LoginService {
         return authenticateUser(request, mail, password);
     }
 
-    //入力されたデータが、正しい形式に合致しているかチェックし、エラーを防止するメソッド
+    //入力されたデータが、正しい形式に合致しているかチェックし、エラーを防止
     private boolean validateInputs(HttpServletRequest request, String mail, String password) {
         boolean isValid = true;
         
@@ -92,11 +92,12 @@ public class LoginService {
             	}
     		}       
          }
-     } catch (SQLException | ClassNotFoundException e) {//エラー処理
-            e.printStackTrace();
-            request.setAttribute("error", "システムエラーが発生しました。");
+     } catch (SQLException | ClassNotFoundException e) {
+    	 Validator.setSystemError(request);
+         return false;
         }
-
+    	
+    	Validator.setAuthenticationFailed(request);
         return false;
     }
 }

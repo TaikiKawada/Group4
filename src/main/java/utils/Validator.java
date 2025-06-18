@@ -2,6 +2,8 @@ package utils;
 
 import java.nio.charset.StandardCharsets;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public class Validator {
 	
 	// 空チェック
@@ -48,5 +50,16 @@ public class Validator {
     	        e.printStackTrace();
     	        return false;
     	    }
+    }
+    
+    // システムエラー共通処理
+    public static void setSystemError(HttpServletRequest request) {
+        request.setAttribute("systemError", true);
+        request.setAttribute("error", "システムエラーが発生しました。");
+    }
+
+    // 入力ミスなどのエラー共通処理
+    public static void setAuthenticationFailed(HttpServletRequest request) {
+        request.setAttribute("error", "メールアドレス、パスワードを正しく入力してください。");
     }
 }
