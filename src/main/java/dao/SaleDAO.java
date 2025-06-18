@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import DTO.SalesDto;        // DTOクラス（登録などで使用）
 import beans.Sale;           // 既存のSaleクラス（表示などで使用）
+import dto.SalesDto;
 import utils.Db;
 
 public class SaleDAO {

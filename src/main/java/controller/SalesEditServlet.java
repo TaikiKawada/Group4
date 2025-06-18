@@ -12,11 +12,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import DAO.AccountDao;
-import DAO.CategoryDAO;
-import DAO.SaleDAO;
-import DTO.AccountDto;
-import DTO.SalesDto;
+import dao.AccountDao;
+import dao.CategoryDAO;
+import dao.SaleDAO;
+import dto.AccountDto;
+import dto.SalesDto;
 
 @WebServlet("/SalesEditServlet")
 public class SalesEditServlet extends HttpServlet {

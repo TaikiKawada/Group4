@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import DAO.AccountDao;
-import DAO.CategoryDAO;
+import dao.AccountDao;
+import dao.CategoryDAO;
 
 @WebServlet("/SalesEntryServlet")
 public class SalesEntryServlet extends HttpServlet {
@@ -60,8 +60,8 @@ public class SalesEntryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Map<String, String>> staffList = DAO.AccountDao.getAllAccounts();
-        List<Map<String, String>> categoryList = DAO.CategoryDAO.getActiveCategories();
+        List<Map<String, String>> staffList = dao.AccountDao.getAllAccounts();
+        List<Map<String, String>> categoryList = dao.CategoryDAO.getActiveCategories();
 
         request.setAttribute("staffList", staffList);
         request.setAttribute("categoryList", categoryList);

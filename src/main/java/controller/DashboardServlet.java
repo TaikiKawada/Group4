@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import DTO.AccountDto;
-import DTO.SalesDto;
+import dto.AccountDto;
+import dto.SalesDto;
 import services.SaleService;
 
 /**
@@ -49,7 +49,6 @@ public class DashboardServlet extends HttpServlet {
 			request.setAttribute("authority", authority);
 			request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
 		} catch (Exception e) {
-			e.printStackTrace();
 			request.setAttribute("error", "売上データの取得中にエラーが発生しました。");
 			request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
 		}

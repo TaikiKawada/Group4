@@ -3,10 +3,10 @@ package services;
 import java.util.ArrayList;
 import java.util.List;
 
-import DAO.AccountDao;
-import DAO.SaleDAO;
-import DTO.SalesDto;
 import beans.Sale;
+import dao.AccountDao;
+import dao.SaleDAO;
+import dto.SalesDto;
 
 public class SaleService {
 

@@ -2,8 +2,8 @@ package services;
 
 import java.util.ArrayList;
 
-import DAO.AccountDao;
-import DTO.AccountDto;
+import dao.AccountDao;
+import dto.AccountDto;
 
 
 public class AccountService {
