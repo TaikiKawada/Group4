@@ -26,7 +26,7 @@
 	<jsp:include page="/nav.jsp" />
 
 	<div class="container mt-5 pt-5 d-flex justify-content-center">
-		<div class="w-50" style="max-width: 600px;">
+		<div class="mx-auto w-100" style="max-width: 800px;">
 
 			<!--編集内容確認フォーム-->
 			<h2 class="mb-4">アカウント詳細編集確認</h2>
@@ -39,10 +39,8 @@
 			<!--氏名-->
 			<div class="form-row">
 				<div class="form-label-col">
-					<label class="form-label label-box">氏名</label>
-				</div>
-				<div class="form-badge-col">
-					<span class="badge text-bg-secondary">必須</span>
+					<label class="form-label label-box">氏名<span
+						class="badge text-bg-secondary">必須</span></label>
 				</div>
 				<div class="form-input-col">
 					<input type="text" name="name" class="form-control"
@@ -53,12 +51,10 @@
 			<!--メールアドレス-->
 			<div class="form-row">
 				<div class="form-label-col">
-					<label class="form-label label-box">メールアドレス</label>
+					<label class="form-label label-box">メールアドレス<span
+						class="badge text-bg-secondary">必須</span></label>
 				</div>
-				<div class="form-badge-col">
-					<span class="badge text-bg-secondary">必須</span>
-				</div>
-				<div class="form-inpupt-col">
+				<div class="form-input-col">
 					<input type="email" name="mail" class="form-control"
 						value="${ sessionScope.accountData.mail }" readonly />
 				</div>
@@ -67,10 +63,8 @@
 			<!--パスワード-->
 			<div class="form-row">
 				<div class="form-label-col">
-					<label class="form-label label-box">パスワード</label>
-				</div>
-				<div class="form-badge-col">
-					<span class="badge text-bg-secondary">必須</span>
+					<label class="form-label label-box">パスワード<span
+						class="badge text-bg-secondary">必須</span></label>
 				</div>
 				<div class="form-input-col">
 					<input type="password" name="password" class="form-control"
@@ -81,10 +75,8 @@
 			<!--パスワード確認-->
 			<div class="form-row">
 				<div class="form-label-col">
-					<label class="form-label label-box">パスワード確認</label>
-				</div>
-				<div class="form-badge-col">
-					<span class="badge text-bg-secondary">必須</span>
+					<label class="form-label label-box">パスワード確認<span
+						class="badge text-bg-secondary">必須</span></label>
 				</div>
 				<div class="form-input-col">
 					<input type="password" name="pass-confirm" class="form-control"
@@ -95,13 +87,8 @@
 			<!--権限-->
 			<div class="form-row">
 				<div class="form-label-col">
-					<div class="label-box">
-						<label class="form-label mb-0 me-2 d-flex align-items-center">
-							権限 </label>
-					</div>
-				</div>
-				<div class="form-badge-col">
-					<span class="badge text-bg-secondary">必須</span>
+					<label class="form-label label-box">権限<span
+						class="badge text-bg-secondary">必須</span></label>
 				</div>
 				<div class="form-input-col">
 					<div class="checkbox-group">
@@ -137,7 +124,7 @@
 					</c:if>
 					<button type="submit" class="btn btn-primary">登録</button>
 				</form>
-				
+
 				<form method="post"
 					action="${ pageContext.request.contextPath }/account/edit/confirm.html">
 					<input type="hidden" name="back" value="true" />

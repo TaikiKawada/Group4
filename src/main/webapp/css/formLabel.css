@@ -6,6 +6,8 @@
 	align-items: center;
 	gap: 0.4rem;
 	font-size: 0.95rem;
+	padding-top: 0.25rem;
+	white-space: nowrap;
 }
 
 /*PC画面（デフォルト）*/
@@ -18,8 +20,8 @@
 
 /* ラベル側の調整 */
 .form-label-col {
-	width: 20%;
-	min-width: 120px;
+	width: 30%;
+	min-width: 150px;
 	text-align: right;
 	padding-right: 0.5rem;
 }
@@ -78,6 +80,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 1rem;
+	align-items: center;
 }
 
 /* チェックボックス＋ラベルの見た目整え */
