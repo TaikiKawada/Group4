@@ -46,7 +46,7 @@ public class DashboardServlet extends HttpServlet {
 		    return;
 		}
 		
-		// user情報からauthority取得A
+		// user情報からauthority取得
 		AccountDto loginUser = (AccountDto) session.getAttribute("user");
 		int authority = loginUser.getAuth(); // int型（0〜3）
 
