@@ -6,9 +6,11 @@ public class AccountDto {
 	String mail;
 	String password;
 	int auth;
+	boolean is_deleted;
 	
 	
 	
+
 	public AccountDto() {
 	}
 
@@ -67,7 +69,11 @@ public class AccountDto {
 		this.auth = auth;
 	}
 	
+	public boolean isIs_deleted() {
+		return is_deleted;
+	}
 	
-	
-	
+	public void setIs_deleted(boolean is_deleted) {
+		this.is_deleted = is_deleted;
+	}	
 }

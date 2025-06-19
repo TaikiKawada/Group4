@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import utils.ValidationResult;
 import utils.Validator;
 
 /**
@@ -40,16 +42,15 @@ public class AccountSearchFormServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// セッションの取得
+		
 		HttpSession session = request.getSession();
 
-		// 入力値の取得
 		String name = request.getParameter("name");
 		String mail = request.getParameter("mail");
 		String[] authValues = request.getParameterValues("auth");
 
-		// 権限をリストに
-		ArrayList<Integer> authList = new ArrayList<>();
+		// 権限をリストに格納
+		List<Integer> authList = new ArrayList<>();
 		if (authValues != null) {
 			for (String val : authValues) {
 				authList.add(Integer.parseInt(val));
@@ -57,26 +58,19 @@ public class AccountSearchFormServlet extends HttpServlet {
 		}
 		
 		// バリデーション
-		// 名前長さチェック
-		if (!Validator.isValidName(name)) {
-			request.setAttribute("error", "氏名は20バイト以内で入力してください");
-			request.getRequestDispatcher("/account_search_form.jsp").forward(request, response);
+		ValidationResult result = new ValidationResult();
+		Validator.isWithinMaxBytes(name, 20, result);
+		Validator.isWithinMaxBytes(mail, 100, result);
+		
+		if(result.hasErrors()) {
+			request.setAttribute("errors", result.getErrors());
+			request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 			return;
 		}
-
-		// メールアドレス長さチェック
-		if (!Validator.isValidMail(mail)) {
-			request.setAttribute("error", "メールアドレスは100バイト以内で入力してください");
-			request.getRequestDispatcher("/account_search_form.jsp").forward(request, response);
-			return;
-		}
-
-		// セッションに値を保存
+		
 		session.setAttribute("lastSearchName", name);
 		session.setAttribute("lastSearchMail", mail);
 		session.setAttribute("lastSearchAuth", authList);
-
-		//検索結果画面へ遷移
 		response.sendRedirect(request.getContextPath() + "/account/search/result.html");
 	}
 

@@ -55,7 +55,6 @@ public class AccountDeleteConfirmServlet extends HttpServlet {
 		request.setAttribute("hasSalesAuth", hasSalesAuth);
 		request.setAttribute("hasAccountAuth", hasAccountAuth);		
 		request.setAttribute("account", account);
-		// 更新画面に遷移
 		request.getRequestDispatcher("/account_delete_confirm.jsp").forward(request, response);
 	}
 
@@ -65,7 +64,6 @@ public class AccountDeleteConfirmServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int accountId = Integer.parseInt(request.getParameter("account_id"));
-//		System.out.println(accountId);
 		
 		AccountService service = new AccountService();
 		boolean success = service.delete(accountId);
