@@ -11,78 +11,49 @@ import jakarta.servlet.http.HttpSession;
 
 import dto.AccountDto;
 import services.AccountService;
+import utils.SessionUtil;
 
-/**
- * Servlet implementation class AccountEntryConfirmServlet
- */
+
 @WebServlet("/account/entry/confirm.html")
 public class AccountEntryConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AccountEntryConfirmServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	// 確認画面表示
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//すでにあるセッションを取得
-		HttpSession session = request.getSession(false);
-
-		//セッションの値をaccountに
-//		if (session != null) {
-//			AccountDto account = (AccountDto) session.getAttribute("accountData");
-//
-//			//権限を判定してbooleanに変換してjspに渡す
-//			if (account != null) {
-//				int auth = account.getAuth();
-//				request.setAttribute("hasNoneAuth", (auth == 0));
-//				request.setAttribute("hasSalesAuth", (auth & 1) != 0);
-//				request.setAttribute("hasAccountAuth", (auth & 2) != 0);
-//			}
-//		}
+		
+		AccountDto account = SessionUtil.getAttribte(request.getSession(false), "accountData", AccountDto.class);
+		
+		if(account == null) {
+			response.sendRedirect(request.getContextPath() + "/account/entry.html");
+			return;
+		}
+		
+		// 権限のチェック
+		request.setAttribute("hasNoneAuth", account.hasNoneAuth());
+		request.setAttribute("hasSalesAuth", account.hasSalesAuth());
+		request.setAttribute("hasAccountAuth", account.hasAccountAuth());
+		
 		request.getRequestDispatcher("/account_entry_confirm.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	// 登録処理
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		//すでにあるセッションを取得
 		HttpSession session = request.getSession(false);
-
-		//セッションがなければ登録画面に
+		AccountDto account = SessionUtil.getAttribte(session, "accountData", AccountDto.class);
+		
 		if (session == null) {
-			response.sendRedirect(request.getContextPath() + "account/entry.html");
-			return;
-		}
-
-		//アカウント情報をデータベースに登録
-		AccountDto accountDto = (AccountDto) session.getAttribute("accountData");
-
-		if (accountDto == null) {
-			request.setAttribute("error", "セッションが切れました。もう一度入力してください");
+			request.setAttribute("error", "セッションが切れました。もう一度入力してください。");
 			request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 			return;
 		}
 
-		// アカウント登録処理
-		AccountService as = new AccountService();
-		as.signup(accountDto);
-
-		//セッションの値を削除
+		new AccountService().signup(account);
 		session.removeAttribute("accountData");
-		//登録画面へ遷移
+		
 		response.sendRedirect(request.getContextPath() + "/account/entry.html");
-
 	}
 
 }
