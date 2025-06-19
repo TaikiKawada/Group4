@@ -64,20 +64,34 @@
 				</div>
 
 				<div class="text-center mt-4">
+					<div class="d-flex justify-content-center gap-2">
 
-					<button type="submit" class="btn btn-primary me-2">
-						<i class="bi bi-check-lg"></i> 編集
-					</button>
-					<button type="submit" class="btn btn-danger me-2">
-						<i class="bi bi-x-lg"></i> 削除
-					</button>
+						<!-- 編集ボタン -->
+						<form method="post"
+							action="${pageContext.request.contextPath}/SalesEditServlet">
+							<input type="hidden" name="saleId" value="${sale.saleId}" />
+							<button type="submit" class="btn btn-primary">
+								<i class="bi bi-check-lg"></i> 編集
+							</button>
+						</form>
 
-					<button type="button" class="btn btn-outline-secondary">
-						キャンセル</button>
+						<!-- 削除ボタン -->
+						<form method="post"
+							action="${pageContext.request.contextPath}/sales/delete/confirm.html">
+							<input type="hidden" name="saleId" value="${sale.saleId}" />
+							<button type="submit" class="btn btn-danger">
+								<i class="bi bi-x-lg"></i> 削除
+							</button>
+						</form>
+
+						<!-- キャンセルボタン -->
+						<form method="get"
+							action="${pageContext.request.contextPath}/sales/search/result.html">
+							<button type="submit" class="btn btn-outline-secondary">
+								キャンセル</button>
+						</form>
+
+					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-
 </body>
 </html>
