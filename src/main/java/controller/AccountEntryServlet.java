@@ -76,7 +76,6 @@ public class AccountEntryServlet extends HttpServlet {
 			//セッションに保存
 			HttpSession session = request.getSession();
 			session.setAttribute("accountData", account);
-			//確認画面に遷移
 			response.sendRedirect(request.getContextPath() + "/account/entry/confirm.html");
 	}
 

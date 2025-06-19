@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,17 +32,17 @@ public class AccountSearchResultServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// セッションの取得
+
 		HttpSession session = request.getSession();
 		
 		// セッションの値を格納
 		String name = (String) session.getAttribute("lastSearchName");
 		String mail = (String) session.getAttribute("lastSearchMail");
 		@SuppressWarnings("unchecked")
-		ArrayList<Integer> authList = (ArrayList<Integer>) session.getAttribute("lastSearchAuth");
+		List<Integer> authList = (List<Integer>) session.getAttribute("lastSearchAuth");
 		
 		AccountService service = new AccountService();
-		ArrayList<AccountDto> accounts = service.search(name, mail, authList);
+		List<AccountDto> accounts = service.search(name, mail, authList);
 		
 		request.setAttribute("accountList", accounts);
 		

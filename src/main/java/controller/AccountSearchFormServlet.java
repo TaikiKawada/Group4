@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -41,39 +42,35 @@ public class AccountSearchFormServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// セッションの取得
+		
 		HttpSession session = request.getSession();
 
-		// 入力値の取得
 		String name = request.getParameter("name");
 		String mail = request.getParameter("mail");
 		String[] authValues = request.getParameterValues("auth");
 
-		// 権限をリストに
-		ArrayList<Integer> authList = new ArrayList<>();
+		// 権限をリストに格納
+		List<Integer> authList = new ArrayList<>();
 		if (authValues != null) {
 			for (String val : authValues) {
 				authList.add(Integer.parseInt(val));
 			}
 		}
 		
-		// バリデーションチェック
+		// バリデーション
 		ValidationResult result = new ValidationResult();
 		Validator.isWithinMaxBytes(name, 20, result);
 		Validator.isWithinMaxBytes(mail, 100, result);
 		
 		if(result.hasErrors()) {
 			request.setAttribute("errors", result.getErrors());
-			request.getRequestDispatcher("/account_search.jsp").forward(request, response);
+			request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 			return;
 		}
 		
-		// セッションに値を保存
 		session.setAttribute("lastSearchName", name);
 		session.setAttribute("lastSearchMail", mail);
 		session.setAttribute("lastSearchAuth", authList);
-
-		//検索結果画面へ遷移
 		response.sendRedirect(request.getContextPath() + "/account/search/result.html");
 	}
 

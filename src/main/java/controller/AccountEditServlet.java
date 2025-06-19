@@ -53,12 +53,10 @@ public class AccountEditServlet extends HttpServlet {
 		boolean hasSalesAuth = (auth & 1) != 0;
 		boolean hasAccountAuth = (auth & 2) != 0;
 
-		// アカウント情報をセット
 		request.setAttribute("hasNoneAuth", hasNoneAuth);
 		request.setAttribute("hasSalesAuth", hasSalesAuth);
 		request.setAttribute("hasAccountAuth", hasAccountAuth);
 		request.setAttribute("account", account);
-		// 更新画面に遷移
 		request.getRequestDispatcher("/account_edit.jsp").forward(request, response);
 	}
 
