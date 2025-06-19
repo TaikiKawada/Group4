@@ -36,17 +36,17 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 
 		//セッションの値をaccountに
-//		if (session != null) {
-//			AccountDto account = (AccountDto) session.getAttribute("accountData");
-//
-//			//権限を判定してbooleanに変換してjspに渡す
-//			if (account != null) {
-//				int auth = account.getAuth();
-//				request.setAttribute("hasNoneAuth", (auth == 0));
-//				request.setAttribute("hasSalesAuth", (auth & 1) != 0);
-//				request.setAttribute("hasAccountAuth", (auth & 2) != 0);
-//			}
-//		}
+		if (session != null) {
+			AccountDto account = (AccountDto) session.getAttribute("accountData");
+
+			//権限を判定してbooleanに変換してjspに渡す
+			if (account != null) {
+				int auth = account.getAuth();
+				request.setAttribute("hasNoneAuth", (auth == 0));
+				request.setAttribute("hasSalesAuth", (auth & 1) != 0);
+				request.setAttribute("hasAccountAuth", (auth & 2) != 0);
+			}
+		}
 		request.getRequestDispatcher("/account_entry_confirm.jsp").forward(request, response);
 	}
 
