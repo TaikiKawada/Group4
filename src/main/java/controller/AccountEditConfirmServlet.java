@@ -45,7 +45,6 @@ public class AccountEditConfirmServlet extends HttpServlet {
 				request.setAttribute("hasAccountAuth", (auth & 2) != 0);
 			}
 		}
-
 		request.getRequestDispatcher("/account_edit_confirm.jsp").forward(request, response);
 	}
 
@@ -89,5 +88,4 @@ public class AccountEditConfirmServlet extends HttpServlet {
 			request.getRequestDispatcher("/account_edit_confirm.jsp").forward(request, response);
 		}
 	}
-
 }

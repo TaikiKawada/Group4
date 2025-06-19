@@ -1,6 +1,6 @@
 package services;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import dao.AccountDao;
 import dto.AccountDto;
@@ -16,7 +16,7 @@ public class AccountService {
 	}
 
 	// 検索
-	public ArrayList<AccountDto> search(String name, String mail, ArrayList<Integer> authList) {
+	public List<AccountDto> search(String name, String mail, List<Integer> authList) {
 		return dao.searchAccounts(name, mail, authList);
 	}
 
