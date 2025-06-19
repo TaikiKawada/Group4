@@ -12,7 +12,6 @@ public class AccountService {
 	// アカウント登録
 	public void signup(AccountDto obj) {
 		dao.insertAccount(obj);
-
 	}
 
 	// 検索
