@@ -45,7 +45,7 @@
 								<td>${sale.tradeName}</td>
 								<td>${sale.unitPrice}</td>
 								<td>${sale.saleNumber}</td>
-								<td>${sale.note}</td
+								<td>${sale.note}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

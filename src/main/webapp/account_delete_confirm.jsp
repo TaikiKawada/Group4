@@ -13,8 +13,10 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/formLabel.css"
+	href="${pageContext.request.contextPath}/css/style.css"
 	type="text/css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -127,10 +129,12 @@
 
 				<!--ボタン-->
 				<div class="text-end mt-4">
-					<button class="btn btn-primary">削除</button>
+					<button class="btn btn-danger">
+						<i class="bi bi-x"></i>OK
+					</button>
 					<a
 						href="${ pageContext.request.contextPath }/account/search/result.html"
-						class="btn btn-secondary">キャンセル</a>
+						class="btn btn-white-custom">キャンセル</a>
 				</div>
 			</form>
 		</div>

@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import DAO.SaleDAO;
+import dao.SaleDAO;
 
 @WebServlet("/SalesDeleteServlet")
 public class SalesDeleteServlet extends HttpServlet {

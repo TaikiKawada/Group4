@@ -13,13 +13,12 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/formLabel.css"
-	type="text/css">
-
 </head>
 
 <body>
@@ -86,7 +85,7 @@
 				<!--権限-->
 				<div class="form-row">
 					<div class="form-label-col">
-						<label class="form-label label-box"> 権限<span
+						<label class="form-label label-box">権限<span
 							class="badge text-bg-secondary">必須</span>
 						</label>
 					</div>
@@ -120,9 +119,9 @@
 
 				<!--ボタン-->
 				<div class="text-end mt-4">
-					<button type="submit" class="btn btn-primary">登録</button>
+					<button type="submit" class="btn btn-primary">OK</button>
 					<a href="${pageContext.request.contextPath}/account/entry.html"
-						class="btn btn-secondary">キャンセル</a>
+						class="btn btn-white-custom">キャンセル</a>
 				</div>
 			</form>
 		</div>

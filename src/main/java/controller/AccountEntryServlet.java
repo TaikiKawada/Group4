@@ -9,7 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import DTO.AccountDto;
+import dto.AccountDto;
+import utils.ValidationResult;
 import utils.Validator;
 
 /**
@@ -58,44 +59,13 @@ public class AccountEntryServlet extends HttpServlet {
 			}
 			
 			// バリデーション
-			// 空チェック
-			if(Validator.isNullOrEmpty(name) || Validator.isNullOrEmpty(mail) || Validator.isNullOrEmpty(password) || Validator.isNullOrEmpty(passConfirm)) {
-				request.setAttribute("error", "未入力の項目があります");
-				request.getRequestDispatcher("/account_entry,jsp").forward(request, response);
-				return;
-			}
+			ValidationResult result = new ValidationResult();
+			Validator.validateName(name, result);
+			Validator.validateEmail(mail, result);
+			Validator.validatePassword(password, passConfirm, result);
 			
-			// 名前長さチェック
-			if (!Validator.isValidName(name)) {
-			    request.setAttribute("error", "氏名は20バイト以内で入力してください");
-			    request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
-			    return;
-			}
-			
-			// メールアドレス長さチェック
-			if (!Validator.isValidMail(mail)) {
-			    request.setAttribute("error", "メールアドレスは100バイト以内で入力してください");
-			    request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
-			    return;
-			}
-			
-			// メールアドレスの形式チェック
-			if(!Validator.isValidEmail(mail)) {
-				request.setAttribute("error", "メールアドレスの形式が正しくありません");
-				request.getRequestDispatcher("/account_entry,jsp").forward(request, response);
-				return;
-			}
-			
-			// パスワード形式チェック
-			if (!Validator.isValidPassword(password)) {
-				request.setAttribute("error", "パスワードは8文字以上30文字以内で、大文字・小文字・数字・記号をすべて含めてください");
-				request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
-				return;
-			}
-			
-			//パスワードの一致確認
-			if(!Validator.isPasswordConfirmed(password, passConfirm)) {
-				request.setAttribute("error","パスワードが一致しません");
+			if(result.hasErrors()) {
+				request.setAttribute("errors", result.getErrors());
 				request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 				return;
 			}

@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import DTO.AccountDto;
+import dto.AccountDto;
 import utils.Db;
 import utils.PasswordUtils;
 

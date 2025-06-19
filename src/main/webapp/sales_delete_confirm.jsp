@@ -8,6 +8,8 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
+	<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -97,7 +99,9 @@
 
 				<!-- ボタン -->
 				<div class="text-center mt-4">
-					<button type="submit" class="btn btn-danger me-2">✖ 削除</button>
+					<button type="submit" class="btn btn-danger me-2">
+						<i class="bi bi-x-lg"></i> 削除
+					</button>
 					<a href="SalesSearchServlet?saleId=${saleId}"
 						class="btn btn-secondary">キャンセル</a>
 				</div>

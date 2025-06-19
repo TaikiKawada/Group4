@@ -14,8 +14,9 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/formLabel.css"
-	type="text/css">
+	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script
@@ -39,13 +40,17 @@
 					<div class="form-label-col">
 						<div class="label-box">
 							<label class="form-label mb-0 me-1">氏名</label> <span
-								class="badge text-bg-secondary">部分一致</span> </span>
+								class="badge bg-secondary">部分一致</span> </span>
 						</div>
 					</div>
 					<div class="form-input-col">
 						<input type="text" name="name" class="form-control"
 							placeholder="氏名" />
-						<div id="error-name" class="text-danger"></div>
+						<div id="error-name" class="text-danger">
+							<c:if test="${ not empty errors.name }">
+						${ errors.error }
+						</c:if>
+						</div>
 					</div>
 				</div>
 
@@ -59,7 +64,11 @@
 					<div class="form-input-col">
 						<input type="text" name="mail" class="form-control"
 							placeholder="メールアドレス" />
-						<div id="error-mail" class="text-danger"></div>
+						<div id="error-mail" class="text-danger">
+							<c:if test="${ not empty errors.name }">
+						${ errors.error }
+						</c:if>
+						</div>
 					</div>
 				</div>
 
@@ -85,8 +94,10 @@
 				</div>
 
 				<div class="text-end mt-4">
-					<button type="submit" class="btn btn-primary">検索</button>
-					<button type="button" class="btn btn-secondary ms-2"
+					<button type="submit" class="btn btn-primary">
+						<i class="bi bi-search"></i> 検索
+					</button>
+					<button type="button" class="btn btn-white-custom"
 						onclick="clearForm()">クリア</button>
 				</div>
 			</form>

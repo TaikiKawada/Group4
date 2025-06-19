@@ -12,6 +12,9 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -58,7 +61,9 @@
 										value="${ account.account_id }" />
 									<c:if test="${ account != null }">
 										<c:if test="${ user.auth == 2 || user.auth  == 3 }">
-											<button type="submit" class="btn btn-primary">編集</button>
+											<button type="submit" class="btn btn-primary">
+												<i class="bi bi-check-lg"></i>編集
+											</button>
 										</c:if>
 									</c:if>
 								</form>
@@ -66,7 +71,9 @@
 									action="${ pageContext.request.contextPath }/account/delete.html">
 									<input type="hidden" name="account_id"
 										value="${ account.account_id }" />
-									<button type="submit" class="btn btn-danger">削除</button>
+									<button type="submit" class="btn btn-danger">
+										<i class="bi bi-x"></i>削除
+									</button>
 								</form>
 							</div>
 						</td>

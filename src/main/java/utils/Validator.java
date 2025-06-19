@@ -1,39 +1,45 @@
 package utils;
 
-import java.nio.charset.StandardCharsets;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 public class Validator {
 	
-	// 空チェック
-	public static boolean isNullOrEmpty(String str) {
-		return str == null || str.trim().isEmpty();
-	}
-
-	// 名前長さチェック
-	public static boolean isValidName(String name) {
-		return name != null && name.getBytes(StandardCharsets.UTF_8).length < 21;
+	public static void validateName(String name, ValidationResult result) {
+		if(name == null || name.isEmpty()) {
+			result.addError("name", ErrorMessages.REQUIRED_NAME);
+		}else if(name.getBytes().length > 20) {
+			result.addError("name", ErrorMessages.INVALID_NAME_LENGTH);
+		}
 	}
 	
-	// メールアドレス長さチェック
-	public static boolean isValidMail(String mail) {
-		return mail != null && mail.getBytes(StandardCharsets.UTF_8).length < 101;
+	public static void validateEmail(String email, ValidationResult result) {
+		if(email == null || email.isEmpty()) {
+			result.addError("email", ErrorMessages.REQUIRED_EMAIL);
+		}else if(email.length() > 100) {
+			result.addError("email", ErrorMessages.INVALID_EMAIL_LENGTH);
+		}else if(!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+			result.addError("email", ErrorMessages.INVALID_EMAIL_FORMAT);
+		}
 	}
 	
-	// パスワード形式チェック
-	public static boolean isValidPassword(String password) {
-		return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,30}$");
-	}	
-	
-	// メールアドレス形式チェック
-	public static boolean isValidEmail(String email) {
-		return email != null && email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
+	public static void validatePassword(String password, String passConfirm, ValidationResult result) {
+		if(password == null || password.isEmpty()) {
+			result.addError("password", ErrorMessages.REQUIRED_PASSWORD);
+		}else if(passConfirm == null || passConfirm.isEmpty()) {
+			result.addError("passConfirm", ErrorMessages.REQUIRED_PASSWORD_CONFIRM);			
+		}else if(password.length() < 8 || password.length() > 30) {
+			result.addError("password", ErrorMessages.INVALID_PASSWORD_LENGTH);
+		}else if(!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9]).{8,30}$")) {
+			result.addError("password", ErrorMessages.INVALID_PASSWORD_FORMAT);
+		}else if(!password.equals(passConfirm)) {
+			result.addError("passConfirm", ErrorMessages.PASSWORD_MISMATCH);			
+		}
 	}
 	
-	// パスワードの一致チェック
-	public static boolean isPasswordConfirmed(String password, String confirm) {
-		return password != null && password.equals(confirm);
+	public static void isWithinMaxBytes(String str, int maxBytes, ValidationResult result) {
+		if(str.getBytes().length > maxBytes) {
+			result.addError("error", ErrorMessages.INVALID_LENGTH);
+		}
 	}
 	
 	//パスワード長さチェックメソッド

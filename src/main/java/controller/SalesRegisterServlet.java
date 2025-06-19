@@ -9,10 +9,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import DAO.AccountDao;
-import DAO.CategoryDAO;
-import DAO.SaleDAO;
-import DTO.SalesDto;
+import dao.AccountDao;
+import dao.CategoryDAO;
+import dao.SaleDAO;
+import dto.SalesDto;
 
 @WebServlet("/SalesRegisterServlet")
 public class SalesRegisterServlet extends HttpServlet {

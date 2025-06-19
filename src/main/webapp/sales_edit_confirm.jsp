@@ -10,6 +10,8 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet" />
+	<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -95,11 +97,13 @@
 					</div>
 				</div>
 
-				<!-- ボタン -->
 				<div class="text-center mt-4">
-					<button class="btn btn-primary me-2" type="submit">✔ 更新</button>
-					<a href="SalesEditServlet?saleId=${saleId}"
-						class="btn btn-secondary">戻る</a>
+
+					<button type="submit" class="btn btn-primary me-2">
+						<i class="bi bi-check-lg"></i> 更新
+					</button>
+					<button type="button" class="btn btn-outline-secondary">
+						キャンセル</button>
 				</div>
 			</form>
 		</div>
