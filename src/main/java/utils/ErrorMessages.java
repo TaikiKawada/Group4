@@ -16,4 +16,7 @@ public class ErrorMessages {
 	public static final String PASSWORD_MISMATCH = "パスワードとパスワード（確認）が一致しません";
 	
 	public static final String INVALID_LENGTH = "長すぎます";	
+	
+	public static final String SYSTEM_ERROR = "システムエラーが発生しました。時間をおいて再度お試しください。";
+	public static final String AUTHENTCATION_FAILED = "メールアドレスまたはパスワードが正しくありません。";
 }

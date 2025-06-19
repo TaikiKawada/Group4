@@ -23,6 +23,7 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "accountData", AccountDto.class);
+
 		
 		if(account == null) {
 			response.sendRedirect(request.getContextPath() + "/account/entry.html");
@@ -43,7 +44,7 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(false);
 		AccountDto account = SessionUtil.getAttribute(session, "accountData", AccountDto.class);
-		
+
 		if (session == null) {
 			request.setAttribute("error", "セッションが切れました。もう一度入力してください。");
 			request.getRequestDispatcher("/account_entry.jsp").forward(request, response);

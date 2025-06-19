@@ -7,6 +7,7 @@ public class SessionUtil {
 	
 	@SuppressWarnings("unchecked")
 	public static <T> T getAttribute(HttpSession session, String key, Class<T> clazz) {
+
 		if(session == null) return null;
 		Object value = session.getAttribute(key);
 		if(clazz.isInstance(value)) {

@@ -1,5 +1,7 @@
 package utils;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public class Validator {
 	
 	public static void validateName(String name, ValidationResult result) {
@@ -40,4 +42,16 @@ public class Validator {
 		}
 	}
 	
+
+	public static void setSystemError(HttpServletRequest request) {
+		ValidationResult vr = new ValidationResult();
+		vr.addError("error", ErrorMessages.SYSTEM_ERROR);
+		request.setAttribute("errors", vr.getErrors());
+	}
+	
+	public static void setAuthenticationFailed(HttpServletRequest request) {
+		ValidationResult vr = new ValidationResult();
+		vr.addError("error", ErrorMessages.AUTHENTCATION_FAILED);
+		request.setAttribute("errors", vr.getErrors());
+	}
 }
