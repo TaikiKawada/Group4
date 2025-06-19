@@ -1,66 +1,39 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
+import dto.AccountSearchDto;
+import utils.SessionUtil;
 import utils.ValidationResult;
 import utils.Validator;
 
-/**
- * Servlet implementation class AccountSearchFormServlet
- */
+
 @WebServlet("/account/search.html")
 public class AccountSearchFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AccountSearchFormServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/account_search_form.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-
-		String name = request.getParameter("name");
-		String mail = request.getParameter("mail");
-		String[] authValues = request.getParameterValues("auth");
-
-		// 権限をリストに格納
-		List<Integer> authList = new ArrayList<>();
-		if (authValues != null) {
-			for (String val : authValues) {
-				authList.add(Integer.parseInt(val));
-			}
-		}
+		AccountSearchDto dto = AccountSearchDto.fromRequest(request);
 		
 		// バリデーション
 		ValidationResult result = new ValidationResult();
-		Validator.isWithinMaxBytes(name, 20, result);
-		Validator.isWithinMaxBytes(mail, 100, result);
+		Validator.isWithinMaxBytes(dto.getName(), 20, result);
+		Validator.isWithinMaxBytes(dto.getMail(), 100, result);
 		
 		if(result.hasErrors()) {
 			request.setAttribute("errors", result.getErrors());
@@ -68,9 +41,10 @@ public class AccountSearchFormServlet extends HttpServlet {
 			return;
 		}
 		
-		session.setAttribute("lastSearchName", name);
-		session.setAttribute("lastSearchMail", mail);
-		session.setAttribute("lastSearchAuth", authList);
+		SessionUtil.set(request, "lastSearchName", dto.getName());
+		SessionUtil.set(request, "lastSearchMail", dto.getMail());
+		SessionUtil.set(request, "lastSearchAuth", dto.getAuthList());
+		
 		response.sendRedirect(request.getContextPath() + "/account/search/result.html");
 	}
 

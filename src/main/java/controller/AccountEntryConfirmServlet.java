@@ -22,7 +22,7 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		AccountDto account = SessionUtil.getAttribte(request.getSession(false), "accountData", AccountDto.class);
+		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "accountData", AccountDto.class);
 		
 		if(account == null) {
 			response.sendRedirect(request.getContextPath() + "/account/entry.html");
@@ -42,7 +42,7 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession(false);
-		AccountDto account = SessionUtil.getAttribte(session, "accountData", AccountDto.class);
+		AccountDto account = SessionUtil.getAttribute(session, "accountData", AccountDto.class);
 		
 		if (session == null) {
 			request.setAttribute("error", "セッションが切れました。もう一度入力してください。");

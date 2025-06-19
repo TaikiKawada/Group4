@@ -11,41 +11,36 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import dto.AccountDto;
+import dto.AccountSearchDto;
 import services.AccountService;
+import utils.SessionUtil;
 
-/**
- * Servlet implementation class AccountSearchResultServlet
- */
 @WebServlet("/account/search/result.html")
 public class AccountSearchResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AccountSearchResultServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		
-		// セッションの値を格納
-		String name = (String) session.getAttribute("lastSearchName");
-		String mail = (String) session.getAttribute("lastSearchMail");
+
+		String name = SessionUtil.getAttribute(session, "lastSearchName", String.class);
+		String mail = SessionUtil.getAttribute(session, "lastSearchMail", String.class);
 		@SuppressWarnings("unchecked")
-		List<Integer> authList = (List<Integer>) session.getAttribute("lastSearchAuth");
+		List<Integer> authList = SessionUtil.getAttribute(session, "lastSearchAuth", List.class);
+
+		if (name == null)
+			name = "";
+		if (mail == null)
+			mail = "";
+		if (authList == null)
+			authList = List.of();
+
+		AccountSearchDto dto = new AccountSearchDto(name, mail, authList);
 		
-		AccountService service = new AccountService();
-		List<AccountDto> accounts = service.search(name, mail, authList);
-		
+		List<AccountDto> accounts = new AccountService().search(dto.getName(), dto.getMail(), dto.getAuthList());
+
 		request.setAttribute("accountList", accounts);
-		
 		request.getRequestDispatcher("/account_search_result.jsp").forward(request, response);
 	}
 }
