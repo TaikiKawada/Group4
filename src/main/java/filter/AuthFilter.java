@@ -20,12 +20,19 @@ public class AuthFilter implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
+		
+		// ログインが必要ないパスは除外
+		String path = req.getRequestURI();
+		if(path.endsWith("/login")) {
+			chain.doFilter(request, response);
+			return;
+		}
+		
+		// ログインしているか確認
 		HttpSession session = req.getSession(false);
-
-		Object user = (session != null) ? session.getAttribute("user") : null;
-
-		if (user == null) {
+		if (session == null || session.getAttribute("loginUser") == null) {
 			res.sendRedirect(req.getContextPath() + "/login");
+			return;
 		} else {
 			chain.doFilter(request, response);
 		}
