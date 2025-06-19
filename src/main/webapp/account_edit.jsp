@@ -52,7 +52,11 @@
 					<div class="form-input-col">
 						<input type="text" name="name" class="form-control"
 							placeholder="氏名" value="${ account.name }" />
-						<div id="error-name" class="text-danger"></div>
+						<div id="error-name" class="text-danger">
+							<c:if test="${ not empty errors.name }">
+							${errors.name}
+							</c:if>
+						</div>
 					</div>
 				</div>
 
@@ -65,7 +69,11 @@
 					<div class="form-input-col">
 						<input type="email" name="mail" class="form-control"
 							placeholder="メールアドレス" value="${ account.mail }" />
-						<div id="error-mail" class="text-danger"></div>
+						<div id="error-mail" class="text-danger">
+							<c:if test="${ not empty errors.mail }">
+							${errors.mail}
+							</c:if>
+						</div>
 					</div>
 				</div>
 
@@ -78,7 +86,11 @@
 					<div class="form-input-col">
 						<input type="password" name="password" class="form-control"
 							placeholder="パスワード" value="${ account.password }" />
-						<div id="error-password" class="text-danger"></div>
+						<div id="error-password" class="text-danger">
+							<c:if test="${ not empty errors.password }">
+							${errors.password}
+							</c:if>
+						</div>
 					</div>
 				</div>
 
@@ -92,7 +104,11 @@
 					<div class="form-input-col">
 						<input type="password" name="passConfirm" class="form-control"
 							placeholder="パスワード（確認）" value="${ account.password }" />
-						<div id="error-confirm" class="text-danger"></div>
+						<div id="error-confirm" class="text-danger">
+						<c:if test="${ not empty errors.passConfirm }">
+							${errors.passConfirm}
+							</c:if>
+						</div>
 					</div>
 				</div>
 
