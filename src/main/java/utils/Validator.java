@@ -42,30 +42,16 @@ public class Validator {
 		}
 	}
 	
-	//パスワード長さチェックメソッド
-    public static boolean isValidPasswordLength(String password) {
-    	 if (password == null) return false;
 
-    	    try {
-    	        // パスワードのバイト長を取得（UTF-8エンコード想定）
-    	        int byteLength = password.getBytes("UTF-8").length;
-
-    	        // 1文字以上かつ30バイト以内かをチェック
-    	        return byteLength > 0 && byteLength <= 30;
-    	    } catch (java.io.UnsupportedEncodingException e) {
-    	        e.printStackTrace();
-    	        return false;
-    	    }
-    }
-    
-    // システムエラー共通処理
-    public static void setSystemError(HttpServletRequest request) {
-        request.setAttribute("systemError", true);
-        request.setAttribute("error", "システムエラーが発生しました。");
-    }
-
-    // 入力ミスなどのエラー共通処理
-    public static void setAuthenticationFailed(HttpServletRequest request) {
-        request.setAttribute("error", "メールアドレス、パスワードを正しく入力してください。");
-    }
+	public static void setSystemError(HttpServletRequest request) {
+		ValidationResult vr = new ValidationResult();
+		vr.addError("error", ErrorMessages.SYSTEM_ERROR);
+		request.setAttribute("errors", vr.getErrors());
+	}
+	
+	public static void setAuthenticationFailed(HttpServletRequest request) {
+		ValidationResult vr = new ValidationResult();
+		vr.addError("error", ErrorMessages.AUTHENTCATION_FAILED);
+		request.setAttribute("errors", vr.getErrors());
+	}
 }

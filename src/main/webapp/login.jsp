@@ -24,13 +24,14 @@
 
 				<!--メールアドレスを入力-->
 				<div class="mb-3">
-					<label for="email" class="form-label">メールアドレス</label>
+					<label for="mail" class="form-label">メールアドレス</label>
 					<span 
 						class="badge text-bg-secondary">必須</span> <input type="text"
-						name="mail" class="form-control" id="email" placeholder="メールアドレス"
-						required> <small>例：user@example.com</small>
-					<c:if test="${not empty emailError}">
-						<div class="text-danger">${emailError}</div>
+						name="mail" class="form-control" id="mail" placeholder="メールアドレス"
+						required value="${param.mail}"> <small>例：user@example.com</small>
+						
+					<c:if test="${not empty error.email}">
+						<div class="text-danger">${error.email}</div>
 					</c:if>
 				</div>
 
@@ -42,15 +43,16 @@
 						name="password" class="form-control" id="password"
 						placeholder="パスワード" required>
 					<small>8文字以上であり、大文字・数字・小文字・記号を含める必要があります</small>
+					
+					<c:if test="${not empty error.password}">
+						<div class="text-danger">${error.password}</div>
+					</c:if>
 				</div>
+				
 				<!-- パスワード表示切替ボタン -->
 				<div>
 					<button type="button" id="toggle-password"
 						class="btn btn-outline-secondary">表示</button>
-
-					<c:if test="${not empty passwordError}">
-						<div class="text-danger">${passwordError}</div>
-					</c:if>
 				</div>
 
 				<!--ログインボタン-->
@@ -58,14 +60,13 @@
 					<button type="submit" class="btn btn-primary">ログイン</button>
 				</div>
 			</form>
+			
+							<!--アカウントが一致しなかった場合のエラーメッセージを表示-->
+					<c:if test="${not empty errors.error}">
+						<div class="alert alert-danger mt-3">${errors.error}</div>
+					</c:if>
 
-			<!--アカウントが一致しなかった場合のエラーメッセージを表示-->
-			<c:if test="${not empty error}">
-				<div class="alert alert-danger mt-3">${error}</div>
-			</c:if>
-
-
-			<script src="${pageContext.request.contextPath}/js/login.js"></script>
+			<script src="${pageContext.request.contextPath}/login.js"></script>
 		</div>
 	</div>
 

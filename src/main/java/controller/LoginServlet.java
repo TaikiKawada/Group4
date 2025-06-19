@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import services.LoginService;
+import utils.ValidationResult;
+import utils.Validator;
 
 @WebServlet("/login")
 
@@ -27,21 +29,26 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	
-    	request.setCharacterEncoding("UTF-8");
-    	    	
-    	boolean isSuccess = loginService.authenticate(request);
+    	String mail = request.getParameter("mail");
+		String password = request.getParameter("password");
     	
-    	if(isSuccess) {
-    		response.sendRedirect("Dashboard");
-    		return;
-    	}
+    	request.setCharacterEncoding("UTF-8");    	
     	
-    	Boolean systemError = (Boolean) request.getAttribute("systemError");
-    	
-        if (systemError != null && systemError) {
-        	request.getRequestDispatcher("/login_error.jsp").forward(request, response);
+        //アカウント情報が一致したらdashboard.jspへ遷移
+        if (loginService.authenticate(request)) {
+            response.sendRedirect("Dashboard");
+
             
         } else {
+
+        	 ValidationResult result = new ValidationResult();
+             Validator.validateEmail(mail, result);
+             Validator.validatePassword(password, password, result);
+
+             if (result.hasErrors()) {
+                 request.setAttribute("error", result.getErrors());
+             }
+
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }
