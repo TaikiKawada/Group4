@@ -13,7 +13,7 @@ import services.AccountService;
 import utils.AuthUtil;
 
 
-@WebServlet("/account/delete.html")
+@WebServlet("/S0044.html")
 public class AccountDeleteConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -23,7 +23,7 @@ public class AccountDeleteConfirmServlet extends HttpServlet {
 		// 削除対象のaccount_idを取得
 		String idParam = request.getParameter("account_id");
 		if(idParam == null || idParam.isEmpty()) {
-			response.sendRedirect(request.getContextPath() + "/account/search.html");
+			response.sendRedirect(request.getContextPath() + "/S0040.html");
 			return;
 		}
 		
@@ -32,7 +32,7 @@ public class AccountDeleteConfirmServlet extends HttpServlet {
 		AccountDto account = new AccountService().findById(accountId);
 		
 		if(account == null) {
-			response.sendRedirect(request.getContextPath() + "/account/search.html");
+			response.sendRedirect(request.getContextPath() + "/S0040.html");
 			return;
 		}
 		

@@ -14,7 +14,7 @@ import utils.ValidationResult;
 import utils.Validator;
 
 
-@WebServlet("/account/entry.html")
+@WebServlet("/S0030.html")
 public class AccountEntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -44,7 +44,7 @@ public class AccountEntryServlet extends HttpServlet {
 			
 			//セッションに保存
 			SessionUtil.set(request, "accountData", account);
-			response.sendRedirect(request.getContextPath() + "/account/entry/confirm.html");
+			response.sendRedirect(request.getContextPath() + "/S0031.html");
 	}
 
 }

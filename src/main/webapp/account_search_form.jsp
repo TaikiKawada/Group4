@@ -32,7 +32,7 @@
 
 			<!--登録フォーム-->
 			<form method="post"
-				action="${pageContext.request.contextPath}/account/search.html"
+				action="${pageContext.request.contextPath}/S0040.html"
 				onsubmit="return validateForm()">
 
 				<!--氏名-->

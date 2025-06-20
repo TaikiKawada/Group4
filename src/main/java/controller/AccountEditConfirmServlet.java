@@ -16,7 +16,7 @@ import utils.SessionUtil;
 /**
  * Servlet implementation class AccountEditConfirmServlet
  */
-@WebServlet("/account/edit/confirm.html")
+@WebServlet("/S0043.html")
 public class AccountEditConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

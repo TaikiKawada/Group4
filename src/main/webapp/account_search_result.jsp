@@ -56,7 +56,7 @@
 						<td>
 							<div class="d-flex gap-2">
 								<form method="get"
-									action="${ pageContext.request.contextPath }/account/edit.html">
+									action="${ pageContext.request.contextPath }/S0042.html">
 									<input type="hidden" name="account_id"
 										value="${ account.account_id }" />
 									<c:if test="${ account != null }">
@@ -68,7 +68,7 @@
 									</c:if>
 								</form>
 								<form method="get"
-									action="${ pageContext.request.contextPath }/account/delete.html">
+									action="${ pageContext.request.contextPath }/S0044.html">
 									<input type="hidden" name="account_id"
 										value="${ account.account_id }" />
 									<button type="submit" class="btn btn-danger">

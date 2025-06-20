@@ -31,7 +31,7 @@
 
 			<!--登録フォーム-->
 			<form method="post"
-				action="${pageContext.request.contextPath}/account/entry.html"
+				action="${pageContext.request.contextPath}/S0030.html"
 				onsubmit="return validateForm()">
 
 				<!--氏名-->
