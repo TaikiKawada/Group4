@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.NamingException;
+
 import dto.AccountDto;
 import utils.Db;
 import utils.PasswordUtils;
@@ -30,7 +32,7 @@ public class AccountDao {
 			ps.setInt(4, obj.getAuth());
 			ps.executeUpdate();
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -114,7 +116,7 @@ public class AccountDao {
 						rs.getInt("authority"));
 				resultList.add(ad);
 			}
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
 		} 
 		return resultList;
@@ -139,7 +141,7 @@ public class AccountDao {
 				account.setPassword(rs.getString("password"));
 				account.setAuth(rs.getInt("authority"));
 			}
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
 		}
 		return account;
@@ -162,7 +164,7 @@ public class AccountDao {
 			int result = ps.executeUpdate();
 			// 更新出来たらtrueを返す
 			return result > 0;
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -179,7 +181,7 @@ public class AccountDao {
 			ps.setInt(1, accountId);
 			return ps.executeUpdate() == 1;
 
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
 			return false;
 		}
