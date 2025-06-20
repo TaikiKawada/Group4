@@ -7,7 +7,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import dto.AccountDto;
 import services.AccountService;
@@ -45,8 +44,7 @@ public class AccountEditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-		AccountDto loginUser = SessionUtil.getAttribute(session, "user", AccountDto.class);
+		AccountDto loginUser = SessionUtil.getAttribute(request.getSession(false), "user", AccountDto.class);
 		
 		int accountId = Integer.parseInt(request.getParameter("account_id"));
 		AccountDto account = AccountDto.fromRequest(request);
@@ -75,7 +73,7 @@ public class AccountEditServlet extends HttpServlet {
 			return;
 		}
 
-		session.setAttribute("accountData", account);
+		request.getSession().setAttribute("accountData", account);
 		response.sendRedirect(request.getContextPath() + "/account/edit/confirm.html");
 
 	}

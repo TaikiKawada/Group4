@@ -48,7 +48,7 @@
 							placeholder="氏名" />
 						<div id="error-name" class="text-danger">
 							<c:if test="${ not empty errors.name }">
-						${ errors.error }
+						${ errors.name }
 						</c:if>
 						</div>
 					</div>
@@ -65,8 +65,8 @@
 						<input type="text" name="mail" class="form-control"
 							placeholder="メールアドレス" />
 						<div id="error-mail" class="text-danger">
-							<c:if test="${ not empty errors.name }">
-						${ errors.error }
+							<c:if test="${ not empty errors.email }">
+						${ errors.email }
 						</c:if>
 						</div>
 					</div>

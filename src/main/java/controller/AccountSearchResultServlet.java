@@ -8,7 +8,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import dto.AccountDto;
 import dto.AccountSearchDto;
@@ -22,12 +21,10 @@ public class AccountSearchResultServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-
-		String name = SessionUtil.getAttribute(session, "lastSearchName", String.class);
-		String mail = SessionUtil.getAttribute(session, "lastSearchMail", String.class);
+		String name = SessionUtil.getAttribute(request.getSession(), "lastSearchName", String.class);
+		String mail = SessionUtil.getAttribute(request.getSession(), "lastSearchMail", String.class);
 		@SuppressWarnings("unchecked")
-		List<Integer> authList = SessionUtil.getAttribute(session, "lastSearchAuth", List.class);
+		List<Integer> authList = SessionUtil.getAttribute(request.getSession(), "lastSearchAuth", List.class);
 
 		if (name == null)
 			name = "";
