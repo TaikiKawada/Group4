@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -44,8 +45,11 @@ public class DashboardServlet extends HttpServlet {
 		try {
 			SaleService saleService = new SaleService();
 			List<SalesDto> salesWithNames = saleService.getSalesWithAccountNames();
+			
+			Map<String,Integer>categorySalesMap=saleService.getCategorySalesSum();
 
 			request.setAttribute("sales", salesWithNames);
+			request.setAttribute("categorySalesMap", categorySalesMap);
 			request.setAttribute("authority", authority);
 			request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
 		} catch (Exception e) {

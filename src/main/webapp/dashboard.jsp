@@ -53,17 +53,31 @@
 			</div>
 		</div>
 
-		<!-- 売上推移グラフ -->
-		<div class="card">
-			<div class="card-header bg-dark text-white">日付ごとの売上推移グラフ</div>
-			<div class="card-body">
-				<canvas id="saleChart" width="100%" height="40"></canvas>
+		<div class="row">
+			<!-- 売上推移グラフ -->
+			<div class="col-md-6 mb-4">
+				<div class="card h-100">
+					<div class="card-header bg-dark text-white">日付ごとの売上推移グラフ</div>
+					<div class="card-body">
+						<canvas id="saleChart" style="width: 100%; height: 300px;"></canvas>
+					</div>
+				</div>
+			</div>
+
+			<!-- 売上カテゴリー割合 円グラフ -->
+			<div class="col-md-6 mb-4">
+				<div class="card h-100">
+					<div class="card-header bg-dark text-white">売上カテゴリー割合</div>
+					<div class="card-body">
+						<canvas id="categoryPieChart"
+							style="display: block; margin: auto; max-width: 300px; max-height: 300px; width: 100%; height: auto;"></canvas>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- 売上データをJavaScript配列として埋め込み -->
-	<script>
+		<!-- 売上データをJavaScript配列として埋め込み -->
+		<script>
   const salesData = [  
     <c:forEach var="sale" items="${sales}" varStatus="status">
       {
@@ -75,14 +89,30 @@
   ];
 </script>
 
-	<!-- Chart.jsライブラリ -->
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<!-- Chart.jsライブラリ -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-	<!-- 外部JSファイルでグラフ描画 -->
-	<script src="js/salesChart.js"></script>
+		<script>
+  		const categoryLabels = [
+    		<c:forEach var="entry" items="${categorySalesMap}" varStatus="status">
+      			'${entry.key}'<c:if test="${!status.last}">,</c:if>
+   			 </c:forEach>
+  ];
 
-	<!-- Bootstrap JS -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  const categoryData = [
+    <c:forEach var="entry" items="${categorySalesMap}" varStatus="status">
+      ${entry.value}<c:if test="${!status.last}">,</c:if>
+    </c:forEach>
+  ];
+</script>
+
+		<script src="js/categoryPieChart.js"></script>
+
+		<!-- 外部JSファイルでグラフ描画 -->
+		<script src="js/salesChart.js"></script>
+
+		<!-- Bootstrap JS -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
