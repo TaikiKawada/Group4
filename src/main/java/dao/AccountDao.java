@@ -154,7 +154,8 @@ public class AccountDao {
 
 			ps.setString(1, account.getName());
 			ps.setString(2, account.getMail());
-			ps.setString(3, account.getPassword());
+			String hashedPassword = PasswordUtils.hashPassword(account.getPassword());
+			ps.setString(3, hashedPassword);
 			ps.setInt(4, account.getAuth());
 			ps.setInt(5, account.getAccount_id());
 

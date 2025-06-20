@@ -123,27 +123,30 @@ function getByteLength(str) {
 }
 
 // チェックボックスの処理
-const authNone = document.getElementById("authNone");
-const authSales = document.getElementById("authSales");
-const authAccount = document.getElementById("authAccount");
+document.addEventListener("DOMContentLoaded", function() {
+	const authNone = document.getElementById("authNone");
+	const authSales = document.getElementById("authSales");
+	const authAccount = document.getElementById("authAccount");
 
-function updateAuthCheckboxes() {
-	if (authNone.checked) {
-		authSales.checked = false;
-		authAccount.checked = false;
-		authSales.disabled = true;
-		authAccount.disabled = true;
-	} else {
-		authSales.disabled = false;
-		authAccount.disabled = false;
+	function updateAuthCheckboxes() {
+		if (authNone.checked) {
+			authSales.checked = false;
+			authAccount.checked = false;
+			authSales.disabled = true;
+			authAccount.disabled = true;
+		} else {
+			authSales.disabled = false;
+			authAccount.disabled = false;
+		}
+
+		if (authSales.checked || authAccount.checked) {
+			authNone.checked = false;
+		}
 	}
+	
+	updateAuthCheckboxes();
 
-	if (authSales.checked || authAccount.checked) {
-		authNone.checked = false;
-	}
-}
-
-authNone.addEventListener("change", updateAuthCheckboxes);
-authSales.addEventListener("change", updateAuthCheckboxes);
-authAccount
-	.addEventListener("change", updateAuthCheckboxes);
+	authNone.addEventListener("change", updateAuthCheckboxes);
+	authSales.addEventListener("change", updateAuthCheckboxes);
+	authAccount.addEventListener("change", updateAuthCheckboxes);
+});
