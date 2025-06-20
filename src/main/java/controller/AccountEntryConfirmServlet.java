@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 
 import dto.AccountDto;
 import services.AccountService;
+import utils.AuthUtil;
 import utils.SessionUtil;
 
 
@@ -23,7 +24,6 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "accountData", AccountDto.class);
-
 		
 		if(account == null) {
 			response.sendRedirect(request.getContextPath() + "/account/entry.html");
@@ -31,10 +31,7 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 		}
 		
 		// 権限のチェック
-		request.setAttribute("hasNoneAuth", account.hasNoneAuth());
-		request.setAttribute("hasSalesAuth", account.hasSalesAuth());
-		request.setAttribute("hasAccountAuth", account.hasAccountAuth());
-		
+		AuthUtil.setAuthorityAttributes(request, account.getAuth());
 		request.getRequestDispatcher("/account_entry_confirm.jsp").forward(request, response);
 	}
 
