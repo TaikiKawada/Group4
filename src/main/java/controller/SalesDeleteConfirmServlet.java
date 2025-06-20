@@ -27,16 +27,7 @@ public class SalesDeleteConfirmServlet extends HttpServlet {
             SalesDto sale = SaleDAO.getSaleById(saleId);
 
             if (sale != null) {
-                request.setAttribute("saleId", sale.getSaleId());
-                request.setAttribute("salesDate", sale.getSaleDate());
-                request.setAttribute("staff", sale.getAccountId());
-                request.setAttribute("staffName", sale.getAccountName());
-                request.setAttribute("category", sale.getCategoryId());
-                request.setAttribute("categoryName", sale.getCategoryName());
-                request.setAttribute("productName", sale.getTradeName());
-                request.setAttribute("unitPrice", sale.getUnitPrice());
-                request.setAttribute("quantity", sale.getSaleNumber());
-                request.setAttribute("remarks", sale.getNote());
+                request.setAttribute("sale", sale);
             } else {
                 request.setAttribute("error", "指定された売上データが見つかりませんでした。");
             }

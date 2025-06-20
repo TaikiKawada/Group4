@@ -15,16 +15,22 @@ import dto.SalesDto;
 
 @WebServlet("/SalesSearchResultServlet")
 public class SalesSearchResultServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String fromDate = request.getParameter("fromDate");
-        String toDate = request.getParameter("toDate");
-        String staff = request.getParameter("staff");
-        String category = request.getParameter("category");
-        String productName = request.getParameter("productName");
-        String note = request.getParameter("note");
 
-        List<SalesDto> resultList = SaleDAO.searchSales(fromDate, toDate, staff, category, productName, note);
+        request.setCharacterEncoding("UTF-8");
+
+        SalesDto searchCondition = new SalesDto(request);
+        List<SalesDto> resultList = SaleDAO.searchSales(
+            searchCondition.getSaleDate(),             // fromDate
+            searchCondition.getToDate(),               // toDate（extraToDateフィールド）
+            String.valueOf(searchCondition.getAccountId()),
+            String.valueOf(searchCondition.getCategoryId()),
+            searchCondition.getTradeName(),
+            searchCondition.getNote()
+        );
+
         request.setAttribute("resultList", resultList);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("sales_search_result.jsp");
