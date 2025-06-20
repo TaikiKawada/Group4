@@ -77,7 +77,7 @@
 
 						<!-- 削除ボタン -->
 						<form method="post"
-							action="${pageContext.request.contextPath}/sales/delete/confirm.html">
+							action="${pageContext.request.contextPath}/SalesDeleteServlet">
 							<input type="hidden" name="saleId" value="${sale.saleId}" />
 							<button type="submit" class="btn btn-danger">
 								<i class="bi bi-x-lg"></i> 削除
@@ -86,7 +86,7 @@
 
 						<!-- キャンセルボタン -->
 						<form method="get"
-							action="${pageContext.request.contextPath}/sales/search/result.html">
+							action="${pageContext.request.contextPath}/SalesSearchFormServlet">
 							<button type="submit" class="btn btn-outline-secondary">
 								キャンセル</button>
 						</form>

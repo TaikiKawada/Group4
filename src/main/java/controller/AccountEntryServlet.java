@@ -7,75 +7,43 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import dto.AccountDto;
+import utils.SessionUtil;
 import utils.ValidationResult;
 import utils.Validator;
 
-/**
- * Servlet implementation class AccountEntryServlet
- */
+
 @WebServlet("/account/entry.html")
 public class AccountEntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AccountEntryServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html; charset=UTF-8");
 		request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-			//入力値の取得
-			String name = request.getParameter("name");
-			String mail = request.getParameter("mail");
-			String password = request.getParameter("password");
-			String passConfirm = request.getParameter("passConfirm");
-			String[] authValues = request.getParameterValues("auth");
-			
-			//権限のビット値を計算
-			int authTotal = 0;
-			if(authValues != null) {
-				for(String val : authValues) {
-					authTotal |= Integer.parseInt(val);
-				}
-			}
+			AccountDto account = AccountDto.fromRequest(request);
 			
 			// バリデーション
 			ValidationResult result = new ValidationResult();
-			Validator.validateName(name, result);
-			Validator.validateEmail(mail, result);
-			Validator.validatePassword(password, passConfirm, result);
-			
+			Validator.validateName(account.getName(), result);
+			Validator.validateEmail(account.getMail(), result);
+			Validator.validatePassword(account.getPassword(), request.getParameter("passConfirm"), result);
+			// エラーがあれば戻す
 			if(result.hasErrors()) {
 				request.setAttribute("errors", result.getErrors());
 				request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 				return;
 			}
 			
-			//AccountDtoに入力値を格納
-			AccountDto account = new AccountDto(name, mail, password, authTotal);
-			
 			//セッションに保存
-			HttpSession session = request.getSession();
-			session.setAttribute("accountData", account);
+			SessionUtil.set(request, "accountData", account);
 			response.sendRedirect(request.getContextPath() + "/account/entry/confirm.html");
 	}
 

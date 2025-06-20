@@ -13,7 +13,9 @@
 						href="${ pageContext.request.contextPath }/SalesEntryServlet">売上登録</a></li>
 				</c:if>
 				<li class="nav-item"><a class="nav-link"
-					href="${ pageContext.request.contextPath }/SalesSearchServlet">売上検索</a></li>
+					href="${pageContext.request.contextPath}/SalesSearchFormServlet">売上検索</a>
+				</li>
+
 				<c:if test="${user.getAuth() == 2 || user.getAuth() == 3}">
 					<li class="nav-item"><a class="nav-link"
 						href="${ pageContext.request.contextPath }/account/entry.html">アカウント登録</a></li>
