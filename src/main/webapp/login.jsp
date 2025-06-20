@@ -51,8 +51,7 @@
 				
 				<!-- パスワード表示切替ボタン -->
 				<div>
-					<button type="button" id="toggle-password"
-						class="btn btn-outline-secondary">表示</button>
+					<button type="button" id="toggle-password" class="btn btn-outline-secondary">表示</button>
 				</div>
 
 				<!--ログインボタン-->
