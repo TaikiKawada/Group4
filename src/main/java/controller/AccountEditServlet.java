@@ -16,7 +16,7 @@ import utils.ValidationResult;
 import utils.Validator;
 
 
-@WebServlet("/account/edit.html")
+@WebServlet("/S0042.html")
 public class AccountEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,7 +26,7 @@ public class AccountEditServlet extends HttpServlet {
 
 		String idParam = request.getParameter("account_id");
 		if(idParam == null || idParam.isEmpty()) {
-			response.sendRedirect(request.getContextPath() + "/account/search.html");
+			response.sendRedirect(request.getContextPath() + "/S0040.html");
 			return;
 		}
 		
@@ -74,7 +74,7 @@ public class AccountEditServlet extends HttpServlet {
 		}
 
 		request.getSession().setAttribute("accountData", account);
-		response.sendRedirect(request.getContextPath() + "/account/edit/confirm.html");
+		response.sendRedirect(request.getContextPath() + "/S0043.html");
 
 	}
 }

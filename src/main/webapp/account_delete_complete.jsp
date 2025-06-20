@@ -20,7 +20,7 @@
 				<div class="alert alert-success">${message}</div>
 			</c:if>
 
-			<a href="${pageContext.request.contextPath}/account/search/result.html" class="btn btn-primary mt-3">検索画面に戻る</a>
+			<a href="${pageContext.request.contextPath}/S0040t.html" class="btn btn-primary mt-3">検索画面に戻る</a>
 		</div>
 	</div>
 </body>

@@ -14,7 +14,7 @@ import utils.AuthUtil;
 import utils.SessionUtil;
 
 
-@WebServlet("/account/entry/confirm.html")
+@WebServlet("/S0031.html")
 public class AccountEntryConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,7 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "accountData", AccountDto.class);
 		
 		if(account == null) {
-			response.sendRedirect(request.getContextPath() + "/account/entry.html");
+			response.sendRedirect(request.getContextPath() + "/S0030.html");
 			return;
 		}
 		
@@ -49,7 +49,7 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 		new AccountService().signup(account);
 		request.getSession().removeAttribute("accountData");
 		
-		response.sendRedirect(request.getContextPath() + "/account/entry.html");
+		response.sendRedirect(request.getContextPath() + "/S0030.html");
 	}
 
 }

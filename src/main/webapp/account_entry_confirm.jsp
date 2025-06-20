@@ -32,7 +32,7 @@
 
 			<!--登録内容確認フォーム-->
 			<form method="post"
-				action="${pageContext.request.contextPath}/account/entry/confirm.html">
+				action="${pageContext.request.contextPath}/S0031.html">
 
 				<!--氏名-->
 				<div class="form-row">
@@ -120,7 +120,7 @@
 				<!--ボタン-->
 				<div class="text-end mt-4">
 					<button type="submit" class="btn btn-primary">OK</button>
-					<a href="${pageContext.request.contextPath}/account/entry.html"
+					<a href="${pageContext.request.contextPath}/S0030.html"
 						class="btn btn-white-custom">キャンセル</a>
 				</div>
 			</form>

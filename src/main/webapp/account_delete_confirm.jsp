@@ -30,7 +30,7 @@
 
 			<!--登録フォーム-->
 			<form method="post"
-				action="${pageContext.request.contextPath}/account/delete.html"
+				action="${pageContext.request.contextPath}/S0044.html"
 				onsubmit="return validateForm()">
 
 				<!--削除できなかったらエラーメッセージを表示-->
@@ -133,7 +133,7 @@
 						<i class="bi bi-x-lg"></i>OK
 					</button>
 					<a
-						href="${ pageContext.request.contextPath }/account/search/result.html"
+						href="${ pageContext.request.contextPath }/S0041.html"
 						class="btn btn-white-custom">キャンセル</a>
 				</div>
 			</form>

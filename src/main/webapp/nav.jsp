@@ -18,10 +18,10 @@
 
 				<c:if test="${user.getAuth() == 2 || user.getAuth() == 3}">
 					<li class="nav-item"><a class="nav-link"
-						href="${ pageContext.request.contextPath }/account/entry.html">アカウント登録</a></li>
+						href="${ pageContext.request.contextPath }/S0030.html">アカウント登録</a></li>
 				</c:if>
 				<li class="nav-item"><a class="nav-link"
-					href="${ pageContext.request.contextPath }/account/search.html">アカウント検索</a></li>
+					href="${ pageContext.request.contextPath }/S0040.html">アカウント検索</a></li>
 			</ul>
 			<ul class="navbar-nav ms-auto">
 				<li class="nav-item d-flex align-items-center"><span

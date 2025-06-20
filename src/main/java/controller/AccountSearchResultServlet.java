@@ -14,7 +14,7 @@ import dto.AccountSearchDto;
 import services.AccountService;
 import utils.SessionUtil;
 
-@WebServlet("/account/search/result.html")
+@WebServlet("/S0041.html")
 public class AccountSearchResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

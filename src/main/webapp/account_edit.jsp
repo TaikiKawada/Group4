@@ -31,7 +31,7 @@
 
 			<!--登録フォーム-->
 			<form method="post"
-				action="${pageContext.request.contextPath}/account/edit.html"
+				action="${pageContext.request.contextPath}/S0042.html"
 				onsubmit="return validateForm()">
 
 				<!--account_idの値だけ送信-->
@@ -141,7 +141,7 @@
 						<i class="bi bi-check-lg"></i>更新
 					</button>
 					<a
-						href="${pageContext.request.contextPath}/account/search/result.html"
+						href="${pageContext.request.contextPath}/S0041.html"
 						class="btn btn-white-custom">キャンセル</a>
 				</div>
 			</form>
