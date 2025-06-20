@@ -30,7 +30,7 @@ public class AuthFilter implements Filter {
 		
 		// ログインしているか確認
 		HttpSession session = req.getSession(false);
-		if (session == null || session.getAttribute("loginUser") == null) {
+		if (session == null || session.getAttribute("user") == null) {
 			res.sendRedirect(req.getContextPath() + "/login");
 			return;
 		} else {
