@@ -14,28 +14,28 @@ import dto.SalesDto;
 
 @WebServlet("/SalesDetailServlet")
 public class SalesDetailServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		try {
-			// リクエストパラメータから saleId を取得
-			String idStr = request.getParameter("saleId");
-			int saleId = Integer.parseInt(idStr);
+        try {
+            // DTOにまとめて処理
+            SalesDto paramDto = new SalesDto(request);
+            int saleId = paramDto.getSaleId();
 
-			// SaleDAO から該当データを取得
-			SalesDto sale = SaleDAO.getSaleById(saleId);
+            // SaleDAO から該当データを取得
+            SalesDto sale = SaleDAO.getSaleById(saleId);
 
-			// JSP に渡す
-			request.setAttribute("sale", sale);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("sales_detail.jsp");
-			dispatcher.forward(request, response);
+            // JSP に渡す
+            request.setAttribute("sale", sale);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("sales_detail.jsp");
+            dispatcher.forward(request, response);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "売上詳細の取得に失敗しました。");
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "売上詳細の取得に失敗しました。");
+        }
+    }
 }
