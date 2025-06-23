@@ -30,8 +30,8 @@
 						name="mail" class="form-control" id="mail" placeholder="メールアドレス"
 						required value="${param.mail}"> <small>例：user@example.com</small>
 						
-					<c:if test="${not empty error.email}">
-						<div class="text-danger">${error.email}</div>
+					<c:if test="${not empty errors.email}">
+						<div class="text-danger">${errors.email}</div>
 					</c:if>
 				</div>
 
@@ -44,8 +44,8 @@
 						placeholder="パスワード" required>
 					<small>8文字以上であり、大文字・数字・小文字・記号を含める必要があります</small>
 					
-					<c:if test="${not empty error.password}">
-						<div class="text-danger">${error.password}</div>
+					<c:if test="${not empty errors.password}">
+						<div class="text-danger">${errors.password}</div>
 					</c:if>
 				</div>
 				
@@ -65,9 +65,9 @@
 						<div class="alert alert-danger mt-3">${errors.error}</div>
 					</c:if>
 
-			<script src="${pageContext.request.contextPath}/login.js"></script>
+
 		</div>
 	</div>
-
+			<script src="${pageContext.request.contextPath}/js/login.js"></script>
 </body>
 </html>
