@@ -1,76 +1,44 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<meta charset="UTF-8">
-
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>システムエラー</title>
-<style>
-body {
-	font-family: 'Arial', sans-serif;
-	background-color: #f4f6f9;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-}
-
-.error-container {
-	background-color: #fff;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	padding: 40px;
-	max-width: 600px;
-	width: 100%;
-	text-align: center;
-}
-
-.error-container h1 {
-	color: #e74c3c;
-	font-size: 2.5rem;
-	margin-bottom: 20px;
-}
-
-.error-container p {
-	color: #555;
-	font-size: 1.1rem;
-	margin-bottom: 30px;
-}
-
-.error-detail {
-	background-color: #f9e0e0;
-	color: #c0392b;
-	padding: 15px;
-	border-radius: 6px;
-	margin-bottom: 30px;
-	font-weight: 600;
-}
-
-.btn {
-	display: inline-block;
-	padding: 12px 30px;
-	background-color: #3498db;
-	color: white;
-	text-decoration: none;
-	font-weight: 600;
-	border-radius: 6px;
-	transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-	background-color: #2980b9;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>エラー</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f8f8f8;
+            padding: 40px;
+        }
+        .error-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            background-color: white;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        h1 {
+            color: #cc0000;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-	<div class="error-container">
-		<h1>システムエラーが発生しました</h1>
-		<p>申し訳ありませんが、現在システムに問題が発生しています。しばらくしてから再度お試しください。</p>
-		<a href="login.jsp" class="btn">ログイン画面に戻る</a>
-	</div>
+    <div class="error-container">
+        <h1>システムエラーが発生しました</h1>
+        <p>申し訳ありません。処理中に予期しないエラーが発生しました。</p>
+
+        <p>
+            <strong>
+                <%= request.getAttribute("error") != null ? request.getAttribute("error") : "詳細は管理者にお問い合わせください。" %>
+            </strong>
+        </p>
+
+        <p><a href="<%= request.getContextPath() %>/C0010.html">ログイン画面へ戻る</a></p>
+    </div>
 </body>
 </html>

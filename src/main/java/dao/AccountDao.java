@@ -34,7 +34,7 @@ public class AccountDao {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static List<Map<String, String>> getAllAccounts() {
 		List<Map<String, String>> list = new ArrayList<>();
 		try (Connection conn = Db.getConnection();
