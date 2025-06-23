@@ -35,6 +35,12 @@ public class AccountEditServlet extends HttpServlet {
 
 		// 権限のチェック
 		AuthUtil.setAuthorityAttributes(request, account.getAuth());
+
+		Object flag = SessionUtil.get(request, "editSuccess");
+		if(flag != null) {
+			request.setAttribute("editSuccess", true);
+			SessionUtil.remove(request, "editSuccess");					
+		}
 		
 		request.setAttribute("account", account);
 		request.getRequestDispatcher("/account_edit.jsp").forward(request, response);

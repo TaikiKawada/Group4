@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import dto.AccountDto;
 import dto.AccountSearchDto;
 import services.AccountService;
+import utils.MessageUtil;
 import utils.SessionUtil;
 
 @WebServlet("/S0041.html")
@@ -20,7 +21,8 @@ public class AccountSearchResultServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		MessageUtil.flushToRequest(request);
+		
 		String name = SessionUtil.getAttribute(request.getSession(), "lastSearchName", String.class);
 		String mail = SessionUtil.getAttribute(request.getSession(), "lastSearchMail", String.class);
 		@SuppressWarnings("unchecked")
@@ -34,9 +36,8 @@ public class AccountSearchResultServlet extends HttpServlet {
 			authList = List.of();
 
 		AccountSearchDto dto = new AccountSearchDto(name, mail, authList);
-		
 		List<AccountDto> accounts = new AccountService().search(dto.getName(), dto.getMail(), dto.getAuthList());
-
+		
 		request.setAttribute("accountList", accounts);
 		request.getRequestDispatcher("/account_search_result.jsp").forward(request, response);
 	}

@@ -18,7 +18,7 @@ import utils.PasswordUtils;
 public class AccountDao {
 
 	// アカウント登録
-	public void insertAccount(AccountDto obj) {
+	public boolean insertAccount(AccountDto obj) {
 		String sql = "insert into accounts (name, mail, password, authority) values (?, ?, ?, ?)";
 
 		try (Connection con = Db.getConnection();
@@ -30,10 +30,12 @@ public class AccountDao {
 			String hashedPassword = PasswordUtils.hashPassword(obj.getPassword());
 			ps.setString(3, hashedPassword);
 			ps.setInt(4, obj.getAuth());
-			ps.executeUpdate();
+			
+			return ps.executeUpdate() == 1;
 			
 		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -185,11 +187,10 @@ public class AccountDao {
 			ps.setInt(4, account.getAuth());
 			ps.setInt(5, account.getAccount_id());
 
-			int result = ps.executeUpdate();
 			// 更新出来たらtrueを返す
-			return result > 0;
+			return ps.executeUpdate() == 1;
 		} catch (SQLException | NamingException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}
@@ -206,7 +207,7 @@ public class AccountDao {
 			return ps.executeUpdate() == 1;
 
 		} catch (SQLException | NamingException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}

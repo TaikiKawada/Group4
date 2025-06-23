@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import dto.AccountDto;
 import services.AccountService;
 import utils.AuthUtil;
+import utils.MessageUtil;
 import utils.SessionUtil;
 
 
@@ -46,10 +47,14 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 			return;
 		}
 
-		new AccountService().signup(account);
-		request.getSession().removeAttribute("accountData");
-		
-		response.sendRedirect(request.getContextPath() + "/S0030.html");
+		boolean success = new AccountService().signup(account);
+		if(success) {
+			MessageUtil.setSuccessMessage(request, "アカウントを登録しました");
+			SessionUtil.remove(request, "accountData");
+			response.sendRedirect(request.getContextPath() + "/S0030.html");
+		} else {
+			MessageUtil.setErrorMessage(request, "アカウントの登録に失敗しました");
+			request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
+		}
 	}
-
 }

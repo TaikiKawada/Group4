@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import dto.AccountDto;
 import services.AccountService;
 import utils.AuthUtil;
+import utils.MessageUtil;
 
 
 @WebServlet("/S0044.html")
@@ -49,10 +50,11 @@ public class AccountDeleteConfirmServlet extends HttpServlet {
 		
 		if(success) {
 			// 削除成功時は検索結果画面に
-			request.getRequestDispatcher("/account_delete_complete.jsp").forward(request, response);
+			MessageUtil.setSuccessMessage(request, "アカウントを削除しました");
+			response.sendRedirect(request.getContextPath() + "/S0041.html");
 		}else {
 			// 削除失敗時にエラー文表示
-			request.setAttribute("error", "アカウントの削除に失敗しました");
+			MessageUtil.setSuccessMessage(request, "削除に失敗しました");
 			AccountDto account = new AccountService().findById(accountId);
 			if(account != null) {
 				AuthUtil.setAuthorityAttributes(request, account.getAuth());
