@@ -109,7 +109,7 @@
 
 
 			<!--ボタン-->
-			<div class="text-center mt-4 d-flex justify-content-center gap-2">
+			<div class="text-end mt-4 d-flex justify-content-end gap-2">
 				<form method="post"
 					action="${ pageContext.request.contextPath }/S0043.html">
 					<!--実際の値を送信-->

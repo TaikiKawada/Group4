@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import dto.AccountDto;
+import utils.MessageUtil;
 import utils.SessionUtil;
 import utils.ValidationResult;
 import utils.Validator;
@@ -21,6 +22,7 @@ public class AccountEntryServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		MessageUtil.flushToRequest(request);
 		request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 	}
 

@@ -92,5 +92,8 @@
 		</table>
 
 	</div>
+
+	<jsp:include page="/toast.jsp" />
+	<script src="${ pageContext.request.contextPath }/js/toast.js"></script>
 </body>
 </html>

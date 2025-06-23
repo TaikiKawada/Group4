@@ -128,7 +128,7 @@
 				</c:if>
 
 				<!--ボタン-->
-				<div class="text-center mt-4">
+				<div class="text-end mt-4">
 					<button class="btn btn-danger">
 						<i class="bi bi-x-lg"></i>OK
 					</button>

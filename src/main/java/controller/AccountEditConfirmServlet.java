@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import dto.AccountDto;
 import services.AccountService;
 import utils.AuthUtil;
+import utils.MessageUtil;
 import utils.SessionUtil;
 
 /**
@@ -25,7 +26,6 @@ public class AccountEditConfirmServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "accountData", AccountDto.class);
-		
 		if (account != null) {
 			AuthUtil.setAuthorityAttributes(request, account.getAuth());
 			request.setAttribute("account", account);
@@ -51,9 +51,10 @@ public class AccountEditConfirmServlet extends HttpServlet {
 		boolean success = new AccountService().edit(account);
 
 		if (success) {
-			response.sendRedirect(request.getContextPath() + "/account/search/result.html");
+			MessageUtil.setSuccessMessage(request, "アカウントを編集しました");
+			response.sendRedirect(request.getContextPath() + "/S0041.html");
 		} else {
-			request.setAttribute("error", "アカウントの編集に失敗しました");
+			MessageUtil.setErrorMessage(request, "アカウントの編集に失敗しました");
 			request.getRequestDispatcher("/account_edit_confirm.jsp").forward(request, response);
 		}
 	}
