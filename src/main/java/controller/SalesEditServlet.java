@@ -28,16 +28,21 @@ public class SalesEditServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            SalesDto paramDto = new SalesDto(request); // ← saleIdだけ取得
+            // saleIdだけ取得し、対象データ取得
+            SalesDto paramDto = new SalesDto(request);
             SalesDto sale = SaleDAO.getSaleById(paramDto.getSaleId());
 
+            // 担当者・カテゴリー一覧取得
             List<Map<String, String>> staffList = AccountDao.getAllAccounts();
             List<Map<String, String>> categoryList = CategoryDAO.getActiveCategories();
 
+            // 各値をJSPに渡す
             request.setAttribute("sale", sale);
             request.setAttribute("staffList", staffList);
             request.setAttribute("categoryList", categoryList);
-            request.setAttribute("salesDate", sale.getSaleDate());
+
+            // ⭐ 初期表示時はエラーなしとする
+            request.setAttribute("errors", null);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("sales_edit.jsp");
             dispatcher.forward(request, response);
@@ -46,31 +51,46 @@ public class SalesEditServlet extends HttpServlet {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
+        request.setAttribute("errors", null);
+
     }
 
-    // POST：確認画面へ
+    // POST：確認画面へ遷移
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        SalesDto sale = new SalesDto(request); // DTOでまとめて取得
+        SalesDto sale = new SalesDto(request);
 
         Map<String, String> errors = new HashMap<>();
 
-        // バリデーション
-        if (sale.getSaleDate() == null || sale.getSaleDate().isEmpty()) errors.put("saleDate", "販売日を入力してください");
-        if (sale.getAccountId() == 0) errors.put("staff", "担当者を選択してください");
-        if (sale.getCategoryId() == 0) errors.put("category", "カテゴリーを選択してください");
-        if (sale.getTradeName() == null || sale.getTradeName().isEmpty()) errors.put("tradeName", "商品名を入力してください");
-        if (sale.getUnitPrice() == 0) errors.put("unitPrice", "単価を入力してください");
-        if (sale.getSaleNumber() == 0) errors.put("saleNumber", "個数を入力してください");
+        // バリデーションチェック
+        if (sale.getSaleDate() == null || sale.getSaleDate().isEmpty()) {
+            errors.put("saleDate", "販売日を入力してください");
+        }
+        if (sale.getAccountId() == 0) {
+            errors.put("staff", "担当者を選択してください");
+        }
+        if (sale.getCategoryId() == 0) {
+            errors.put("category", "カテゴリーを選択してください");
+        }
+        if (sale.getTradeName() == null || sale.getTradeName().isEmpty()) {
+            errors.put("tradeName", "商品名を入力してください");
+        }
+        if (sale.getUnitPrice() == 0) {
+            errors.put("unitPrice", "単価を入力してください");
+        }
+        if (sale.getSaleNumber() == 0) {
+            errors.put("saleNumber", "個数を入力してください");
+        }
 
         AccountDto user = (AccountDto) request.getSession().getAttribute("user");
         if (user == null || user.getAuth() < 1) {
             errors.put("authority", "この操作を行う権限がありません");
         }
 
+        // エラーがある場合は戻る
         if (!errors.isEmpty()) {
             request.setAttribute("sale", sale);
             request.setAttribute("errors", errors);
@@ -82,11 +102,11 @@ public class SalesEditServlet extends HttpServlet {
             return;
         }
 
-        // 名称取得
+        // 担当名・カテゴリ名の取得
         String staffName = AccountDao.getNameById(sale.getAccountId());
         String categoryName = CategoryDAO.getNameById(sale.getCategoryId());
 
-        // 確認画面へ渡す
+        // 確認画面に渡すデータ
         request.setAttribute("saleId", sale.getSaleId());
         request.setAttribute("saleDate", sale.getSaleDate());
         request.setAttribute("staff", sale.getAccountId());

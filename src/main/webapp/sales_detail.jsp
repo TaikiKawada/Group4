@@ -67,7 +67,7 @@
 					<div class="d-flex justify-content-center gap-2">
 
 						<!-- 編集ボタン -->
-						<form method="post"
+						<form method="get"
 							action="${pageContext.request.contextPath}/S0023.html">
 							<input type="hidden" name="saleId" value="${sale.saleId}" />
 							<button type="submit" class="btn btn-primary">
