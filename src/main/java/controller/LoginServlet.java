@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Map;
 
 import jakarta.servlet.ServletException;
@@ -47,13 +46,13 @@ public class LoginServlet extends HttpServlet {
             
 //               //システムエラー試し用
 //            // メールアドレスとパスワードの未入力チェック
-            if (mail == null || mail.isEmpty()) {
-                throw new SQLException("メールアドレスが未入力です。");
-            }
-
-            if (password == null || password.isEmpty()) {
-                throw new SQLException("パスワードが未入力です。");
-            }
+//            if (mail == null || mail.isEmpty()) {
+//                throw new SQLException("メールアドレスが未入力です。");
+//            }
+//
+//            if (password == null || password.isEmpty()) {
+//                throw new SQLException("パスワードが未入力です。");
+//            }
 
             // バリデーションエラーがある場合
             if (result.hasErrors()) {
