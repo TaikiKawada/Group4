@@ -49,7 +49,7 @@ public class AccountDeleteConfirmServlet extends HttpServlet {
 		
 		if(success) {
 			// 削除成功時は検索結果画面に
-			response.sendRedirect(request.getContextPath() + "/account/search/result.html");
+			request.getRequestDispatcher("/account_delete_complete.jsp").forward(request, response);
 		}else {
 			// 削除失敗時にエラー文表示
 			request.setAttribute("error", "アカウントの削除に失敗しました");
