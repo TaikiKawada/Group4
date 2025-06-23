@@ -85,6 +85,11 @@ public class LoginService {
 
     }
 
+	public boolean authenticate(String mail, String password) {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
+
 }
 
  
