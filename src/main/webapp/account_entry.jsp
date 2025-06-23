@@ -29,6 +29,8 @@
 		<div class="mx-auto w-100" style="max-width: 800px;">
 			<h2 class="mb-4">アカウント登録</h2>
 
+			<jsp:include page="alert.jsp" />
+
 			<!--登録フォーム-->
 			<form method="post"
 				action="${pageContext.request.contextPath}/S0030.html"
@@ -136,8 +138,6 @@
 		</div>
 	</div>
 
-	<jsp:include page="/toast.jsp" />
 	<script src="${ pageContext.request.contextPath }/js/validate.js"></script>
-	<script src="${ pageContext.request.contextPath }/js/toast.js"></script>
 </body>
 </html>
