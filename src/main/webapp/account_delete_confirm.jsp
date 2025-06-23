@@ -30,7 +30,7 @@
 
 			<!--登録フォーム-->
 			<form method="post"
-				action="${pageContext.request.contextPath}/account/delete.html"
+				action="${pageContext.request.contextPath}/S0044.html"
 				onsubmit="return validateForm()">
 
 				<!--削除できなかったらエラーメッセージを表示-->
@@ -49,7 +49,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="text" name="name" class="form-control"
-							placeholder="氏名" value="${ account.name }" readonly />
+							placeholder="氏名" value="${ account.name }" disabled />
 						<div id="error-name" class="text-danger"></div>
 					</div>
 				</div>
@@ -61,7 +61,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="email" name="mail" class="form-control"
-							placeholder="メールアドレス" value="${ account.mail }" readonly />
+							placeholder="メールアドレス" value="${ account.mail }" disabled />
 						<div id="error-mail" class="text-danger"></div>
 					</div>
 				</div>
@@ -73,7 +73,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="password" name="password" class="form-control"
-							placeholder="パスワード" value="${ account.password }" readonly />
+							placeholder="パスワード" value="${ account.password }" disabled />
 						<div id="error-password" class="text-danger"></div>
 					</div>
 				</div>
@@ -86,7 +86,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="password" name="passConfirm" class="form-control"
-							placeholder="パスワード（確認）" value="${ account.password }" readonly />
+							placeholder="パスワード（確認）" value="${ account.password }" disabled />
 						<div id="error-confirm" class="text-danger"></div>
 					</div>
 				</div>
@@ -128,12 +128,12 @@
 				</c:if>
 
 				<!--ボタン-->
-				<div class="text-end mt-4">
+				<div class="text-center mt-4">
 					<button class="btn btn-danger">
-						<i class="bi bi-x"></i>OK
+						<i class="bi bi-x-lg"></i>OK
 					</button>
 					<a
-						href="${ pageContext.request.contextPath }/account/search/result.html"
+						href="${ pageContext.request.contextPath }/S0041.html"
 						class="btn btn-white-custom">キャンセル</a>
 				</div>
 			</form>

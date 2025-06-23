@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import beans.Sale;           // 既存のSaleクラス（表示などで使用）
+import beans.Sale;
 import dto.SalesDto;
 import utils.Db;
 
 public class SaleDAO {
 
-    // すべての売上を取得する（既存処理）
+    // すべての売上を取得する
     public static List<Sale> getAllSales() {
         List<Sale> list = new ArrayList<>();
 
@@ -69,6 +69,7 @@ public class SaleDAO {
         }
     }
 
+    // 商品名検索
     public static List<SalesDto> searchByProductName(String keyword) {
         List<SalesDto> list = new ArrayList<>();
 
@@ -101,6 +102,7 @@ public class SaleDAO {
         return list;
     }
 
+    // 検索機能（条件付き）
     public static List<SalesDto> searchSales(String fromDate, String toDate, String staff, String category, String tradeName, String note) {
         List<SalesDto> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder();
@@ -167,44 +169,46 @@ public class SaleDAO {
 
         return list;
     }
-    
+
+    // 売上IDから取得
     public static SalesDto getSaleById(int saleId) {
-    	SalesDto dto = null;
+        SalesDto dto = null;
 
-    	String sql = "SELECT s.*, a.name AS account_name, c.category_name AS category_name "
-    	           + "FROM sales s "
-    	           + "LEFT JOIN accounts a ON s.account_id = a.account_id "
-    	           + "LEFT JOIN categories c ON s.category_id = c.category_id "
-    	           + "WHERE s.sale_id = ?";
+        String sql = "SELECT s.*, a.name AS account_name, c.category_name AS category_name "
+                   + "FROM sales s "
+                   + "LEFT JOIN accounts a ON s.account_id = a.account_id "
+                   + "LEFT JOIN categories c ON s.category_id = c.category_id "
+                   + "WHERE s.sale_id = ?";
 
-    	try (Connection conn = Db.getConnection();
-    	     PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Db.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-    		stmt.setInt(1, saleId);
-    		ResultSet rs = stmt.executeQuery();
+            stmt.setInt(1, saleId);
+            ResultSet rs = stmt.executeQuery();
 
-    		if (rs.next()) {
-    			dto = new SalesDto(
-    				rs.getInt("sale_id"),
-    				rs.getString("sale_date"),
-    				rs.getInt("account_id"),
-    				rs.getInt("category_id"),
-    				rs.getString("trade_name"),
-    				rs.getInt("unit_price"),
-    				rs.getInt("sale_number"),
-    				rs.getString("note"),
-    				rs.getString("account_name"),
-    				rs.getString("category_name")
-    			);
-    		}
+            if (rs.next()) {
+                dto = new SalesDto(
+                    rs.getInt("sale_id"),
+                    rs.getString("sale_date"),
+                    rs.getInt("account_id"),
+                    rs.getInt("category_id"),
+                    rs.getString("trade_name"),
+                    rs.getInt("unit_price"),
+                    rs.getInt("sale_number"),
+                    rs.getString("note"),
+                    rs.getString("account_name"),
+                    rs.getString("category_name")
+                );
+            }
 
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-    	return dto;
+        return dto;
     }
-    
+
+    // 更新処理
     public static boolean update(SalesDto dto) {
         String sql = "UPDATE sales SET sale_date = ?, account_id = ?, category_id = ?, "
                    + "trade_name = ?, unit_price = ?, sale_number = ?, note = ? "
@@ -230,7 +234,8 @@ public class SaleDAO {
             return false;
         }
     }
-    
+
+    // 削除処理
     public static boolean deleteById(int saleId) {
         String sql = "DELETE FROM sales WHERE sale_id = ?";
 
@@ -246,7 +251,4 @@ public class SaleDAO {
             return false;
         }
     }
-
-
-
-} 
+}

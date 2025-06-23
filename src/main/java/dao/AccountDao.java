@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.NamingException;
+
 import dto.AccountDto;
 import utils.Db;
 import utils.PasswordUtils;
@@ -30,11 +32,13 @@ public class AccountDao {
 			ps.setInt(4, obj.getAuth());
 			ps.executeUpdate();
 			
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
+	// 登録されたアカウントの取得
 	public static List<Map<String, String>> getAllAccounts() {
 		List<Map<String, String>> list = new ArrayList<>();
 		try (Connection conn = Db.getConnection();
@@ -53,7 +57,29 @@ public class AccountDao {
 		}
 		return list;
 	}
+	
 
+	// 削除されていないアカウントの取得
+	public static List<Map<String, String>> getAccounts() {
+		List<Map<String, String>> list = new ArrayList<>();
+		try (Connection conn = Db.getConnection();
+				PreparedStatement stmt = conn.prepareStatement("SELECT account_id, name FROM accounts WHERE is_deleted = 0");
+				ResultSet rs = stmt.executeQuery()) {
+
+			while (rs.next()) {
+				Map<String, String> map = new HashMap<>();
+				map.put("id", String.valueOf(rs.getInt("account_id")));
+				map.put("name", rs.getString("name"));
+				list.add(map);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
 	// アカウント検索
 	public List<AccountDto> searchAccounts(String name, String mail, List<Integer> authList) {
 		List<AccountDto> resultList = new ArrayList<>();
@@ -114,7 +140,7 @@ public class AccountDao {
 						rs.getInt("authority"));
 				resultList.add(ad);
 			}
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
 		} 
 		return resultList;
@@ -139,7 +165,7 @@ public class AccountDao {
 				account.setPassword(rs.getString("password"));
 				account.setAuth(rs.getInt("authority"));
 			}
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
 		}
 		return account;
@@ -154,14 +180,15 @@ public class AccountDao {
 
 			ps.setString(1, account.getName());
 			ps.setString(2, account.getMail());
-			ps.setString(3, account.getPassword());
+			String hashedPassword = PasswordUtils.hashPassword(account.getPassword());
+			ps.setString(3, hashedPassword);
 			ps.setInt(4, account.getAuth());
 			ps.setInt(5, account.getAccount_id());
 
 			int result = ps.executeUpdate();
 			// 更新出来たらtrueを返す
 			return result > 0;
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -178,7 +205,7 @@ public class AccountDao {
 			ps.setInt(1, accountId);
 			return ps.executeUpdate() == 1;
 
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
 			return false;
 		}

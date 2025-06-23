@@ -5,12 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.naming.NamingException;
+
 import dto.AccountDto;
 import utils.Db;
 
 public class LoginDao {
 	
-	public AccountDto findEmail(String mail) throws SQLException, ClassNotFoundException{
+	public AccountDto findEmail(String mail) throws SQLException, NamingException{
         String sql = "SELECT name, mail, password, authority FROM accounts WHERE mail = ?";
         
         try (Connection conn = Db.getConnection();//データベースと接続

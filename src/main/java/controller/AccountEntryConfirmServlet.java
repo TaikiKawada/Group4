@@ -7,14 +7,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import dto.AccountDto;
 import services.AccountService;
+import utils.AuthUtil;
 import utils.SessionUtil;
 
 
-@WebServlet("/account/entry/confirm.html")
+@WebServlet("/S0031.html")
 public class AccountEntryConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -23,18 +23,14 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "accountData", AccountDto.class);
-
 		
 		if(account == null) {
-			response.sendRedirect(request.getContextPath() + "/account/entry.html");
+			response.sendRedirect(request.getContextPath() + "/S0030.html");
 			return;
 		}
 		
 		// 権限のチェック
-		request.setAttribute("hasNoneAuth", account.hasNoneAuth());
-		request.setAttribute("hasSalesAuth", account.hasSalesAuth());
-		request.setAttribute("hasAccountAuth", account.hasAccountAuth());
-		
+		AuthUtil.setAuthorityAttributes(request, account.getAuth());
 		request.getRequestDispatcher("/account_entry_confirm.jsp").forward(request, response);
 	}
 
@@ -42,19 +38,18 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-		AccountDto account = SessionUtil.getAttribute(session, "accountData", AccountDto.class);
+		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "accountData", AccountDto.class);
 
-		if (session == null) {
+		if (request.getSession() == null) {
 			request.setAttribute("error", "セッションが切れました。もう一度入力してください。");
 			request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 			return;
 		}
 
 		new AccountService().signup(account);
-		session.removeAttribute("accountData");
+		request.getSession().removeAttribute("accountData");
 		
-		response.sendRedirect(request.getContextPath() + "/account/entry.html");
+		response.sendRedirect(request.getContextPath() + "/S0030.html");
 	}
 
 }

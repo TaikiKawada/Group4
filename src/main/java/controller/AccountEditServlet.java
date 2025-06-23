@@ -7,7 +7,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import dto.AccountDto;
 import services.AccountService;
@@ -17,7 +16,7 @@ import utils.ValidationResult;
 import utils.Validator;
 
 
-@WebServlet("/account/edit.html")
+@WebServlet("/S0042.html")
 public class AccountEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +26,7 @@ public class AccountEditServlet extends HttpServlet {
 
 		String idParam = request.getParameter("account_id");
 		if(idParam == null || idParam.isEmpty()) {
-			response.sendRedirect(request.getContextPath() + "/account/search.html");
+			response.sendRedirect(request.getContextPath() + "/S0040.html");
 			return;
 		}
 		
@@ -45,8 +44,7 @@ public class AccountEditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-		AccountDto loginUser = SessionUtil.getAttribute(session, "user", AccountDto.class);
+		AccountDto loginUser = SessionUtil.getAttribute(request.getSession(false), "user", AccountDto.class);
 		
 		int accountId = Integer.parseInt(request.getParameter("account_id"));
 		AccountDto account = AccountDto.fromRequest(request);
@@ -75,8 +73,8 @@ public class AccountEditServlet extends HttpServlet {
 			return;
 		}
 
-		session.setAttribute("accountData", account);
-		response.sendRedirect(request.getContextPath() + "/account/edit/confirm.html");
+		request.getSession().setAttribute("accountData", account);
+		response.sendRedirect(request.getContextPath() + "/S0043.html");
 
 	}
 }

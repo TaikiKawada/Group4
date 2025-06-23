@@ -19,7 +19,7 @@
 	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="${ pageContext.request.contextPath }/js/validate.js"></script>
+
 </head>
 <body>
 
@@ -31,7 +31,7 @@
 
 			<!--登録フォーム-->
 			<form method="post"
-				action="${pageContext.request.contextPath}/account/edit.html"
+				action="${pageContext.request.contextPath}/S0042.html"
 				onsubmit="return validateForm()">
 
 				<!--account_idの値だけ送信-->
@@ -85,7 +85,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="password" name="password" class="form-control"
-							placeholder="パスワード" value="${ account.password }" />
+							placeholder="パスワード" />
 						<div id="error-password" class="text-danger">
 							<c:if test="${ not empty errors.password }">
 							${errors.password}
@@ -103,9 +103,9 @@
 					</div>
 					<div class="form-input-col">
 						<input type="password" name="passConfirm" class="form-control"
-							placeholder="パスワード（確認）" value="${ account.password }" />
+							placeholder="パスワード（確認）" />
 						<div id="error-confirm" class="text-danger">
-						<c:if test="${ not empty errors.passConfirm }">
+							<c:if test="${ not empty errors.passConfirm }">
 							${errors.passConfirm}
 							</c:if>
 						</div>
@@ -141,11 +141,12 @@
 						<i class="bi bi-check-lg"></i>更新
 					</button>
 					<a
-						href="${pageContext.request.contextPath}/account/search/result.html"
+						href="${pageContext.request.contextPath}/S0041.html"
 						class="btn btn-white-custom">キャンセル</a>
 				</div>
 			</form>
 		</div>
 	</div>
+	<script src="${ pageContext.request.contextPath }/js/validate.js"></script>
 </body>
 </html>

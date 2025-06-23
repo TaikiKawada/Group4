@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter({ "/Dashboard", "/Logout", "/account/*", "/Sales*" })
+@WebFilter({ "*.html", "/Sales*" })
 public class AuthFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -23,7 +23,7 @@ public class AuthFilter implements Filter {
 		
 		// ログインが必要ないパスは除外
 		String path = req.getRequestURI();
-		if(path.endsWith("/login")) {
+		if(path.endsWith("/C0010.html")) {
 			chain.doFilter(request, response);
 			return;
 		}
@@ -31,7 +31,7 @@ public class AuthFilter implements Filter {
 		// ログインしているか確認
 		HttpSession session = req.getSession(false);
 		if (session == null || session.getAttribute("user") == null) {
-			res.sendRedirect(req.getContextPath() + "/login");
+			res.sendRedirect(req.getContextPath() + "/C0010.html");
 			return;
 		} else {
 			chain.doFilter(request, response);

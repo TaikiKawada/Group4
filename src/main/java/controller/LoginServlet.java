@@ -13,7 +13,7 @@ import services.LoginService;
 import utils.ValidationResult;
 import utils.Validator;
 
-@WebServlet("/login")
+@WebServlet("/C0010.html")
 
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
     	
         //アカウント情報が一致したらdashboard.jspへ遷移
         if (loginService.authenticate(request)) {
-            response.sendRedirect("Dashboard");
+            response.sendRedirect(request.getContextPath() + "/C0020.html");
 
             
         } else {

@@ -32,7 +32,7 @@
 
 			<!--登録内容確認フォーム-->
 			<form method="post"
-				action="${pageContext.request.contextPath}/account/entry/confirm.html">
+				action="${pageContext.request.contextPath}/S0031.html">
 
 				<!--氏名-->
 				<div class="form-row">
@@ -42,7 +42,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="text" name="name" class="form-control"
-							value="${ sessionScope.accountData.name }" readonly />
+							value="${ sessionScope.accountData.name }" disabled />
 					</div>
 				</div>
 
@@ -54,7 +54,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="email" name="mail" class="form-control"
-							value="${ sessionScope.accountData.mail }" readonly />
+							value="${ sessionScope.accountData.mail }" disabled />
 					</div>
 				</div>
 
@@ -66,7 +66,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="password" name="password" class="form-control"
-							value="${ sessionScope.accountData.password }" readonly />
+							value="${ sessionScope.accountData.password }" disabled />
 					</div>
 				</div>
 
@@ -78,7 +78,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="password" name="pass-confirm" class="form-control"
-							value="${ sessionScope.accountData.password }" readonly />
+							value="${ sessionScope.accountData.password }" disabled />
 					</div>
 				</div>
 
@@ -120,7 +120,7 @@
 				<!--ボタン-->
 				<div class="text-end mt-4">
 					<button type="submit" class="btn btn-primary">OK</button>
-					<a href="${pageContext.request.contextPath}/account/entry.html"
+					<a href="${pageContext.request.contextPath}/S0030.html"
 						class="btn btn-white-custom">キャンセル</a>
 				</div>
 			</form>

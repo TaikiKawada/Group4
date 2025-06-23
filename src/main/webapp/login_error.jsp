@@ -38,7 +38,7 @@
             </strong>
         </p>
 
-        <p><a href="<%= request.getContextPath() %>/login">ログイン画面へ戻る</a></p>
+        <p><a href="<%= request.getContextPath() %>/C0010.html">ログイン画面へ戻る</a></p>
     </div>
 </body>
 </html>
