@@ -93,7 +93,7 @@
 					</div>
 				</div>
 
-				<div class="text-end mt-4">
+				<div class="text-center mt-4">
 					<button type="submit" class="btn btn-primary">
 						<i class="bi bi-search"></i> 検索
 					</button>

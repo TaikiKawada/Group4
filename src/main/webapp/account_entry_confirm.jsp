@@ -118,7 +118,7 @@
 				</c:if>
 
 				<!--ボタン-->
-				<div class="text-end mt-4">
+				<div class="text-center mt-4">
 					<button type="submit" class="btn btn-primary">OK</button>
 					<a href="${pageContext.request.contextPath}/S0030.html"
 						class="btn btn-white-custom">キャンセル</a>
