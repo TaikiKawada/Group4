@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // レスポンスの文字エンコーディングをUTF-8に設定
+
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
 
@@ -54,6 +54,8 @@ public class LoginServlet extends HttpServlet {
 //                throw new SQLException("パスワードが未入力です。");
 //            }
 
+            
+            
             // バリデーションエラーがある場合
             if (result.hasErrors()) {
                 request.setAttribute("errors", result.getErrors());
@@ -64,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 
             // 認証処理
             if (!loginService.authenticate(request)) {
-                Validator.setAuthenticationFailed(request); // "error" キーに登録
+                Validator.setAuthenticationFailed(request); 
                 request.setAttribute("form", Map.of("mail", mail));
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
                 return;
@@ -74,7 +76,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("Dashboard");
             
         }catch (Exception e) {
-        // ここは予期しない例外時
+        // 予期しない例外時
         Validator.setSystemError(request);
         request.getRequestDispatcher("/login_error.jsp").forward(request, response);
     }
