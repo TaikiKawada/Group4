@@ -14,7 +14,6 @@
 	rel="stylesheet" />
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
-
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -24,6 +23,8 @@
 
 	<div class="container mt-5 pt-5">
 		<h2 class="mb-4">アカウント検索結果表示</h2>
+
+		<jsp:include page="/alert.jsp" />
 
 		<!--検索結果の表示-->
 		<table class="table table-striped table-hover align-middle mt-1">
@@ -43,7 +44,7 @@
 					<tr>
 						<td colspan="5" class="text-center">該当するアカウントが見つかりませんでした。<br />
 							<form method="get"
-								action="${ pageContext.request.contextPath }/account/search.html"
+								action="${ pageContext.request.contextPath }/S0040.html"
 								class="d-inline-block mt-3">
 								<button type="submit" class="btn btn-secondary">検索条件の入力に戻る</button>
 							</form>
@@ -92,8 +93,5 @@
 		</table>
 
 	</div>
-
-	<jsp:include page="/toast.jsp" />
-	<script src="${ pageContext.request.contextPath }/js/toast.js"></script>
 </body>
 </html>

@@ -136,7 +136,7 @@
 					</div>
 				</div>
 
-				<div class="text-end mt-4">
+				<div class="text-center mt-4">
 					<button class="btn btn-primary">
 						<i class="bi bi-check-lg"></i>更新
 					</button>
