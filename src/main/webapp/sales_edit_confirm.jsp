@@ -23,7 +23,7 @@
 		<div class="w-50" style="max-width: 600px;">
 			<h2 class="mb-4 text-start">売上編集確認</h2>
 
-			<form action="SalesUpdateServlet" method="post">
+			<form action="S0025.html" method="post">
 
 				<!-- saleId hidden -->
 				<input type="hidden" name="saleId" value="${saleId}" />

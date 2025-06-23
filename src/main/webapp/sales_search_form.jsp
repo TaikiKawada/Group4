@@ -18,7 +18,7 @@
 		<div class="w-50" style="max-width: 600px;">
 			<h2 class="mb-4 text-start">売上検索</h2>
 
-			<form method="post" action="${pageContext.request.contextPath}/SalesSearchResultServlet">
+			<form method="post" action="${pageContext.request.contextPath}/S0021.html">
 
 				
 				<!-- 販売日（開始～終了） -->

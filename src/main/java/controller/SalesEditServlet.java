@@ -18,7 +18,7 @@ import dao.SaleDAO;
 import dto.AccountDto;
 import dto.SalesDto;
 
-@WebServlet("/SalesEditServlet")
+@WebServlet("/S0023.html")
 public class SalesEditServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

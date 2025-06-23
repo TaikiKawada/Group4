@@ -39,7 +39,7 @@
 
             <c:forEach var="row" items="${resultList}" varStatus="status">
                 <div class="d-flex align-items-center border-bottom py-2">
-                    <form action="SalesDetailServlet" method="get" class="me-3">
+                    <form action="S0022.html" method="get" class="me-3">
                         <input type="hidden" name="saleId" value="${row.saleId}" />
                         <button class="btn btn-sm btn-outline-primary">詳細</button>
                     </form>
@@ -62,7 +62,7 @@
     </c:choose>
 
     <div class="text-center mt-4">
-        <a href="${pageContext.request.contextPath}/SalesSearchFormServlet" class="btn btn-secondary">検索条件に戻る</a>
+        <a href="${pageContext.request.contextPath}/S0020.html" class="btn btn-secondary">検索条件に戻る</a>
 
     </div>
 </div>

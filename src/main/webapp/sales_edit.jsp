@@ -19,7 +19,7 @@
 		<div class="w-50" style="max-width: 600px;">
 			<h2 class="mb-4 text-start">売上編集</h2>
 
-			<form action="SalesEditServlet" method="post">
+			<form action="S0023.html" method="post">
 				<input type="hidden" name="saleId" value="${sale.saleId}" />
 
 				<!-- 販売日 -->

@@ -14,7 +14,7 @@ import dto.SalesDto;
 /**
  * Servlet implementation class SalesUpdateServlet
  */
-@WebServlet("/SalesUpdateServlet")
+@WebServlet("/S0024.html")
 public class SalesUpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

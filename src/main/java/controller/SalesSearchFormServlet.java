@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.AccountDao;
 import dao.CategoryDAO;
 
-@WebServlet("/SalesSearchFormServlet")
+@WebServlet("/S0020.html")
 public class SalesSearchFormServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.SaleDAO;
 import dto.SalesDto;
 
-@WebServlet("/SalesDeleteServlet")
+@WebServlet("/S0025.html")
 public class SalesDeleteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
