@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.naming.NamingException;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -48,8 +50,9 @@ public class LoginService {
                     }
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            Validator.setSystemError(request);
+        } catch (SQLException | NamingException e) {
+            e.printStackTrace();
+        	//Validator.setSystemError(request);
             return false;
         }
         Validator.setAuthenticationFailed(request);

@@ -24,7 +24,7 @@ public class SalesEntryServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Map<String, String>> staffList = AccountDao.getAllAccounts();
+        List<Map<String, String>> staffList = AccountDao.getAccounts();
         List<Map<String, String>> categoryList = CategoryDAO.getActiveCategories();
 
         request.setAttribute("staffList", staffList);
