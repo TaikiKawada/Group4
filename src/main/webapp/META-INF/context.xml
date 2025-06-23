@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context displayName="TodoApp" path="/sample" docBase="sample"
+<Context displayName="Group4" path="/sample" docBase="sample"
          reloadable="true" crossContext="true">
     <Resource name="jdbc/mariadb"
               auth="Container"

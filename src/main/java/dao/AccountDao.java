@@ -37,6 +37,8 @@ public class AccountDao {
 		}
 	}
 	
+	
+	// 登録されたアカウントの取得
 	public static List<Map<String, String>> getAllAccounts() {
 		List<Map<String, String>> list = new ArrayList<>();
 		try (Connection conn = Db.getConnection();
@@ -55,7 +57,29 @@ public class AccountDao {
 		}
 		return list;
 	}
+	
 
+	// 削除されていないアカウントの取得
+	public static List<Map<String, String>> getAccounts() {
+		List<Map<String, String>> list = new ArrayList<>();
+		try (Connection conn = Db.getConnection();
+				PreparedStatement stmt = conn.prepareStatement("SELECT account_id, name FROM accounts WHERE is_deleted = 0");
+				ResultSet rs = stmt.executeQuery()) {
+
+			while (rs.next()) {
+				Map<String, String> map = new HashMap<>();
+				map.put("id", String.valueOf(rs.getInt("account_id")));
+				map.put("name", rs.getString("name"));
+				list.add(map);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
 	// アカウント検索
 	public List<AccountDto> searchAccounts(String name, String mail, List<Integer> authList) {
 		List<AccountDto> resultList = new ArrayList<>();
