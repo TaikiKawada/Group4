@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.io.IOException;
@@ -79,7 +80,7 @@ public class AccountEditServlet extends HttpServlet {
 			return;
 		}
 
-		request.getSession().setAttribute("accountData", account);
+		request.getSession().setAttribute("editAccount", account);
 		response.sendRedirect(request.getContextPath() + "/S0043.html");
 
 	}

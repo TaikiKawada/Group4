@@ -2,6 +2,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -28,28 +29,54 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
-    	String mail = request.getParameter("mail");
-		String password = request.getParameter("password");
-    	
-    	request.setCharacterEncoding("UTF-8");    	
-    	
-        //アカウント情報が一致したらdashboard.jspへ遷移
-        if (loginService.authenticate(request)) {
-            response.sendRedirect(request.getContextPath() + "/C0020.html");
+   
+
+        try {
+            String mail = request.getParameter("mail");
+            String password = request.getParameter("password");
+            
+            ValidationResult result = new ValidationResult();
+            Validator.validateEmail(mail, result);
+            Validator.validatePassword(password, password, result);
+
 
             
-        } else {
+             //システムエラー試し用
+             // メールアドレスとパスワードの未入力チェック
+//            if (mail == null || mail.isEmpty()) {
+//                throw new SQLException("メールアドレスが未入力です。");
+//            }
+//
+//            if (password == null || password.isEmpty()) {
+//                throw new SQLException("パスワードが未入力です。");
+//            }
 
-        	 ValidationResult result = new ValidationResult();
-             Validator.validateEmail(mail, result);
-             Validator.validatePassword(password, password, result);
+            
+            
+            // バリデーションエラーがある場合
+            if (result.hasErrors()) {
+                request.setAttribute("errors", result.getErrors());
+                request.setAttribute("form", Map.of("mail", mail));
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                return;
+            }
 
-             if (result.hasErrors()) {
-                 request.setAttribute("error", result.getErrors());
-             }
+            // 認証処理
+            if (!loginService.authenticate(request)) {
+                Validator.setAuthenticationFailed(request); 
+                request.setAttribute("form", Map.of("mail", mail));
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                return;
+            }
 
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-        }
+            // 認証成功
+            response.sendRedirect(request.getContextPath() + "/C0020.html");
+            
+        }catch (Exception e) {
+        // 予期しない例外時
+        Validator.setSystemError(request);
+        request.getRequestDispatcher("/login_error.jsp").forward(request, response);
     }
+}
+
 }

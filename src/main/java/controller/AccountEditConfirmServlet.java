@@ -25,7 +25,7 @@ public class AccountEditConfirmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "accountData", AccountDto.class);
+		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "editAccount", AccountDto.class);
 		if (account != null) {
 			AuthUtil.setAuthorityAttributes(request, account.getAuth());
 			request.setAttribute("account", account);
@@ -37,7 +37,7 @@ public class AccountEditConfirmServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "accountData", AccountDto.class);
+		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "editAccount", AccountDto.class);
 		
 		// キャンセルボタンの処理
 		if ("true".equals(request.getParameter("back"))) {

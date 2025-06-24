@@ -62,7 +62,7 @@
 										value="${ account.account_id }" />
 									<c:if test="${ account != null }">
 										<c:if test="${ user.auth == 2 || user.auth  == 3 }">
-											<button type="submit" class="btn btn-primary">
+											<button type="submit" class="btn btn-primary btn-sm">
 												<i class="bi bi-check-lg"></i>編集
 											</button>
 										</c:if>
@@ -72,7 +72,7 @@
 									action="${ pageContext.request.contextPath }/S0044.html">
 									<input type="hidden" name="account_id"
 										value="${ account.account_id }" />
-									<button type="submit" class="btn btn-danger">
+									<button type="submit" class="btn btn-danger btn-sm">
 										<i class="bi bi-x"></i>削除
 									</button>
 								</form>
@@ -93,8 +93,5 @@
 		</table>
 
 	</div>
-
-	<jsp:include page="/toast.jsp" />
-	<script src="${ pageContext.request.contextPath }/js/toast.js"></script>
 </body>
 </html>
