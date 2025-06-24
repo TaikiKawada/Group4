@@ -50,7 +50,6 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 		boolean success = new AccountService().signup(account);
 		if(success) {
 			MessageUtil.setSuccessMessage(request, "アカウントを登録しました");
-			SessionUtil.remove(request, "accountData");
 			response.sendRedirect(request.getContextPath() + "/S0030.html");
 		} else {
 			MessageUtil.setErrorMessage(request, "アカウントの登録に失敗しました");
