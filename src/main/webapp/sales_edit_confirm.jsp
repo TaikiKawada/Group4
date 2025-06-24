@@ -23,7 +23,7 @@
 		<div class="w-50" style="max-width: 600px;">
 			<h2 class="mb-4 text-start">売上編集確認</h2>
 
-			<form action="S0025.html" method="post">
+			<form action="S0020.html" method="get">
 
 				<!-- saleId hidden -->
 				<input type="hidden" name="saleId" value="${saleId}" />
@@ -100,7 +100,7 @@
 				<div class="text-center mt-4">
 
 					<button type="submit" class="btn btn-primary me-2">
-						<i class="bi bi-check-lg"></i> 更新
+						<i class="bi bi-check-lg"></i> OK
 					</button>
 					<button type="button" class="btn btn-outline-secondary">
 						キャンセル</button>

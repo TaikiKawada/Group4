@@ -29,7 +29,7 @@ public class SalesUpdateServlet extends HttpServlet {
         boolean result = SaleDAO.update(dto);
 
         if (result) {
-            response.sendRedirect("SalesDetailServlet?saleId=" + dto.getSaleId());
+            response.sendRedirect("S0022.html?saleId=" + dto.getSaleId());
         } else {
             request.setAttribute("error", "更新に失敗しました");
             request.getRequestDispatcher("sales_edit_confirm.jsp").forward(request, response);

@@ -18,7 +18,7 @@
   <div class="mx-auto w-100" style="max-width: 800px;">
     <h2 class="mb-4">売上編集</h2>
 
-    <form method="post" action="${pageContext.request.contextPath}/S0023.html">
+    <form method="post" action="${pageContext.request.contextPath}/S0024.html">
 
       <input type="hidden" name="saleId" value="${sale.saleId}" />
 
