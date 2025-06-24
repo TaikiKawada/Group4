@@ -44,7 +44,7 @@
 				</div>
 				<div class="form-input-col">
 					<input type="text" name="name" class="form-control"
-						value="${ sessionScope.accountData.name }" disabled />
+						value="${ sessionScope.editAccount.name }" disabled />
 				</div>
 			</div>
 
@@ -56,7 +56,7 @@
 				</div>
 				<div class="form-input-col">
 					<input type="email" name="mail" class="form-control"
-						value="${ sessionScope.accountData.mail }" disabled />
+						value="${ sessionScope.editAccount.mail }" disabled />
 				</div>
 			</div>
 
@@ -68,7 +68,7 @@
 				</div>
 				<div class="form-input-col">
 					<input type="password" name="password" class="form-control"
-						value="${ sessionScope.accountData.password }" disabled />
+						value="${ sessionScope.editAccount.password }" disabled />
 				</div>
 			</div>
 
@@ -80,7 +80,7 @@
 				</div>
 				<div class="form-input-col">
 					<input type="password" name="pass-confirm" class="form-control"
-						value="${ sessionScope.accountData.password }" disabled />
+						value="${ sessionScope.editAccount.password }" disabled />
 				</div>
 			</div>
 
@@ -111,7 +111,7 @@
 			<!--ボタン-->
 			<div class="text-center mt-4">
 				<form method="post"
-					action="${ pageContext.request.contextPath }/S0043.html">
+					action="${ pageContext.request.contextPath }/S0043.html" class="d-inline-block me-2">
 					<!--実際の値を送信-->
 					<c:if test="${hasNoneAuth}">
 						<input type="hidden" name="auth" value="0" />
@@ -128,7 +128,7 @@
 				</form>
 
 				<form method="post"
-					action="${ pageContext.request.contextPath }/S0043.html">
+					action="${ pageContext.request.contextPath }/S0043.html" class="d-inline-block">
 					<input type="hidden" name="back" value="true" />
 					<button type="submit" class="btn btn-white-custom">キャンセル</button>
 				</form>
