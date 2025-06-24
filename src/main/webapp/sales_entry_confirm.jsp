@@ -17,7 +17,7 @@
     <div class="w-50" style="max-width: 600px;">
       <h2 class="mb-4 text-start">売上登録確認</h2>
 
-      <form action="SalesEntryServlet" method="post">
+      <form action="S0010.html" method="post">
 
         <div class="mb-3 row align-items-center">
           <label class="col-sm-4 col-form-label text-end">販売日 <span class="badge bg-secondary">必須</span></label>
@@ -79,7 +79,9 @@
           <button type="submit" class="btn btn-primary me-2">
             <i class="bi bi-check-lg"></i> 登録
           </button>
-          <button type="button" class="btn btn-outline-secondary" onclick="history.back()">キャンセル</button>
+          <button type="button" class="btn btn-outline-secondary" onclick="history.back()">キャンセル
+          <a href="${pageContext.request.contextPath}/S0010.html"
+          </button>
         </div>
       </form>
     </div>

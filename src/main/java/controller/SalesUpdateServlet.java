@@ -14,7 +14,7 @@ import dto.SalesDto;
 /**
  * Servlet implementation class SalesUpdateServlet
  */
-@WebServlet("/SalesUpdateServlet")
+@WebServlet("/S0024.html")
 public class SalesUpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,7 @@ public class SalesUpdateServlet extends HttpServlet {
         boolean result = SaleDAO.update(dto);
 
         if (result) {
-            response.sendRedirect("SalesDetailServlet?saleId=" + dto.getSaleId());
+            response.sendRedirect("S0022.html?saleId=" + dto.getSaleId());
         } else {
             request.setAttribute("error", "更新に失敗しました");
             request.getRequestDispatcher("sales_edit_confirm.jsp").forward(request, response);

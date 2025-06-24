@@ -19,4 +19,11 @@ public class ErrorMessages {
 	
 	public static final String SYSTEM_ERROR = "システムエラーが発生しました。時間をおいて再度お試しください。";
 	public static final String AUTHENTCATION_FAILED = "メールアドレスまたはパスワードが正しくありません。";
+	
+	public static final String REQUIRED_SALE_DATE = "販売日を入力してください";
+    public static final String REQUIRED_STAFF = "担当者を選択してください";
+    public static final String REQUIRED_CATEGORY = "カテゴリーを選択してください";
+    public static final String REQUIRED_TRADE_NAME = "商品名を入力してください";
+    public static final String REQUIRED_UNIT_PRICE = "単価を入力してください";
+    public static final String REQUIRED_SALE_NUMBER = "個数を入力してください";
 }

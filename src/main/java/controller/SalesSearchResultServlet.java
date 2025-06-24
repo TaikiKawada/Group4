@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.SaleDAO;
 import dto.SalesDto;
 
-@WebServlet("/SalesSearchResultServlet")
+@WebServlet("/S0021.html")
 public class SalesSearchResultServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

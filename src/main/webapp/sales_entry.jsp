@@ -22,7 +22,7 @@
         <div class="alert alert-success">${message}</div>
       </c:if>
 
-      <form action="SalesRegisterServlet" method="post">
+      <form action="S0011.html" method="post">
 
         <!-- 販売日 -->
         <div class="mb-3 row align-items-center">

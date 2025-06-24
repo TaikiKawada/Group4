@@ -10,10 +10,10 @@
 			<ul class="navbar-nav me-auto">
 				<c:if test="${user.getAuth() == 1 || user.getAuth() == 3}">
 					<li class="nav-item"><a class="nav-link"
-						href="${ pageContext.request.contextPath }/SalesEntryServlet">売上登録</a></li>
+						href="${ pageContext.request.contextPath }/S0010.html">売上登録</a></li>
 				</c:if>
 				<li class="nav-item"><a class="nav-link"
-					href="${pageContext.request.contextPath}/SalesSearchFormServlet">売上検索</a>
+					href="${pageContext.request.contextPath}/S0020.html">売上検索</a>
 				</li>
 
 				<c:if test="${user.getAuth() == 2 || user.getAuth() == 3}">

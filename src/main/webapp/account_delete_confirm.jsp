@@ -73,7 +73,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="password" name="password" class="form-control"
-							placeholder="パスワード" value="${ account.password }" disabled />
+							placeholder="パスワード" value="********" disabled />
 						<div id="error-password" class="text-danger"></div>
 					</div>
 				</div>
@@ -86,7 +86,7 @@
 					</div>
 					<div class="form-input-col">
 						<input type="password" name="passConfirm" class="form-control"
-							placeholder="パスワード（確認）" value="${ account.password }" disabled />
+							placeholder="パスワード（確認）" value="********" disabled />
 						<div id="error-confirm" class="text-danger"></div>
 					</div>
 				</div>

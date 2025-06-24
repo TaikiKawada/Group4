@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,17 +12,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import dao.AccountDao;
 import dao.CategoryDAO;
+import dao.SaleDAO;
 import dto.SalesDto;
 
-@WebServlet("/SalesEntryServlet")
+@WebServlet("/S0010.html")
 public class SalesEntryServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public SalesEntryServlet() {
-        super();
-    }
-
-    // 登録フォーム表示
+    // 初期表示
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,31 +33,30 @@ public class SalesEntryServlet extends HttpServlet {
         request.getRequestDispatcher("sales_entry.jsp").forward(request, response);
     }
 
-    // 登録確認画面へ遷移
+    // DB登録処理
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        SalesDto dto = new SalesDto(request); // DTOでまとめて取得
+        SalesDto dto = new SalesDto(request);
 
-        // 担当名・カテゴリ名を取得
-        String staffName = AccountDao.getNameById(dto.getAccountId());
-        String categoryName = CategoryDAO.getNameById(dto.getCategoryId());
+        boolean success = SaleDAO.insert(dto);
 
-        // JSPに渡す
-        request.setAttribute("salesDate", dto.getSaleDate());
-        request.setAttribute("staff", dto.getAccountId());
-        request.setAttribute("staffName", staffName);
-        request.setAttribute("category", dto.getCategoryId());
-        request.setAttribute("categoryName", categoryName);
-        request.setAttribute("tradeName", dto.getTradeName());
-        request.setAttribute("unitPrice", dto.getUnitPrice());
-        request.setAttribute("saleNumber", dto.getSaleNumber());
-        request.setAttribute("note", dto.getNote());
+        if (success) {
+            // 登録成功時 → 再表示（初期化）+ メッセージ
+            List<Map<String, String>> staffList = AccountDao.getAllAccounts();
+            List<Map<String, String>> categoryList = CategoryDAO.getActiveCategories();
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("sales_entry_confirm.jsp");
-        dispatcher.forward(request, response);
+            request.setAttribute("staffList", staffList);
+            request.setAttribute("categoryList", categoryList);
+            request.setAttribute("message", "売上情報を登録しました。");
+
+            request.getRequestDispatcher("sales_entry.jsp").forward(request, response);
+        } else {
+            // 失敗時は再入力（確認画面）に戻す
+            request.setAttribute("error", "登録に失敗しました。");
+            request.getRequestDispatcher("sales_entry_confirm.jsp").forward(request, response);
+        }
     }
 }
-

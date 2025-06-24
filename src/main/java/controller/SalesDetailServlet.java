@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.SaleDAO;
 import dto.SalesDto;
 
-@WebServlet("/SalesDetailServlet")
+@WebServlet("/S0022.html")
 public class SalesDetailServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

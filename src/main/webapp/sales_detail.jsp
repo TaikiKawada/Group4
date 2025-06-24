@@ -67,8 +67,8 @@
 					<div class="d-flex justify-content-center gap-2">
 
 						<!-- 編集ボタン -->
-						<form method="post"
-							action="${pageContext.request.contextPath}/SalesEditServlet">
+						<form method="get"
+							action="${pageContext.request.contextPath}/S0023.html">
 							<input type="hidden" name="saleId" value="${sale.saleId}" />
 							<button type="submit" class="btn btn-primary">
 								<i class="bi bi-check-lg"></i> 編集
@@ -76,8 +76,8 @@
 						</form>
 
 						<!-- 削除ボタン -->
-						<form method="post"
-							action="${pageContext.request.contextPath}/SalesDeleteServlet">
+						<form method="get"
+							action="${pageContext.request.contextPath}/S0025.html">
 							<input type="hidden" name="saleId" value="${sale.saleId}" />
 							<button type="submit" class="btn btn-danger">
 								<i class="bi bi-x-lg"></i> 削除
@@ -86,7 +86,7 @@
 
 						<!-- キャンセルボタン -->
 						<form method="get"
-							action="${pageContext.request.contextPath}/SalesSearchFormServlet">
+							action="${pageContext.request.contextPath}/S0020.html">
 							<button type="submit" class="btn btn-outline-secondary">
 								キャンセル</button>
 						</form>
