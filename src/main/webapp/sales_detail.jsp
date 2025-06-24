@@ -76,7 +76,7 @@
 						</form>
 
 						<!-- 削除ボタン -->
-						<form method="post"
+						<form method="get"
 							action="${pageContext.request.contextPath}/S0025.html">
 							<input type="hidden" name="saleId" value="${sale.saleId}" />
 							<button type="submit" class="btn btn-danger">
