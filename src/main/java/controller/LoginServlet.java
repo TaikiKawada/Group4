@@ -41,8 +41,8 @@ public class LoginServlet extends HttpServlet {
 
 
             
-//               //システムエラー試し用
-//            // メールアドレスとパスワードの未入力チェック
+             //システムエラー試し用
+             // メールアドレスとパスワードの未入力チェック
 //            if (mail == null || mail.isEmpty()) {
 //                throw new SQLException("メールアドレスが未入力です。");
 //            }
@@ -70,7 +70,7 @@ public class LoginServlet extends HttpServlet {
             }
 
             // 認証成功
-            response.sendRedirect("/C0020.html");
+            response.sendRedirect(request.getContextPath() + "/C0020.html");
             
         }catch (Exception e) {
         // 予期しない例外時
