@@ -14,82 +14,88 @@
 
 <jsp:include page="/nav.jsp" />
 
-	<div class="container mt-5 pt-5 d-flex justify-content-center">
-		<div class="w-50" style="max-width: 600px;">
-			<h2 class="mb-4 text-start">売上検索</h2>
+<div class="container mt-5 pt-5 d-flex justify-content-center">
+	<div class="w-50" style="max-width: 600px;">
+		<h2 class="mb-4 text-start">売上検索</h2>
 
-			<form method="post" action="${pageContext.request.contextPath}/S0021.html">
+		<form method="post" action="${pageContext.request.contextPath}/S0021.html" id="searchForm">
 
-				
-				<!-- 販売日（開始～終了） -->
-				<div class="mb-3 row align-items-center">
-					<label class="col-sm-4 col-form-label text-end">販売日</label>
-					<div class="col-sm-3">
-						<input type="date" name="fromDate" class="form-control" />
-					</div>
-					<div class="col-sm-1 text-center">～</div>
-					<div class="col-sm-4">
-						<input type="date" name="toDate" class="form-control" />
-					</div>
+			<!-- 販売日 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">販売日</label>
+				<div class="col-sm-3">
+					<input type="date" name="fromDate" class="form-control" />
 				</div>
-				
-
-				<!-- 担当者 -->
-				<div class="mb-3 row align-items-center">
-					<label class="col-sm-4 col-form-label text-end">担当</label>
-					<div class="col-sm-8">
-						<select name="staff" class="form-select">
-							<option value="">選択してください</option>
-							<c:forEach var="staff" items="${staffList}">
-								<option value="${staff.id}">${staff.name}</option>
-							</c:forEach>
-						</select>
-					</div>
+				<div class="col-sm-1 text-center">～</div>
+				<div class="col-sm-4">
+					<input type="date" name="toDate" class="form-control" />
 				</div>
+			</div>
 
-				<!-- 商品カテゴリー -->
-				<div class="mb-3 row align-items-center">
-					<label class="col-sm-4 col-form-label text-end">商品カテゴリー</label>
-					<div class="col-sm-8">
-						<select name="category" class="form-select">
-							<option value="">選択してください</option>
-							<c:forEach var="cat" items="${categoryList}">
-								<option value="${cat.id}">${cat.name}</option>
-							</c:forEach>
-						</select>
-					</div>
+			<!-- 担当者 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">担当</label>
+				<div class="col-sm-8">
+					<select name="staff" class="form-select">
+						<option value="">選択してください</option>
+						<c:forEach var="staff" items="${staffList}">
+							<option value="${staff.id}">${staff.name}</option>
+						</c:forEach>
+					</select>
 				</div>
+			</div>
 
-				<!-- 商品名 -->
-				<div class="mb-3 row align-items-center">
-					<label class="col-sm-4 col-form-label text-end">
-						商品名 <span class="badge bg-secondary">部分一致</span>
-					</label>
-					<div class="col-sm-8">
-						<input type="text" name="productName" class="form-control" placeholder="商品名" />
-					</div>
+			<!-- 商品カテゴリー -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">商品カテゴリー</label>
+				<div class="col-sm-8">
+					<select name="category" class="form-select">
+						<option value="">選択してください</option>
+						<c:forEach var="cat" items="${categoryList}">
+							<option value="${cat.id}">${cat.name}</option>
+						</c:forEach>
+					</select>
 				</div>
+			</div>
 
-				<!-- 備考 -->
-				<div class="mb-3 row align-items-center">
-					<label class="col-sm-4 col-form-label text-end">
-						備考 <span class="badge bg-secondary">部分一致</span>
-					</label>
-					<div class="col-sm-8">
-						<input type="text" name="note" class="form-control" placeholder="備考" />
-					</div>
+			<!-- 商品名 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">
+					商品名 <span class="badge bg-secondary">部分一致</span>
+				</label>
+				<div class="col-sm-8">
+					<input type="text" name="productName" class="form-control" placeholder="商品名" />
 				</div>
+			</div>
 
-				<div class="text-center mt-4">
-					<button type="submit" class="btn btn-primary">
-						<i class="bi bi-search"></i> 検索
-					</button>
-					
-					<button type="button" class="btn btn-white-custom"
-						onclick="clearForm()">クリア</button>
+			<!-- 備考 -->
+			<div class="mb-3 row align-items-center">
+				<label class="col-sm-4 col-form-label text-end">
+					備考 <span class="badge bg-secondary">部分一致</span>
+				</label>
+				<div class="col-sm-8">
+					<input type="text" name="note" class="form-control" placeholder="備考" />
 				</div>
-			</form>
-		</div>
+			</div>
+
+			<!-- ボタン -->
+			<div class="text-center mt-4">
+				<button type="submit" class="btn btn-primary">
+					<i class="bi bi-search"></i> 検索
+				</button>
+				<button type="button" class="btn btn-outline-dark" onclick="clearForm()">
+					 クリア
+				</button>
+			</div>
+		</form>
 	</div>
+</div>
+
+<script>
+	function clearForm() {
+		document.getElementById("searchForm").reset();
+	}
+</script>
+
 </body>
 </html>
