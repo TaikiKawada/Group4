@@ -14,7 +14,7 @@ import utils.ValidationResult;
 import utils.Validator;
 
 
-@WebServlet("/account/search.html")
+@WebServlet("/S0040.html")
 public class AccountSearchFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -45,7 +45,7 @@ public class AccountSearchFormServlet extends HttpServlet {
 		SessionUtil.set(request, "lastSearchMail", dto.getMail());
 		SessionUtil.set(request, "lastSearchAuth", dto.getAuthList());
 		
-		response.sendRedirect(request.getContextPath() + "/account/search/result.html");
+		response.sendRedirect(request.getContextPath() + "/S0041.html");
 	}
 
 }

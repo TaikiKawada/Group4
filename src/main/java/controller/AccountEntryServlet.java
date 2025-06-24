@@ -9,18 +9,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import dto.AccountDto;
+import utils.MessageUtil;
 import utils.SessionUtil;
 import utils.ValidationResult;
 import utils.Validator;
 
 
-@WebServlet("/account/entry.html")
+@WebServlet("/S0030.html")
 public class AccountEntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		MessageUtil.flushToRequest(request);
 		request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 	}
 
@@ -44,7 +46,7 @@ public class AccountEntryServlet extends HttpServlet {
 			
 			//セッションに保存
 			SessionUtil.set(request, "accountData", account);
-			response.sendRedirect(request.getContextPath() + "/account/entry/confirm.html");
+			response.sendRedirect(request.getContextPath() + "/S0031.html");
 	}
 
 }

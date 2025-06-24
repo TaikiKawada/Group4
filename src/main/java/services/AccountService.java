@@ -10,8 +10,8 @@ public class AccountService {
 	private AccountDao dao = new AccountDao();
 
 	// アカウント登録
-	public void signup(AccountDto obj) {
-		dao.insertAccount(obj);
+	public boolean signup(AccountDto obj) {
+		return dao.insertAccount(obj);
 	}
 
 	// 検索

@@ -8,26 +8,25 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import dto.AccountDto;
 import dto.AccountSearchDto;
 import services.AccountService;
+import utils.MessageUtil;
 import utils.SessionUtil;
 
-@WebServlet("/account/search/result.html")
+@WebServlet("/S0041.html")
 public class AccountSearchResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		HttpSession session = request.getSession();
-
-		String name = SessionUtil.getAttribute(session, "lastSearchName", String.class);
-		String mail = SessionUtil.getAttribute(session, "lastSearchMail", String.class);
+		MessageUtil.flushToRequest(request);
+		
+		String name = SessionUtil.getAttribute(request.getSession(), "lastSearchName", String.class);
+		String mail = SessionUtil.getAttribute(request.getSession(), "lastSearchMail", String.class);
 		@SuppressWarnings("unchecked")
-		List<Integer> authList = SessionUtil.getAttribute(session, "lastSearchAuth", List.class);
+		List<Integer> authList = SessionUtil.getAttribute(request.getSession(), "lastSearchAuth", List.class);
 
 		if (name == null)
 			name = "";
@@ -37,9 +36,8 @@ public class AccountSearchResultServlet extends HttpServlet {
 			authList = List.of();
 
 		AccountSearchDto dto = new AccountSearchDto(name, mail, authList);
-		
 		List<AccountDto> accounts = new AccountService().search(dto.getName(), dto.getMail(), dto.getAuthList());
-
+		
 		request.setAttribute("accountList", accounts);
 		request.getRequestDispatcher("/account_search_result.jsp").forward(request, response);
 	}

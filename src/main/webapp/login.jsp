@@ -19,7 +19,7 @@
 
 			<h2 class="mb-4 text-center">物品売上管理システム</h2>
 
-			<form id="login-form" action="login" method="post"
+			<form id="login-form" action="${pageContext.request.contextPath}/C0010.html" method="post"
 				class="needs-validate" novalidate>
 
 				<!--メールアドレスを入力-->

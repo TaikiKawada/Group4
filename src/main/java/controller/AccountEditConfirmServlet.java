@@ -7,26 +7,25 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import dto.AccountDto;
 import services.AccountService;
 import utils.AuthUtil;
+import utils.MessageUtil;
 import utils.SessionUtil;
 
 /**
  * Servlet implementation class AccountEditConfirmServlet
  */
-@WebServlet("/account/edit/confirm.html")
+@WebServlet("/S0043.html")
 public class AccountEditConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		AccountDto account = SessionUtil.getAttribute(session, "accountData", AccountDto.class);
 		
+		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "accountData", AccountDto.class);
 		if (account != null) {
 			AuthUtil.setAuthorityAttributes(request, account.getAuth());
 			request.setAttribute("account", account);
@@ -38,8 +37,7 @@ public class AccountEditConfirmServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession(false);
-		AccountDto account = SessionUtil.getAttribute(session, "accountData", AccountDto.class);
+		AccountDto account = SessionUtil.getAttribute(request.getSession(false), "accountData", AccountDto.class);
 		
 		// キャンセルボタンの処理
 		if ("true".equals(request.getParameter("back"))) {
@@ -53,9 +51,10 @@ public class AccountEditConfirmServlet extends HttpServlet {
 		boolean success = new AccountService().edit(account);
 
 		if (success) {
-			response.sendRedirect(request.getContextPath() + "/account/search/result.html");
+			MessageUtil.setSuccessMessage(request, "アカウントを編集しました");
+			response.sendRedirect(request.getContextPath() + "/S0041.html");
 		} else {
-			request.setAttribute("error", "アカウントの編集に失敗しました");
+			MessageUtil.setErrorMessage(request, "アカウントの編集に失敗しました");
 			request.getRequestDispatcher("/account_edit_confirm.jsp").forward(request, response);
 		}
 	}
