@@ -54,7 +54,6 @@ public class AccountEntryConfirmServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/S0030.html");
 		} else {
 			MessageUtil.setErrorMessage(request, "アカウントの登録に失敗しました");
-			SessionUtil.remove(request, "accountData");
 			request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 		}
 	}
