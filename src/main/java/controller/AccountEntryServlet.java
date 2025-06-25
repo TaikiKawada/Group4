@@ -22,6 +22,12 @@ public class AccountEntryServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String from = request.getParameter("from");
+		
+		if(!"confirm".equals(from)) {
+			SessionUtil.remove(request, "accountData");
+		}
+		
 		MessageUtil.flushToRequest(request);
 		request.getRequestDispatcher("/account_entry.jsp").forward(request, response);
 	}

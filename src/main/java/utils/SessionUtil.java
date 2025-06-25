@@ -32,11 +32,5 @@ public class SessionUtil {
 			session.removeAttribute(key);
 		}
 	}
-	
-	public static void invalidate(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.invalidate();
-		}
-	}
+
 }

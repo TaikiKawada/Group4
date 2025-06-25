@@ -120,7 +120,7 @@
 				<!--ボタン-->
 				<div class="text-center mt-4">
 					<button type="submit" class="btn btn-primary">OK</button>
-					<a href="${pageContext.request.contextPath}/S0030.html"
+					<a href="${pageContext.request.contextPath}/S0030.html?from=confirm"
 						class="btn btn-white-custom">キャンセル</a>
 				</div>
 			</form>
