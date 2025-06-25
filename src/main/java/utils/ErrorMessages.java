@@ -9,7 +9,7 @@ public class ErrorMessages {
 	public static final String INVALID_EMAIL_FORMAT = "メールアドレスを正しく入力してください";
 	
 	public static final String REQUIRED_PASSWORD = "パスワードを入力してください";
-	public static final String INVALID_PASSWORD_LENGTH = "パスワードは8文字以上30文字以下で入力してください";
+	public static final String INVALID_PASSWORD_LENGTH = "パスワードが長すぎます";
 	public static final String INVALID_PASSWORD_FORMAT = "大文字、小文字、数字、記号を含めてください";
 	
 	public static final String REQUIRED_PASSWORD_CONFIRM = "パスワード（確認）を入力してください";
