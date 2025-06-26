@@ -8,12 +8,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import dao.AccountDao;
+import dao.CategoryDAO;
 import dao.SaleDAO;
 import dto.SalesDto;
 
-/**
- * Servlet implementation class SalesUpdateServlet
- */
 @WebServlet("/S0024.html")
 public class SalesUpdateServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -24,16 +23,27 @@ public class SalesUpdateServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        SalesDto dto = new SalesDto(request); // ← DTOでパラメータ処理完結
+        // 「confirm」パラメータがある → 確認画面からの「OK」押下 → DB更新処理
+        if (request.getParameter("confirm") != null) {
+            SalesDto dto = new SalesDto(request);
+            boolean result = SaleDAO.update(dto);
 
-        boolean result = SaleDAO.update(dto);
+            if (result) {
+                response.sendRedirect("S0022.html?saleId=" + dto.getSaleId());
+            } else {
+                request.setAttribute("error", "更新に失敗しました");
+                request.setAttribute("dto", dto);
+                request.getRequestDispatcher("sales_edit_confirm.jsp").forward(request, response);
+            }
 
-        if (result) {
-            response.sendRedirect("S0022.html?saleId=" + dto.getSaleId());
         } else {
-            request.setAttribute("error", "更新に失敗しました");
+            // 最初の編集画面から → 確認画面へ
+            SalesDto dto = new SalesDto(request);
+            dto.setAccountName(AccountDao.getNameById(dto.getAccountId()));
+            dto.setCategoryName(CategoryDAO.getNameById(dto.getCategoryId()));
+
+            request.setAttribute("dto", dto);
             request.getRequestDispatcher("sales_edit_confirm.jsp").forward(request, response);
         }
     }
 }
-
